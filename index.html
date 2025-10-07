@@ -14,18 +14,6 @@
             font-weight: 300;
             font-style: normal;
         }
-        @font-face {
-            font-family: 'PeugeotNew';
-            src: url('fonts/PeugeotNewRegular.otf') format('opentype');
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'PeugeotNew';
-            src: url('fonts/PeugeotNewBold.otf') format('opentype');
-            font-weight: 700;
-            font-style: normal;
-        }
         
         * {
             box-sizing: border-box;
@@ -34,7 +22,12 @@
         body {
             margin: 0;
             padding: 40px 20px;
-            background-color: #000;
+            position: relative;
+            background-color: #0a1628;
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(16, 34, 68, 0.4) 0%, transparent 100%);
             color: #fff;
             font-family: 'PeugeotNew', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 300;
@@ -44,10 +37,61 @@
             min-height: 100vh;
             text-align: center;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Scale texture pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.015) 0%, transparent 2%),
+                radial-gradient(circle at 75% 25%, rgba(255, 255, 255, 0.015) 0%, transparent 2%),
+                radial-gradient(circle at 25% 75%, rgba(255, 255, 255, 0.015) 0%, transparent 2%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.015) 0%, transparent 2%);
+            background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px;
+            background-position: 0 0, 40px 0, 0 40px, 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        /* Noise texture overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.015) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.015) 3px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.015) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.015) 3px
+                );
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
         }
         .container {
             max-width: 600px;
             width: 100%;
+            position: relative;
+            z-index: 10;
         }
         .logo {
             width: 80px;
@@ -71,7 +115,7 @@
         }
         p.bio {
             margin-bottom: 30px;
-            color: #bbb;
+            color: rgba(255, 255, 255, 0.7);
         }
         ul.links {
             list-style-type: none;
@@ -84,8 +128,9 @@
         .link-card {
             display: block;
             padding: 20px;
-            background-color: #1a1a1a;
-            border: 1px solid #333;
+            background-color: rgba(20, 40, 70, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: #fff;
             text-decoration: none;
@@ -93,20 +138,20 @@
             font-weight: 300;
         }
         .link-card:hover {
-            background-color: #2a2a2a;
-            border-color: #555;
+            background-color: rgba(30, 50, 85, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
         }
         hr {
             border: 0;
             height: 1px;
-            background: #333;
+            background: rgba(255, 255, 255, 0.15);
             margin: 40px 0;
         }
         footer {
             font-size: 0.9em;
-            color: #888;
+            color: rgba(255, 255, 255, 0.6);
         }
         footer ul.social {
             list-style-type: none;
@@ -120,12 +165,12 @@
             display: inline;
         }
         footer a {
-            color: #aaa;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s ease;
         }
         footer a:hover {
-            color: #fff;
+            color: rgba(255, 255, 255, 1);
         }
     </style>
 </head>
