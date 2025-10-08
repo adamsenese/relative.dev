@@ -79,12 +79,27 @@
             text-decoration: none;
             transition: all 0.3s ease;
             font-weight: 300;
+            overflow: hidden;
         }
         .link-card:hover {
             background-color: #2a2a2a;
             border-color: #555;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+        .link-card.has-image {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .link-card-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px 12px 0 0;
+        }
+        .link-card-content {
+            padding: 20px;
         }
         hr {
             border: 0;
@@ -123,7 +138,12 @@
         <p class="bio">AI apps for everyone</p>
         <h2>Links</h2>
         <ul class="links">
-            <li><a href="https://hermesvoice.com" class="link-card">Hermes | AI Voice Dictation for Mac</a></li>
+            <li>
+                <a href="https://hermesvoice.com" class="link-card has-image">
+                    <img src="images/Hermes-Share-Banner.jpg" alt="Hermes Voice Dictation" class="link-card-image">
+                    <div class="link-card-content">Hermes | AI Voice Dictation for Mac</div>
+                </a>
+            </li>
             <li><a href="https://cutgun.ai" class="link-card">Cutgun | AI Video Creation</a></li>
             <li><a href="https://example.com/link4" class="link-card">MiniTab | Save up to 95% on memory usage and ditch tab clutter in Google Chrome (Coming Soon)</a></li>
         </ul>
