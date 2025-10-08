@@ -95,11 +95,24 @@
         .link-card-image {
             width: 100%;
             height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            object-position: center;
             display: block;
             border-radius: 12px 12px 0 0;
         }
         .link-card-content {
-            padding: 20px;
+            padding: 16px 20px;
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .link-card-image {
+                max-height: none;
+            }
+            .link-card-content {
+                padding: 20px;
+            }
         }
         hr {
             border: 0;
