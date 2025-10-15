@@ -42,20 +42,30 @@
         }
         .hero {
             margin-bottom: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
         }
         .logo {
             width: 240px;
             height: auto;
-            margin: 0 0 32px 0;
+            margin: 0;
             display: block;
+            flex-shrink: 0;
+        }
+        .hero-content {
+            flex: 1;
+            text-align: right;
         }
         p.bio {
             font-size: 1.25rem;
-            margin: 0 0 0 0;
+            margin: 0;
             color: #666;
             letter-spacing: -0.01em;
             line-height: 1.4;
-            max-width: 600px;
+            max-width: 400px;
+            margin-left: auto;
         }
         h2 {
             font-family: 'Switzer', sans-serif;
@@ -154,11 +164,21 @@
             .container {
                 padding: 40px 20px;
             }
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
             .logo {
                 width: 200px;
             }
+            .hero-content {
+                text-align: left;
+            }
             p.bio {
                 font-size: 1.1rem;
+                margin-left: 0;
+                max-width: 100%;
             }
             ul.links {
                 grid-template-columns: 1fr;
@@ -214,7 +234,9 @@
     <div class="container">
         <div class="hero">
             <img src="images/relative-logo.svg" alt="Relative.dev Logo" class="logo">
-            <p class="bio">AI apps for everyone</p>
+            <div class="hero-content">
+                <p class="bio">AI apps for everyone</p>
+            </div>
         </div>
         <h2>Products</h2>
         <div class="products-container">
