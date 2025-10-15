@@ -6,22 +6,16 @@
     <meta name="description" content="An AI app development company building on the cutting-edge for mobile and desktop.">
     <meta name="keywords" content="Relative, AI, Hermes, Relative Industries, App Development">
     <title>Relative.dev | AI apps for everyone</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=2">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/relativeicon.png?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/relativeicon.png?v=2">
-    <link rel="shortcut icon" href="images/relativeicon.png?v=2">
-    <link rel="apple-touch-icon" href="images/relativeicon.png?v=2">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/relativefavi.png?v=3">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/relativefavi.png?v=3">
+    <link rel="shortcut icon" href="images/relativefavi.png?v=3">
+    <link rel="apple-touch-icon" href="images/relativefavi.png?v=3">
     <style>
         @font-face {
             font-family: 'Switzer';
             src: url('fonts/Switzer-Regular.otf') format('opentype');
             font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Switzer';
-            src: url('fonts/Switzer-Bold.otf') format('opentype');
-            font-weight: 700;
             font-style: normal;
         }
         
@@ -65,26 +59,31 @@
         }
         h2 {
             font-family: 'Switzer', sans-serif;
-            font-weight: 700;
+            font-weight: 400;
             font-size: 1.5rem;
             margin: 0 0 32px 0;
             letter-spacing: -0.02em;
             line-height: 1.3;
+        }
+        .products-container {
+            width: 100%;
+            max-width: 1200px;
         }
         ul.links {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            width: 100%;
         }
         ul.links li {
             margin: 0;
         }
         .link-card {
-            display: block;
+            display: flex;
+            flex-direction: column;
             padding: 24px;
             background-color: #fff;
             border: 1px solid #e5e5e5;
@@ -98,6 +97,7 @@
             line-height: 1.4;
             height: 100%;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            min-height: 140px;
         }
         .link-card:hover {
             background-color: #fff;
@@ -123,27 +123,34 @@
             padding: 20px 24px;
         }
         .product-name {
-            font-weight: 700;
+            font-weight: 400;
             font-size: 1.1rem;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
             color: #1a1a1a;
         }
         .product-description {
             font-size: 0.9rem;
             color: #666;
             line-height: 1.4;
+            flex-grow: 1;
         }
         
-        /* Tablet styles */
-        @media (max-width: 1024px) {
+        /* Large desktop - 3 columns */
+        @media (min-width: 1024px) {
+            ul.links {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Tablet - 2 columns */
+        @media (max-width: 1023px) and (min-width: 768px) {
             ul.links {
                 grid-template-columns: repeat(2, 1fr);
-                max-width: 800px;
             }
         }
         
         /* Mobile styles */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .container {
                 padding: 40px 20px;
             }
@@ -210,7 +217,8 @@
             <p class="bio">AI apps for everyone</p>
         </div>
         <h2>Products</h2>
-        <ul class="links">
+        <div class="products-container">
+            <ul class="links">
             <li>
                 <a href="https://hermesvoice.com" class="link-card has-image">
                     <img src="images/Hermes-Share-Banner.jpg" alt="Hermes Voice Dictation" class="link-card-image">
@@ -232,7 +240,8 @@
                     <div class="product-description">Save up to 95% on memory usage and ditch tab clutter in Google Chrome (Coming Soon)</div>
                 </a>
             </li>
-        </ul>
+            </ul>
+        </div>
         <hr>
         <footer>
             <p>Relative Industries LLC</p>
