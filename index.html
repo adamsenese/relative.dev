@@ -6,9 +6,11 @@
     <meta name="description" content="An AI app development company building on the cutting-edge for mobile and desktop.">
     <meta name="keywords" content="Relative, AI, Hermes, Relative Industries, App Development">
     <title>Relative.dev | AI apps for everyone</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/relativeicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/relativeicon.png">
-    <link rel="shortcut icon" href="images/relativeicon.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/relativeicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/relativeicon.png?v=2">
+    <link rel="shortcut icon" href="images/relativeicon.png?v=2">
+    <link rel="apple-touch-icon" href="images/relativeicon.png?v=2">
     <style>
         @font-face {
             font-family: 'Switzer';
@@ -73,8 +75,6 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
-        }
-        ul.links {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
@@ -132,6 +132,14 @@
             font-size: 0.9rem;
             color: #666;
             line-height: 1.4;
+        }
+        
+        /* Tablet styles */
+        @media (max-width: 1024px) {
+            ul.links {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 800px;
+            }
         }
         
         /* Mobile styles */
