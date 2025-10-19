@@ -181,10 +181,20 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-            footer {
+            .footer-content {
                 flex-direction: column;
-                gap: 16px;
+                gap: 24px;
                 text-align: center;
+            }
+            .footer-right {
+                order: -1;
+            }
+            .creator-profiles {
+                justify-content: center;
+                gap: 16px;
+            }
+            .profile-card {
+                padding: 10px 14px;
             }
             .link-card {
                 padding: 20px;
@@ -199,13 +209,94 @@
             background: #e5e5e5;
             margin: 80px 0 40px 0;
         }
-        footer {
-            font-size: 0.9em;
-            color: #888;
-            letter-spacing: -0.01em;
+        .footer-content {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+        .footer-left {
+            flex: 1;
+        }
+        .footer-right {
+            flex-shrink: 0;
+        }
+        .company {
+            font-size: 0.9em;
+            color: #888;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.01em;
+        }
+        .made-with {
+            font-size: 0.85em;
+            color: #666;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.01em;
+        }
+        .creator-profiles {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .profile-card {
+            display: flex;
             align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .profile-card:hover {
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f0f0f0;
+        }
+        .profile-photo-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #f0f0f0;
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .profile-handle {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: color 0.2s ease;
+        }
+        .profile-handle:hover {
+            color: #0066cc;
+        }
+        .twitter-follow-button {
+            font-size: 0.75em;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .twitter-follow-button:hover {
+            color: #1a1a1a;
         }
         footer ul.social {
             list-style-type: none;
@@ -263,12 +354,44 @@
         </div>
         <hr>
         <footer>
-            <p>Relative Industries LLC</p>
-            <ul class="social">
-                <li><a href="https://x.com/relativedotdev">X</a></li>
-                <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
-            </ul>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p class="company">Relative Industries LLC</p>
+                    <div class="creator-credits">
+                        <p class="made-with">Made with ☕ by</p>
+                        <div class="creator-profiles">
+                            <div class="profile-card">
+                                <img src="https://unavatar.io/twitter/adamsenese" alt="@adamsenese" class="profile-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="profile-photo-placeholder" style="display: none;">
+                                    <span>AS</span>
+                                </div>
+                                <div class="profile-info">
+                                    <a href="https://x.com/adamsenese" target="_blank" class="profile-handle">@adamsenese</a>
+                                    <a href="https://x.com/adamsenese?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @adamsenese</a>
+                                </div>
+                            </div>
+                            <div class="profile-card">
+                                <img src="https://unavatar.io/twitter/DomTheDev1" alt="@DomTheDev1" class="profile-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="profile-photo-placeholder" style="display: none;">
+                                    <span>DT</span>
+                                </div>
+                                <div class="profile-info">
+                                    <a href="https://x.com/DomTheDev1" target="_blank" class="profile-handle">@DomTheDev1</a>
+                                    <a href="https://x.com/DomTheDev1?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @DomTheDev1</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <ul class="social">
+                        <li><a href="https://x.com/relativedotdev">X</a></li>
+                        <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
         </footer>
     </div>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
