@@ -38,11 +38,12 @@
             text-align: left;
         }
         .hero {
-            margin-bottom: 80px;
+            margin-bottom: 100px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 40px;
+            gap: 60px;
+            padding: 40px 0;
         }
         .logo {
             width: 240px;
@@ -83,8 +84,8 @@
             padding: 0;
             margin: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
             width: 100%;
         }
         ul.links li {
@@ -93,26 +94,26 @@
         .link-card {
             display: flex;
             flex-direction: column;
-            padding: 24px;
+            padding: 28px;
             background-color: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
             color: #1a1a1a;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             font-weight: 400;
             overflow: hidden;
             letter-spacing: -0.01em;
             line-height: 1.4;
             height: 100%;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            min-height: 140px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            min-height: 160px;
         }
         .link-card:hover {
             background-color: #fff;
             border-color: #d0d0d0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
         .link-card.has-image {
             padding: 0;
@@ -129,7 +130,7 @@
             border-radius: 12px 12px 0 0;
         }
         .link-card-content {
-            padding: 20px 24px;
+            padding: 24px 28px;
         }
         .product-name {
             font-weight: 600;
@@ -163,18 +164,20 @@
         /* Mobile styles */
         @media (max-width: 767px) {
             .container {
-                padding: 40px 20px;
+                padding: 60px 20px;
             }
             .hero {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 24px;
+                align-items: center;
+                gap: 32px;
+                margin-bottom: 80px;
+                padding: 20px 0;
             }
             .logo {
                 width: 200px;
             }
             .hero-content {
-                text-align: left;
+                text-align: center;
             }
             p.bio {
                 font-size: 1.2rem;
@@ -221,12 +224,13 @@
         hr {
             border: 0;
             height: 1px;
-            background: #e5e5e5;
-            margin: 80px 0 40px 0;
+            background: linear-gradient(90deg, transparent, #e5e5e5, transparent);
+            margin: 100px 0 60px 0;
         }
         .creator-section {
             text-align: center;
-            margin: 40px 0;
+            margin: 60px 0;
+            padding: 40px 0;
         }
         .footer-content {
             display: flex;
