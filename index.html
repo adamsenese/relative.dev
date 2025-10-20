@@ -24,11 +24,6 @@
             margin: 0;
             padding: 0;
             background-color: #ECE7E3;
-            background-image: url('images/relative-bg.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             color: #1a1a1a;
             font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 400;
@@ -43,12 +38,12 @@
             text-align: left;
         }
         .hero {
-            margin-bottom: 100px;
+            margin-bottom: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 60px;
-            padding: 40px 0;
+            padding: 20px 0;
         }
         .logo {
             width: 240px;
@@ -170,11 +165,37 @@
         .main-content {
             position: relative;
             z-index: 1;
+            background-image: url('images/relative-bg.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+        
+        /* White text for better contrast on background image */
+        .main-content h2,
+        .main-content p.bio,
+        .main-content .product-name,
+        .main-content .product-description,
+        .main-content .made-with,
+        .main-content .profile-handle,
+        .main-content .follow-text {
+            color: white;
+        }
+        
+        .main-content p.bio {
+            color: white;
+        }
+        
+        /* White SVG logo for better contrast */
+        .main-content .logo {
+            filter: brightness(0) invert(1);
         }
         
         /* Mobile styles */
         @media (max-width: 767px) {
-            body {
+            .main-content {
                 background-attachment: scroll;
             }
             .container {
@@ -227,6 +248,10 @@
                 gap: 16px;
                 text-align: center;
                 align-items: center;
+                padding: 0 20px;
+            }
+            footer {
+                padding: 40px 0;
             }
             .link-card {
                 padding: 20px;
@@ -238,20 +263,25 @@
         hr {
             border: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #e5e5e5, transparent);
-            margin: 100px 0 60px 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            margin: 60px 0 40px 0;
         }
         .creator-section {
             text-align: center;
-            margin: 60px 0;
-            padding: 40px 0;
+            margin: 40px 0;
+            padding: 20px 0;
         }
         footer {
             background-color: #ECE7E3;
             position: relative;
             z-index: 2;
+            padding: 60px 0;
+            margin-top: 0;
         }
         .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
