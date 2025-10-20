@@ -175,7 +175,10 @@
         
         /* White text for better contrast on background image */
         .main-content h2,
-        .main-content p.bio {
+        .main-content p.bio,
+        .main-content .made-with,
+        .main-content .profile-handle,
+        .main-content .follow-text {
             color: white;
         }
         
@@ -239,14 +242,11 @@
                 margin-bottom: 16px;
             }
             .footer-content {
-                gap: 20px;
-                padding: 0 20px;
-            }
-            .footer-bottom {
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
                 align-items: center;
+                padding: 0 20px;
             }
             footer {
                 padding: 40px 0;
@@ -266,8 +266,8 @@
         }
         .creator-section {
             text-align: center;
-            margin: 0;
-            padding: 0;
+            margin: 40px 0;
+            padding: 20px 0;
         }
         footer {
             background-color: #ECE7E3;
@@ -280,11 +280,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -420,36 +415,35 @@
                 </li>
                 </ul>
             </div>
+            <hr>
+            <div class="creator-section">
+                <p class="made-with">Made with ☕ by</p>
+                <div class="creator-profiles">
+                    <a href="https://x.com/adamsenese" target="_blank" class="profile-card">
+                        <img src="images/adam-PhotoRoom.png" alt="@adamsenese" class="profile-photo">
+                        <div class="profile-info">
+                            <span class="profile-handle">@adamsenese</span>
+                            <span class="follow-text">Follow on X</span>
+                        </div>
+                    </a>
+                    <a href="https://x.com/DomTheDev1" target="_blank" class="profile-card">
+                        <img src="images/dom-photo.jpg" alt="@DomTheDev1" class="profile-photo">
+                        <div class="profile-info">
+                            <span class="profile-handle">@DomTheDev1</span>
+                            <span class="follow-text">Follow on X</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
         <footer>
             <div class="footer-content">
-                <div class="creator-section">
-                    <p class="made-with">Made with ☕ by</p>
-                    <div class="creator-profiles">
-                        <a href="https://x.com/adamsenese" target="_blank" class="profile-card">
-                            <img src="images/adam-PhotoRoom.png" alt="@adamsenese" class="profile-photo">
-                            <div class="profile-info">
-                                <span class="profile-handle">@adamsenese</span>
-                                <span class="follow-text">Follow on X</span>
-                            </div>
-                        </a>
-                        <a href="https://x.com/DomTheDev1" target="_blank" class="profile-card">
-                            <img src="images/dom-photo.jpg" alt="@DomTheDev1" class="profile-photo">
-                            <div class="profile-info">
-                                <span class="profile-handle">@DomTheDev1</span>
-                                <span class="follow-text">Follow on X</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p class="company">Relative Industries LLC</p>
-                    <ul class="social">
-                        <li><a href="https://x.com/relativedotdev">X</a></li>
-                        <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
-                    </ul>
-                </div>
+                <p class="company">Relative Industries LLC</p>
+                <ul class="social">
+                    <li><a href="https://x.com/relativedotdev">X</a></li>
+                    <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
+                </ul>
             </div>
         </footer>
     </div>
