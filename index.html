@@ -181,18 +181,8 @@
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-            .footer-content {
-                flex-direction: column;
-                gap: 32px;
-                text-align: left;
-                align-items: stretch;
-            }
-            .footer-right {
-                order: -1;
-                align-self: center;
-            }
-            .footer-left {
-                text-align: center;
+            .creator-section {
+                margin: 32px 0;
             }
             .creator-profiles {
                 justify-content: center;
@@ -207,8 +197,13 @@
                 justify-content: center;
             }
             .made-with {
-                text-align: center;
                 margin-bottom: 16px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                align-items: center;
             }
             .link-card {
                 padding: 20px;
@@ -223,22 +218,20 @@
             background: #e5e5e5;
             margin: 80px 0 40px 0;
         }
+        .creator-section {
+            text-align: center;
+            margin: 40px 0;
+        }
         .footer-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             gap: 40px;
-        }
-        .footer-left {
-            flex: 1;
-        }
-        .footer-right {
-            flex-shrink: 0;
         }
         .company {
             font-size: 0.9em;
             color: #888;
-            margin: 0 0 16px 0;
+            margin: 0;
             letter-spacing: -0.01em;
         }
         .made-with {
@@ -360,36 +353,33 @@
             </ul>
         </div>
         <hr>
+        <div class="creator-section">
+            <p class="made-with">Made with ☕ by</p>
+            <div class="creator-profiles">
+                <a href="https://x.com/adamsenese" target="_blank" class="profile-card">
+                    <img src="images/adam-PhotoRoom.png" alt="@adamsenese" class="profile-photo">
+                    <div class="profile-info">
+                        <span class="profile-handle">@adamsenese</span>
+                        <span class="follow-text">Follow on X</span>
+                    </div>
+                </a>
+                <a href="https://x.com/DomTheDev1" target="_blank" class="profile-card">
+                    <img src="images/dom-photo.jpg" alt="@DomTheDev1" class="profile-photo">
+                    <div class="profile-info">
+                        <span class="profile-handle">@DomTheDev1</span>
+                        <span class="follow-text">Follow on X</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
         <footer>
             <div class="footer-content">
-                <div class="footer-left">
-                    <p class="company">Relative Industries LLC</p>
-                    <div class="creator-credits">
-                        <p class="made-with">Made with ☕ by</p>
-                        <div class="creator-profiles">
-                            <a href="https://x.com/adamsenese" target="_blank" class="profile-card">
-                                <img src="images/adam-PhotoRoom.png" alt="@adamsenese" class="profile-photo">
-                                <div class="profile-info">
-                                    <span class="profile-handle">@adamsenese</span>
-                                    <span class="follow-text">Follow on X</span>
-                                </div>
-                            </a>
-                            <a href="https://x.com/DomTheDev1" target="_blank" class="profile-card">
-                                <img src="images/dom-photo.jpg" alt="@DomTheDev1" class="profile-photo">
-                                <div class="profile-info">
-                                    <span class="profile-handle">@DomTheDev1</span>
-                                    <span class="follow-text">Follow on X</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-right">
-                    <ul class="social">
-                        <li><a href="https://x.com/relativedotdev">X</a></li>
-                        <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
-                    </ul>
-                </div>
+                <p class="company">Relative Industries LLC</p>
+                <ul class="social">
+                    <li><a href="https://x.com/relativedotdev">X</a></li>
+                    <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
+                </ul>
             </div>
         </footer>
     </div>
