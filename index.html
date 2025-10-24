@@ -37,7 +37,7 @@
             --safe-bottom: env(safe-area-inset-bottom);
             --safe-left: env(safe-area-inset-left);
         }
-
+        
         body {
             margin: 0;
             padding: 0;
@@ -102,7 +102,7 @@
         .windows {
             display: grid;
             grid-template-columns: repeat(2, minmax(280px, 1fr));
-            gap: 16px;
+                gap: 16px;
             position: relative;
             z-index: 2;
         }
@@ -331,7 +331,7 @@
                 <div class="icon-label">About</div>
             </div>
             <div class="icon-item" data-id="readme" data-target="egg-readme" style="left: 16px; top: 168px;">
-                <img class="icon-thumb" src="images/aqua-txt.svg" alt="ReadMe.txt">
+                <img class="icon-thumb" src="images/txt.png" alt="ReadMe.txt">
                 <div class="icon-label">ReadMe.txt</div>
             </div>
             <div class="icon-item" data-id="prefs" data-target="egg-prefs" style="left: 16px; top: 248px;">
@@ -343,12 +343,20 @@
                 <div class="icon-label">Applications</div>
             </div>
             <div class="icon-item" data-id="trash" data-target="egg-trash" style="left: 16px; top: 408px;">
-                <img class="icon-thumb" src="images/aqua-trash.svg" alt="Trash">
+                <img class="icon-thumb" src="images/trash.png" alt="Trash">
                 <div class="icon-label">Trash</div>
             </div>
             <div class="icon-item" data-id="quote" data-target="egg-quote" style="left: 16px; top: 488px;">
-                <img class="icon-thumb" src="images/aqua-txt.svg" alt="Aqua Quote">
+                <img class="icon-thumb" src="images/txt.png" alt="Aqua Quote">
                 <div class="icon-label">Aqua</div>
+            </div>
+            <div class="icon-item" data-id="ipod" data-target="egg-ipod" style="left: 16px; top: 568px;">
+                <img class="icon-thumb" src="images/ipod.png" alt="iPod">
+                <div class="icon-label">iPod</div>
+            </div>
+            <div class="icon-item" data-id="orb" data-target="egg-orb" style="left: 16px; top: 648px;">
+                <img class="icon-thumb" src="images/orb.png" alt="Aqua Orb">
+                <div class="icon-label">Aqua Orb</div>
             </div>
         </div>
 
@@ -391,15 +399,15 @@
                             <div>
                                 <div class="handle">@adamsenese</div>
                                 <div class="action">Follow on X</div>
-                            </div>
-                        </a>
+                        </div>
+                    </a>
                         <a href="https://x.com/DomTheDev1" target="_blank" class="person">
                             <img class="avatar" src="images/dom-photo.jpg" alt="@DomTheDev1">
                             <div>
                                 <div class="handle">@DomTheDev1</div>
                                 <div class="action">Follow on X</div>
-                            </div>
-                        </a>
+                        </div>
+                    </a>
                     </div>
                 </div>
             </div>
@@ -457,19 +465,19 @@
                             <div>
                                 <div class="primary">Cutgun</div>
                                 <div class="secondary">AI Video & Image Studio</div>
-                            </div>
-                        </a>
+                        </div>
+                    </a>
                         <a href="#" class="finder-item">
                             <img class="icon" src="images/aqua-txt.svg" alt="MiniTab">
                             <div>
                                 <div class="primary">MiniTab</div>
                                 <div class="secondary">Coming Soon</div>
-                            </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
 
         <div id="egg-about-panel" class="window modal hidden">
             <div class="titlebar">
@@ -541,11 +549,36 @@
                 <blockquote class="quote">“... it's liquid, one of the design goals was when you saw it you wanted to lick it” — Steve Jobs</blockquote>
             </div>
         </div>
+
+        <div id="egg-ipod" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">iPod</div>
+            </div>
+            <div class="window-content" style="display:flex; gap:12px; align-items:center;">
+                <img src="images/ipod.png" alt="iPod" style="width:72px; height:72px; border-radius:10px; border:1px solid #BDBDBD;"/>
+                <div>
+                    <div class="primary">Click Wheel</div>
+                    <div class="secondary">1000 songs in your pocket.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="egg-orb" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Aqua Orb</div>
+            </div>
+            <div class="window-content" style="text-align:center;">
+                <img src="images/orb.png" alt="Aqua Orb" style="width:80px; height:80px; border-radius:50%; border:1px solid #9FA9B8;"/>
+                <p style="font-size:12px; color:#333; margin:8px 0 0;">Shiny, glossy, and lickable.</p>
+            </div>
+        </div>
     </main>
 
     <footer>
         Relative Industries LLC · <a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a>
-    </footer>
+        </footer>
 
     <div class="dock" id="dock" aria-label="Dock">
         <a href="#" class="dock-item" data-open="egg-finder" aria-label="Finder">
@@ -563,8 +596,11 @@
         <a href="#" class="dock-item" data-open="egg-prefs" aria-label="System Preferences">
             <img src="images/aqua-prefs.svg" alt="System Preferences" class="dock-icon">
         </a>
+        <a href="#" class="dock-item" data-open="egg-ipod" aria-label="iPod">
+            <img src="images/ipod.png" alt="iPod" class="dock-icon">
+        </a>
         <a href="#" class="dock-item" data-open="egg-trash" aria-label="Trash">
-            <img src="images/aqua-trash.svg" alt="Trash" class="dock-icon">
+            <img src="images/trash.png" alt="Trash" class="dock-icon">
         </a>
     </div>
 
