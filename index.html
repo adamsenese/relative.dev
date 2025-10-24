@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An AI app development company building on the cutting-edge for mobile and desktop.">
-    <meta name="keywords" content="Relative, AI, Hermes, Relative Industries, App Development">
-    <title>Relative.dev | Vintage Mac</title>
+    <meta name="keywords" content="Relative, AI, Hermes, Relative Industries, App Development, Speech-to-Text">
+    <title>Relative Industries | AI apps for everyone</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=3">
     <link rel="icon" type="image/png" sizes="32x32" href="images/relativefavi.png?v=3">
     <link rel="icon" type="image/png" sizes="16x16" href="images/relativefavi.png?v=3">
@@ -167,10 +167,11 @@
 
         /* Desktop icons */
         .desktop-icons { position: relative; z-index: 1; }
-        .icon-item { position: absolute; width: 72px; text-align: center; cursor: default; user-select: none; }
+        .icon-item { position: absolute; width: 72px; text-align: center; cursor: grab; user-select: none; touch-action: none; }
+        .icon-item.dragging { cursor: grabbing; will-change: transform; }
         .icon-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid #A9B4C3; background: #FFFFFF; box-shadow: 0 1px 0 rgba(255,255,255,0.7), inset 0 1px 2px rgba(0,0,0,0.06); margin: 0 auto; }
         .icon-thumb { object-fit: contain; border-radius: 0; border: none; background: transparent; box-shadow: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); }
-        .icon-label { margin-top: 2px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+        .icon-label { margin-top: 6px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
         .icon-item:active .icon-thumb { filter: brightness(0.95); }
         @media (max-width: 520px) {
             .icon-item { position: static; display: inline-block; margin: 8px 10px; width: 68px; }
@@ -592,7 +593,7 @@
                 <div class="title">Jobs</div>
             </div>
             <div class="window-content">
-                <blockquote class="quote">“... it's liquid, one of the design goals was when you saw it you wanted to lick it" — Steve Jobs</blockquote>
+                <blockquote class="quote">"... it's liquid, one of the design goals was when you saw it you wanted to lick it" — Steve Jobs</blockquote>
                 <blockquote class="quote" style="margin-top:8px;">"Stay hungry, stay foolish." — Steve Jobs</blockquote>
                 <blockquote class="quote" style="margin-top:8px;">"Innovation distinguishes between a leader and a follower." — Steve Jobs</blockquote>
             </div>
@@ -699,45 +700,53 @@
 
             function makeDraggable(el) {
                 let startX = 0, startY = 0, origLeft = 0, origTop = 0, dragging = false;
+                let tx = 0, ty = 0, raf = 0;
                 const id = el.getAttribute('data-id');
+                function applyTransform(){
+                    el.style.transform = `translate(${tx}px, ${ty}px)`;
+                    raf = 0;
+                }
                 const onDown = (e) => {
                     if (!desktop) return;
                     el.setPointerCapture?.(e.pointerId);
-                    const rect = desktop.getBoundingClientRect();
                     startX = e.clientX; startY = e.clientY;
                     const style = window.getComputedStyle(el);
                     origLeft = parseFloat(style.left) || 0;
                     origTop = parseFloat(style.top) || 0;
-                    dragging = false;
+                    tx = 0; ty = 0; dragging = false; raf = 0;
+                    el.classList.add('dragging');
+                    // bring to front while dragging
+                    el.style.zIndex = '9999';
                 };
                 const onMove = (e) => {
                     if (startX === 0 && startY === 0) return;
                     const dx = e.clientX - startX;
                     const dy = e.clientY - startY;
                     if (!dragging && (Math.abs(dx) > 2 || Math.abs(dy) > 2)) dragging = true;
-                    const rect = desktop.getBoundingClientRect();
-                    const left = clamp(origLeft + dx, 0, rect.width - el.offsetWidth);
-                    const top = clamp(origTop + dy, 0, rect.height - el.offsetHeight);
-                    el.style.left = left + 'px';
-                    el.style.top = top + 'px';
+                    if (!dragging) return;
+                    tx = dx; ty = dy;
+                    if (!raf) raf = requestAnimationFrame(applyTransform);
                 };
                 const onUp = (e) => {
                     if (startX === 0 && startY === 0) return;
+                    // commit final position
                     const rect = desktop.getBoundingClientRect();
-                    const style = window.getComputedStyle(el);
-                    const left = clamp(parseFloat(style.left) || 0, 0, rect.width - el.offsetWidth);
-                    const top = clamp(parseFloat(style.top) || 0, 0, rect.height - el.offsetHeight);
-                    savePosition(id, left, top);
-                    startX = startY = 0;
+                    const finalLeft = clamp(origLeft + tx, 0, rect.width - el.offsetWidth);
+                    const finalTop = clamp(origTop + ty, 0, rect.height - el.offsetHeight);
+                    el.style.transform = '';
+                    el.style.left = finalLeft + 'px';
+                    el.style.top = finalTop + 'px';
+                    savePosition(id, finalLeft, finalTop);
+                    startX = startY = 0; tx = ty = 0; dragging = false;
+                    el.classList.remove('dragging');
+                    el.style.zIndex = '';
                     el.releasePointerCapture?.(e.pointerId);
                     // prevent click after drag
-                    if (dragging) {
-                        el._dragged = true;
-                        setTimeout(() => { el._dragged = false; }, 50);
-                    }
+                    el._dragged = true;
+                    setTimeout(() => { el._dragged = false; }, 50);
                 };
                 el.addEventListener('pointerdown', onDown);
-                window.addEventListener('pointermove', onMove);
+                window.addEventListener('pointermove', onMove, { passive: true });
                 window.addEventListener('pointerup', onUp);
             }
 
