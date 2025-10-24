@@ -332,15 +332,7 @@
 
     <div class="menu-dropdown" id="menu-dropdown">
         <ul class="menu-list">
-            <li class="menu-item-row" data-open="egg-about">About This Mac…</li>
-            <li class="menu-sep"></li>
-            <li class="menu-item-row" data-open="egg-prefs">System Preferences…</li>
-            <li class="menu-item-row" data-open="egg-apps">Applications</li>
-            <li class="menu-item-row" data-open="egg-readme">ReadMe.txt</li>
-            <li class="menu-item-row" data-open="egg-quote">Jobs Quote</li>
-            <li class="menu-item-row" data-open="egg-about-panel">About Relative.dev</li>
-            <li class="menu-sep"></li>
-            <li class="menu-item-row" data-open="egg-trash">Empty Trash</li>
+            <li class="menu-item-row" data-action="organize-icons">Organize Icons</li>
         </ul>
     </div>
 
@@ -891,12 +883,12 @@
                 menuOpen = false;
             }
 
-            // Click on apple or app name opens menu
+            // Only Edit opens menu
             menuBar.addEventListener('click', (e) => {
                 const item = e.target.closest('.menu-item');
                 if (!item) return;
                 const label = item.textContent.trim();
-                if (label === '' || label === 'Relative' || label === 'Edit') {
+                if (label === 'Edit') {
                     const rect = item.getBoundingClientRect();
                     openMenu(rect.left, rect.bottom);
                 }
@@ -933,13 +925,6 @@
                     }
                     closeMenu();
                     return;
-                }
-                if (id) {
-                    const win = document.getElementById(id);
-                    if (win) {
-                        win.classList.remove('hidden');
-                        if (typeof window.focusModalWindow === 'function') window.focusModalWindow(win);
-                    }
                 }
                 closeMenu();
             });
