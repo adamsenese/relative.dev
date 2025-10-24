@@ -5,456 +5,781 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An AI app development company building on the cutting-edge for mobile and desktop.">
     <meta name="keywords" content="Relative, AI, Hermes, Relative Industries, App Development">
-    <title>Relative.dev | AI apps for everyone</title>
+    <title>Relative.dev | Vintage Mac</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=3">
     <link rel="icon" type="image/png" sizes="32x32" href="images/relativefavi.png?v=3">
     <link rel="icon" type="image/png" sizes="16x16" href="images/relativefavi.png?v=3">
     <link rel="shortcut icon" href="images/relativefavi.png?v=3">
     <link rel="apple-touch-icon" href="images/relativefavi.png?v=3">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <style>
-        
-        * {
-            box-sizing: border-box;
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #E7EEF8;                 /* Aqua canvas */
+            --stripe-1: #F6FAFF;           /* Pinstripe light */
+            --stripe-2: #E7F0FF;           /* Pinstripe shadow */
+            --panel: #F4F6FA;              /* Light panel */
+            --panel-mid: #DDE3ED;          /* Mid panel */
+            --panel-dark: #A9B4C3;         /* Edge */
+            --shadow: rgba(0,0,0,0.18);    /* Soft shadow */
+            --text: #111214;
+            --subtext: #3A3F45;
+            --link: #0033CC;               /* Aqua link */
+            --aqua-blue-1: #75B6FF;        /* Titlebar top */
+            --aqua-blue-2: #2D88FF;        /* Titlebar bottom */
+            --menubar-1: #FFFFFF;          /* Menubar top */
+            --menubar-2: #E9EEF5;          /* Menubar bottom */
+            --menubar-border: #AAB3C2;     /* Menubar line */
+            --menu-height: 22px;           /* early OS X */
+            --radius: 8px;
+            --safe-top: env(safe-area-inset-top);
+            --safe-right: env(safe-area-inset-right);
+            --safe-bottom: env(safe-area-inset-bottom);
+            --safe-left: env(safe-area-inset-left);
         }
-        
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #ECE7E3;
-            color: #1a1a1a;
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 400;
-            line-height: 1.6;
-            letter-spacing: -0.02em;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Geneva, Tahoma, Verdana, "Lucida Grande", "Trebuchet MS", Arial, sans-serif;
+            font-weight: 500;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 40px;
-            text-align: left;
-        }
-        .hero {
-            margin-bottom: 60px;
+
+        a { color: var(--link); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Menu Bar */
+        .menu-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--menu-height) + var(--safe-top));
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 60px;
-            padding: 20px 0;
+            padding: var(--safe-top) 8px 0 8px;
+            background: linear-gradient(var(--menubar-1), var(--menubar-2));
+            border-bottom: 1px solid var(--menubar-border);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 1px rgba(0,0,0,0.06);
+            z-index: 10;
+            user-select: none;
         }
-        .logo {
-            width: 240px;
-            height: auto;
-            margin: 0;
-            display: block;
-            flex-shrink: 0;
-        }
-        .hero-content {
-            flex: 1;
-            text-align: right;
-        }
-        p.bio {
-            font-size: 1.375rem;
-            font-weight: 500;
-            margin: 0;
-            color: #444;
-            letter-spacing: -0.02em;
-            line-height: 1.4;
-            max-width: 420px;
-            margin-left: auto;
-        }
-        h2 {
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 600;
-            font-size: 1.625rem;
-            margin: 0 0 40px 0;
-            letter-spacing: -0.03em;
-            line-height: 1.3;
-            color: #1a1a1a;
-        }
-        .products-container {
-            width: 100%;
-            max-width: 1200px;
-        }
-        ul.links {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-            width: 100%;
-        }
-        ul.links li {
-            margin: 0;
-        }
-        .link-card {
-            display: flex;
-            flex-direction: column;
-            padding: 28px;
-            background-color: #fff;
-            border: 1px solid #e8e8e8;
-            border-radius: 16px;
-            color: #1a1a1a;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 400;
-            overflow: hidden;
-            letter-spacing: -0.01em;
-            line-height: 1.4;
-            height: 100%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            min-height: 160px;
-        }
-        .link-card:hover {
-            background-color: #fff;
-            border-color: #d0d0d0;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-        .link-card.has-image {
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        .link-card-image {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            border-radius: 12px 12px 0 0;
-        }
-        .link-card-content {
-            padding: 24px 28px;
-        }
-        .product-name {
-            font-weight: 600;
-            font-size: 1.125rem;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-            letter-spacing: -0.01em;
-        }
-        .product-description {
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: #555;
-            line-height: 1.5;
-            flex-grow: 1;
-        }
-        
-        /* Large desktop - 3 columns */
-        @media (min-width: 1024px) {
-            ul.links {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        /* Tablet - 2 columns */
-        @media (max-width: 1023px) and (min-width: 768px) {
-            ul.links {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* Background wrapper for content above footer */
-        .main-content {
+        .menu-left, .menu-right { display: flex; align-items: center; gap: 10px; }
+        .menu-left { gap: 14px; }
+        .menu-item { font-size: 13px; padding: 2px 6px; border-radius: 3px; }
+        .menu-item:hover { background: #BFBFBF; box-shadow: inset 0 1px 0 #FFFFFF; }
+        .apple { font-weight: 700; letter-spacing: 0.02em; }
+        .clock { font-size: 12px; opacity: 0.9; }
+
+        /* Desktop */
+        .desktop {
             position: relative;
-            z-index: 1;
-            background-image: url('images/relative-bg.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            color: white;
+            padding-top: calc(var(--menu-height) + 12px);
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-bottom: 40px;
+            min-height: 100vh;
+            background: repeating-linear-gradient(0deg, var(--stripe-1) 0 2px, var(--stripe-2) 2px 4px);
         }
-        
-        /* White text for better contrast on background image */
-        .main-content h2,
-        .main-content p.bio,
-        .main-content .made-with {
-            color: white;
-        }
-        
-        /* Two-tone text for profile cards like product cards */
-        .main-content .profile-handle {
-            color: #1a1a1a;
-        }
-        .main-content .follow-text {
-            color: #555;
-        }
-        
-        .main-content p.bio {
-            color: white;
-        }
-        
-        /* White SVG logo for better contrast */
-        .main-content .logo {
-            filter: brightness(0) invert(1);
-        }
-        
-        /* Mobile styles */
-        @media (max-width: 767px) {
-            .main-content {
-                background-attachment: scroll;
-            }
-            .container {
-                padding: 60px 20px;
-            }
-            .hero {
-                flex-direction: column;
-                align-items: center;
-                gap: 32px;
-                margin-bottom: 80px;
-                padding: 20px 0;
-            }
-            .logo {
-                width: 200px;
-            }
-            .hero-content {
-                text-align: center;
-            }
-            p.bio {
-                font-size: 1.2rem;
-                font-weight: 500;
-                margin-left: 0;
-                max-width: 100%;
-                text-align: center;
-            }
-            ul.links {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            .creator-section {
-                margin: 32px 0;
-            }
-            .creator-profiles {
-                justify-content: center;
-                gap: 12px;
-                flex-direction: column;
-                align-items: center;
-            }
-            .profile-card {
-                padding: 12px 16px;
-                max-width: 240px;
-                width: 100%;
-                justify-content: center;
-            }
-            .made-with {
-                margin-bottom: 16px;
-            }
-            .footer-content {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-                align-items: center;
-                padding: 0 20px;
-            }
-            footer {
-                padding: 40px 0;
-            }
-            .link-card {
-                padding: 20px;
-            }
-            .link-card-content {
-                padding: 16px 20px;
-            }
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            margin: 60px 0 40px 0;
-        }
-        .creator-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 20px 0;
-        }
-        footer {
-            background-color: #ECE7E3;
-            position: relative;
-            z-index: 2;
-            padding: 60px 0;
-            margin-top: 0;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-        }
-        .company {
-            font-size: 0.9em;
-            color: #888;
-            margin: 0;
-            letter-spacing: -0.01em;
-        }
-        .made-with {
-            font-size: 0.9em;
-            font-weight: 500;
-            color: #555;
-            margin: 0 0 16px 0;
-            letter-spacing: -0.01em;
-        }
-        .creator-profiles {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .profile-card {
+
+        .desktop-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
-            background-color: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-            max-width: 200px;
+            margin: 8px 6px 12px 6px;
         }
-        .profile-card:hover {
-            border-color: #1da1f2;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(29, 161, 242, 0.15);
-            text-decoration: none;
-            color: inherit;
+        .desktop-header .brand-logo { height: 26px; width: auto; }
+        .desktop-header .brand-tagline { font-size: 13px; color: var(--subtext); }
+
+        /* Windows */
+        .windows {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 16px;
+            position: relative;
+            z-index: 2;
         }
-        .profile-photo {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #f0f0f0;
-            flex-shrink: 0;
-        }
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            min-width: 0;
-            align-items: flex-start;
-        }
-        .profile-handle {
-            color: #1a1a1a;
-            font-weight: 600;
-            font-size: 0.95em;
-            white-space: nowrap;
+        @media (max-width: 840px) { .windows { grid-template-columns: 1fr; } }
+
+        .window {
+            background: var(--panel);
+            border: 1px solid var(--panel-dark);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 22px var(--shadow);
             overflow: hidden;
-            text-overflow: ellipsis;
-            letter-spacing: -0.01em;
         }
-        .follow-text {
-            font-size: 0.8em;
-            font-weight: 500;
-            color: #666;
-            white-space: nowrap;
-            text-align: left;
+        .window.hidden { display: none; }
+        .window.modal { position: fixed; left: 50%; transform: translateX(-50%); top: calc(var(--menu-height) + 24px); width: min(92vw, 560px); z-index: 5; }
+        @media (max-width: 520px) { .window.modal { top: calc(var(--menu-height) + 8px); width: min(94vw, 520px); } }
+
+        /* Brushed metal window (early OS X iTunes style) */
+        .window.metal {
+            background: repeating-linear-gradient(0deg, #F2F5FA 0 2px, #E7ECF6 2px 4px);
+            border-color: #9FA9B8;
         }
-        .profile-card:hover .follow-text {
-            color: #1da1f2;
+        .window.metal .titlebar {
+            background: linear-gradient(#F7FAFF, #DCE3EE);
+            border-bottom: 1px solid #AFBACB;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
         }
-        footer ul.social {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+        .window.metal .title { color: #2B3F5C; text-shadow: 0 1px 0 rgba(255,255,255,0.8); }
+
+        /* Inactive window style */
+        .window.inactive .titlebar { background: linear-gradient(#E7ECF4, #CBD7E8); border-bottom: 1px solid #A8B6CA; }
+        .window.inactive .title { color: #2B3F5C; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+        .window.inactive .traffic .dot { opacity: 0.85; filter: saturate(0.9); }
+        .titlebar {
             display: flex;
-            gap: 24px;
+            align-items: center;
+            gap: 8px;
+            height: 22px;
+            padding: 0 8px;
+            background: linear-gradient(var(--aqua-blue-1), var(--aqua-blue-2));
+            border-bottom: 1px solid #1B5FCC;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
         }
-        footer ul.social li {
-            display: inline;
+        .traffic {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-        footer a {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 1px solid #6B6B6B;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 0 rgba(0,0,0,0.05);
+            position: relative;
         }
-        footer a:hover {
-            color: #1a1a1a;
+        .traffic .dot:nth-child(1) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0 35%, transparent 36%), linear-gradient(#FF7B73, #E74C3C); }
+        .traffic .dot:nth-child(2) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0 35%, transparent 36%), linear-gradient(#FFD76A, #F2B60D); }
+        .traffic .dot:nth-child(3) { background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0 35%, transparent 36%), linear-gradient(#8AF08D, #34C84A); }
+        .title { font-size: 12px; font-weight: 700; margin-left: 4px; color: #FFFFFF; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
+
+        /* Desktop icons */
+        .desktop-icons { position: relative; z-index: 1; }
+        .icon-item { position: absolute; width: 72px; text-align: center; cursor: default; user-select: none; }
+        .icon-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid #A9B4C3; background: #FFFFFF; box-shadow: 0 1px 0 rgba(255,255,255,0.7), inset 0 1px 2px rgba(0,0,0,0.06); margin: 0 auto; }
+        .icon-label { margin-top: 6px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+        .icon-item:active .icon-thumb { filter: brightness(0.95); }
+        @media (max-width: 520px) {
+            .icon-item { position: static; display: inline-block; margin: 8px 10px; width: 68px; }
+            .desktop-icons { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+        }
+
+        .window-content { padding: 10px; background: #FFFFFF; }
+
+        /* Egg window helpers */
+        .prefs-grid { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 10px; }
+        .pref-item { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--panel-mid); background: #FAFCFF; }
+        .apps-grid { display: grid; grid-template-columns: repeat(4, 68px); gap: 12px; }
+        .app { text-align: center; }
+        .app .icon-thumb { width: 44px; height: 44px; }
+        .app .icon-label { font-size: 11px; }
+        .trash-note { font-size: 12px; color: #555; }
+        blockquote.quote { margin: 0; padding: 10px 12px; background: #F7FBFF; border-left: 3px solid #2D88FF; font-size: 13px; color: #02224D; }
+
+        /* List view */
+        .list-view { border: 1px solid var(--panel-dark); background: #FFFFFF; }
+        .list-row {
+            display: grid;
+            grid-template-columns: 36px 1.2fr 2fr;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .list-row:hover { background: #F3F3F3; }
+        .list-row:last-child { border-bottom: 0; }
+        .icon { width: 28px; height: 28px; object-fit: cover; border: 1px solid #BDBDBD; background: #FFF; }
+        .primary { font-weight: 700; color: #000; font-size: 13px; }
+        .secondary { color: #333; font-size: 12px; }
+
+        /* Mobile list layout */
+        @media (max-width: 520px) {
+            .menu-item { font-size: 12px; }
+            .menu-left .menu-extra { display: none; }
+            .list-row { grid-template-columns: 28px 1fr; gap: 6px; padding: 8px; }
+            .icon { width: 24px; height: 24px; }
+            .primary { font-size: 12px; }
+            .secondary { grid-column: 2 / 3; font-size: 11px; }
+        }
+
+        /* Creator cards (vintage) */
+        .people { display: grid; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 10px; }
+        @media (max-width: 480px) { .people { grid-template-columns: 1fr; } }
+        .person {
+            display: flex; align-items: center; gap: 10px;
+            border: 1px solid var(--panel-dark);
+            background: #FFFFFF;
+            padding: 8px;
+        }
+        .avatar { width: 36px; height: 36px; object-fit: cover; border: 1px solid #BDBDBD; }
+        .handle { font-weight: 700; font-size: 13px; color: #000; }
+        .action { font-size: 12px; color: #333; }
+
+        footer { text-align: center; font-size: 12px; color: #333; padding: 16px 8px calc(24px + var(--safe-bottom)); }
+
+        /* Menus */
+        .menu-dropdown { position: fixed; display: none; top: calc(var(--menu-height) + var(--safe-top)); left: 8px; background: linear-gradient(#FFFFFF, #F0F4FA); border: 1px solid #AAB3C2; box-shadow: 0 8px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9); border-radius: 6px; padding: 6px 0; z-index: 20; min-width: 180px; }
+        .menu-dropdown.open { display: block; }
+        .menu-list { list-style: none; margin: 0; padding: 0; }
+        .menu-item-row { display: flex; align-items: center; gap: 10px; padding: 4px 14px; font-size: 13px; color: #0B1B3A; white-space: nowrap; }
+        .menu-item-row:hover { background: linear-gradient(#5BA1FF, #2D88FF); color: #FFFFFF; }
+        .menu-sep { height: 1px; margin: 6px 8px; background: #D3DAE6; }
+
+        /* Desktop selection rectangle */
+        .selection-rect { position: fixed; border: 1px solid rgba(45,136,255,0.6); background: rgba(45,136,255,0.15); pointer-events: none; z-index: 3; }
+        .icon-item.selected .icon-label { background: linear-gradient(#5BA1FF, #2D88FF); color: #FFFFFF; padding: 2px 4px; border-radius: 4px; }
+
+        /* Aqua Dock */
+        .dock {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: calc(10px + var(--safe-bottom));
+            background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.35));
+            border: 1px solid rgba(170, 179, 194, 0.85);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.8);
+            border-radius: 14px;
+            padding: 6px 10px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            z-index: 6;
+            user-select: none;
+            -webkit-user-select: none;
+            backdrop-filter: saturate(140%) blur(6px);
+        }
+        .dock::before {
+            content: "";
+            position: absolute;
+            left: 6px; right: 6px; bottom: 4px;
+            height: 8px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0));
+            border-radius: 10px;
+        }
+        .dock-item { position: relative; display: inline-flex; align-items: flex-end; justify-content: center; height: 72px; }
+        .dock-item.active::after { content: ""; position: absolute; bottom: 2px; width: 6px; height: 6px; border-radius: 50%; background: #2D88FF; box-shadow: 0 0 6px rgba(45,136,255,0.5); }
+        .dock-icon { width: 48px; height: 48px; object-fit: cover; border-radius: 10px; border: 1px solid rgba(169,180,195,0.9); background: #FFFFFF; box-shadow: 0 2px 3px rgba(0,0,0,0.15), inset 0 1px 2px rgba(0,0,0,0.06); transform-origin: bottom center; transition: transform 0.08s ease-out; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0,0,0,0.12)); }
+        .dock-icon.bounce { animation: dock-bounce 0.6s ease-out; }
+        @keyframes dock-bounce { 0% { transform: translateY(0) scale(1); } 25% { transform: translateY(-14px) scale(1.05); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.03); } 100% { transform: translateY(0) scale(1); } }
+        @media (max-width: 520px) {
+            .dock { padding: 6px 8px; gap: 8px; }
+            .dock-item { height: 60px; }
+            .dock-icon { width: 36px; height: 36px; }
         }
     </style>
 </head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <div class="hero">
-                <img src="images/relative-logo.svg" alt="Relative.dev Logo" class="logo">
-                <div class="hero-content">
-                    <p class="bio">AI apps for everyone</p>
+    <div class="menu-bar">
+        <div class="menu-left">
+            <div class="menu-item apple"></div>
+            <div class="menu-item">Relative</div>
+            <div class="menu-item menu-extra">File</div>
+            <div class="menu-item menu-extra">Edit</div>
+            <div class="menu-item menu-extra">View</div>
+            <div class="menu-item menu-extra">Special</div>
+        </div>
+        <div class="menu-right">
+            <div class="menu-item clock" id="clock"></div>
+        </div>
+    </div>
+
+    <div class="menu-dropdown" id="menu-dropdown">
+        <ul class="menu-list">
+            <li class="menu-item-row" data-open="egg-about">About This Mac…</li>
+            <li class="menu-sep"></li>
+            <li class="menu-item-row" data-open="egg-prefs">System Preferences…</li>
+            <li class="menu-item-row" data-open="egg-apps">Applications</li>
+            <li class="menu-item-row" data-open="egg-readme">ReadMe.txt</li>
+            <li class="menu-item-row" data-open="egg-quote">Aqua Quote</li>
+            <li class="menu-sep"></li>
+            <li class="menu-item-row" data-open="egg-trash">Empty Trash</li>
+        </ul>
+    </div>
+
+    <main class="desktop">
+        <div class="desktop-header">
+            <img class="brand-logo" src="images/relative-logo.svg" alt="Relative.dev">
+            <span class="brand-tagline">AI apps for everyone</span>
+        </div>
+
+        <div class="selection-rect" id="selection-rect" style="display:none;"></div>
+
+        <div class="desktop-icons">
+            <div class="icon-item" data-id="about" data-target="egg-about" style="left: 16px; top: 88px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="About">
+                <div class="icon-label">About</div>
+            </div>
+            <div class="icon-item" data-id="readme" data-target="egg-readme" style="left: 16px; top: 168px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="ReadMe.txt">
+                <div class="icon-label">ReadMe.txt</div>
+            </div>
+            <div class="icon-item" data-id="prefs" data-target="egg-prefs" style="left: 16px; top: 248px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="System Preferences">
+                <div class="icon-label">System Prefs</div>
+            </div>
+            <div class="icon-item" data-id="apps" data-target="egg-apps" style="left: 16px; top: 328px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="Applications">
+                <div class="icon-label">Applications</div>
+            </div>
+            <div class="icon-item" data-id="trash" data-target="egg-trash" style="left: 16px; top: 408px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="Trash">
+                <div class="icon-label">Trash</div>
+            </div>
+            <div class="icon-item" data-id="quote" data-target="egg-quote" style="left: 16px; top: 488px;">
+                <img class="icon-thumb" src="images/relativefavi.png" alt="Aqua Quote">
+                <div class="icon-label">Aqua</div>
+            </div>
+        </div>
+
+        <section class="windows">
+            <div class="window metal">
+                <div class="titlebar">
+                    <div class="traffic"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <div class="title">Products</div>
+                </div>
+                <div class="window-content">
+                    <div class="list-view">
+                        <a href="https://hermesvoice.com" class="list-row">
+                            <img class="icon" src="images/Hermes-Share-Banner.jpg" alt="Hermes">
+                            <div class="primary">Hermes</div>
+                            <div class="secondary">AI Voice-to-Text for Every App</div>
+                        </a>
+                        <a href="https://cutgun.ai" class="list-row">
+                            <img class="icon" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
+                            <div class="primary">Cutgun</div>
+                            <div class="secondary">AI Video & Image Studio</div>
+                        </a>
+                        <a href="https://example.com/link4" class="list-row">
+                            <img class="icon" src="images/relativefavi.png" alt="MiniTab">
+                            <div class="primary">MiniTab</div>
+                            <div class="secondary">Save up to 95% memory in Chrome (Coming Soon)</div>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <h2>Products</h2>
-            <div class="products-container">
-                <ul class="links">
-                <li>
-                    <a href="https://hermesvoice.com" class="link-card has-image">
-                        <img src="images/Hermes-Share-Banner.jpg" alt="Hermes Voice Dictation" class="link-card-image">
-                        <div class="link-card-content">
-                            <div class="product-name">Hermes</div>
-                            <div class="product-description">AI Voice-to-Text for Every App</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://cutgun.ai" class="link-card has-image">
-                        <img src="images/Cutgun-Share-Banner.jpg" alt="Cutgun AI Video & Image Studio" class="link-card-image">
-                        <div class="link-card-content">
-                            <div class="product-name">Cutgun</div>
-                            <div class="product-description">AI Video & Image Studio</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://example.com/link4" class="link-card">
-                        <div class="product-name">MiniTab</div>
-                        <div class="product-description">Save up to 95% on memory usage and ditch tab clutter in Google Chrome (Coming Soon)</div>
-                    </a>
-                </li>
-                </ul>
+
+            <div class="window">
+                <div class="titlebar">
+                    <div class="traffic"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <div class="title">Made with ☕ by</div>
+                </div>
+                <div class="window-content">
+                    <div class="people">
+                        <a href="https://x.com/adamsenese" target="_blank" class="person">
+                            <img class="avatar" src="images/adam-PhotoRoom.png" alt="@adamsenese">
+                            <div>
+                                <div class="handle">@adamsenese</div>
+                                <div class="action">Follow on X</div>
+                            </div>
+                        </a>
+                        <a href="https://x.com/DomTheDev1" target="_blank" class="person">
+                            <img class="avatar" src="images/dom-photo.jpg" alt="@DomTheDev1">
+                            <div>
+                                <div class="handle">@DomTheDev1</div>
+                                <div class="action">Follow on X</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <hr>
-            <div class="creator-section">
-                <p class="made-with">Made with ☕ by</p>
-                <div class="creator-profiles">
-                    <a href="https://x.com/adamsenese" target="_blank" class="profile-card">
-                        <img src="images/adam-PhotoRoom.png" alt="@adamsenese" class="profile-photo">
-                        <div class="profile-info">
-                            <span class="profile-handle">@adamsenese</span>
-                            <span class="follow-text">Follow on X</span>
-                        </div>
-                    </a>
-                    <a href="https://x.com/DomTheDev1" target="_blank" class="profile-card">
-                        <img src="images/dom-photo.jpg" alt="@DomTheDev1" class="profile-photo">
-                        <div class="profile-info">
-                            <span class="profile-handle">@DomTheDev1</span>
-                            <span class="follow-text">Follow on X</span>
-                        </div>
-                    </a>
+        </section>
+
+        <div id="egg-about" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">About This Mac…</div>
+            </div>
+            <div class="window-content">
+                <p style="margin:0 0 8px 0; font-size:13px;">Relative.dev 10.0 (Cheetah)</p>
+                <p style="margin:0; font-size:12px; color:#333;">PowerPC G4 • 256 MB SDRAM</p>
+            </div>
+        </div>
+
+        <div id="egg-readme" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">ReadMe.txt</div>
+            </div>
+            <div class="window-content">
+                <p style="margin:0 0 8px 0; font-size:13px;">Welcome to Relative.dev</p>
+                <p style="margin:0; font-size:12px; color:#333;">Drag icons, click to open secret windows. Have fun.</p>
+            </div>
+        </div>
+
+        <div id="egg-prefs" class="window modal hidden metal">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">System Preferences</div>
+            </div>
+            <div class="window-content">
+                <div class="prefs-grid">
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#2D88FF;border-radius:3px;display:inline-block;"></span><span>Appearance</span></div>
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#34C84A;border-radius:3px;display:inline-block;"></span><span>Dock</span></div>
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#E74C3C;border-radius:3px;display:inline-block;"></span><span>Internet</span></div>
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#F2B60D;border-radius:3px;display:inline-block;"></span><span>Network</span></div>
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#9B59B6;border-radius:3px;display:inline-block;"></span><span>Speech</span></div>
+                    <div class="pref-item"><span style="width:16px;height:16px;background:#16A085;border-radius:3px;display:inline-block;"></span><span>Energy</span></div>
                 </div>
             </div>
         </div>
-    </div>
-        <footer>
-            <div class="footer-content">
-                <p class="company">Relative Industries LLC</p>
-                <ul class="social">
-                    <li><a href="https://x.com/relativedotdev">X</a></li>
-                    <li><a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></li>
-                </ul>
+
+        <div id="egg-apps" class="window modal hidden metal">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Applications</div>
             </div>
-        </footer>
+            <div class="window-content">
+                <div class="apps-grid">
+                    <div class="app">
+                        <img class="icon-thumb" src="images/relativefavi.png" alt="Hermes">
+                        <div class="icon-label">Hermes</div>
+                    </div>
+                    <div class="app">
+                        <img class="icon-thumb" src="images/relativefavi.png" alt="Cutgun">
+                        <div class="icon-label">Cutgun</div>
+                    </div>
+                    <div class="app">
+                        <img class="icon-thumb" src="images/relativefavi.png" alt="MiniTab">
+                        <div class="icon-label">MiniTab</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="egg-trash" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Trash</div>
+            </div>
+            <div class="window-content">
+                <p class="trash-note">Trash is empty.</p>
+            </div>
+        </div>
+
+        <div id="egg-quote" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Aqua</div>
+            </div>
+            <div class="window-content">
+                <blockquote class="quote">“... it's liquid, one of the design goals was when you saw it you wanted to lick it” — Steve Jobs</blockquote>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Relative Industries LLC · <a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a>
+    </footer>
+
+    <div class="dock" id="dock" aria-label="Dock">
+        <a href="#" class="dock-item" data-open="egg-about" aria-label="Finder">
+            <img src="images/relativefavi.png" alt="Finder" class="dock-icon">
+        </a>
+        <a href="https://hermesvoice.com" target="_blank" rel="noopener" class="dock-item" aria-label="Hermes">
+            <img src="images/Hermes-Share-Banner.jpg" alt="Hermes" class="dock-icon">
+        </a>
+        <a href="https://cutgun.ai" target="_blank" rel="noopener" class="dock-item" aria-label="Cutgun">
+            <img src="images/Cutgun-Share-Banner.jpg" alt="Cutgun" class="dock-icon">
+        </a>
+        <a href="#" class="dock-item" data-open="egg-apps" aria-label="Applications">
+            <img src="images/relativefavi.png" alt="Applications" class="dock-icon">
+        </a>
+        <a href="#" class="dock-item" data-open="egg-prefs" aria-label="System Preferences">
+            <img src="images/relativefavi.png" alt="System Preferences" class="dock-icon">
+        </a>
+        <a href="#" class="dock-item" data-open="egg-trash" aria-label="Trash">
+            <img src="images/relativefavi.png" alt="Trash" class="dock-icon">
+        </a>
     </div>
+
+    <script>
+        function updateClock() {
+            const el = document.getElementById('clock');
+            if (!el) return;
+            const now = new Date();
+            const day = now.toLocaleDateString(undefined, { weekday: 'short' });
+            const time = now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+            el.textContent = day + ' ' + time;
+        }
+        updateClock();
+        setInterval(updateClock, 30000);
+
+        // Desktop icon dragging and window interactions
+        (function() {
+            const desktop = document.querySelector('.desktop');
+            const icons = Array.from(document.querySelectorAll('.icon-item'));
+            let zCounter = 10;
+            const saved = JSON.parse(localStorage.getItem('desktopIconPositions') || '{}');
+
+            function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+            function applySavedPositions() {
+                if (!desktop) return;
+                const rect = desktop.getBoundingClientRect();
+                icons.forEach(el => {
+                    const id = el.getAttribute('data-id');
+                    const pos = saved[id];
+                    if (pos) {
+                        el.style.left = clamp(pos.left, 0, rect.width - el.offsetWidth) + 'px';
+                        el.style.top = clamp(pos.top, 0, rect.height - el.offsetHeight) + 'px';
+                    }
+                });
+            }
+
+            function savePosition(id, left, top) {
+                saved[id] = { left, top };
+                localStorage.setItem('desktopIconPositions', JSON.stringify(saved));
+            }
+
+            function makeDraggable(el) {
+                let startX = 0, startY = 0, origLeft = 0, origTop = 0, dragging = false;
+                const id = el.getAttribute('data-id');
+                const onDown = (e) => {
+                    if (!desktop) return;
+                    el.setPointerCapture?.(e.pointerId);
+                    const rect = desktop.getBoundingClientRect();
+                    startX = e.clientX; startY = e.clientY;
+                    const style = window.getComputedStyle(el);
+                    origLeft = parseFloat(style.left) || 0;
+                    origTop = parseFloat(style.top) || 0;
+                    dragging = false;
+                };
+                const onMove = (e) => {
+                    if (startX === 0 && startY === 0) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    if (!dragging && (Math.abs(dx) > 2 || Math.abs(dy) > 2)) dragging = true;
+                    const rect = desktop.getBoundingClientRect();
+                    const left = clamp(origLeft + dx, 0, rect.width - el.offsetWidth);
+                    const top = clamp(origTop + dy, 0, rect.height - el.offsetHeight);
+                    el.style.left = left + 'px';
+                    el.style.top = top + 'px';
+                };
+                const onUp = (e) => {
+                    if (startX === 0 && startY === 0) return;
+                    const rect = desktop.getBoundingClientRect();
+                    const style = window.getComputedStyle(el);
+                    const left = clamp(parseFloat(style.left) || 0, 0, rect.width - el.offsetWidth);
+                    const top = clamp(parseFloat(style.top) || 0, 0, rect.height - el.offsetHeight);
+                    savePosition(id, left, top);
+                    startX = startY = 0;
+                    el.releasePointerCapture?.(e.pointerId);
+                    // prevent click after drag
+                    if (dragging) {
+                        el._dragged = true;
+                        setTimeout(() => { el._dragged = false; }, 50);
+                    }
+                };
+                el.addEventListener('pointerdown', onDown);
+                window.addEventListener('pointermove', onMove);
+                window.addEventListener('pointerup', onUp);
+            }
+
+            function focusWindow(win) {
+                document.querySelectorAll('.window.modal').forEach(w => {
+                    if (w === win) {
+                        w.classList.remove('inactive');
+                        w.style.zIndex = (++zCounter).toString();
+                    } else {
+                        w.classList.add('inactive');
+                    }
+                });
+            }
+            // expose for dock usage
+            window.focusModalWindow = focusWindow;
+
+            function setDockActiveByModalId(id, active) {
+                const dockItem = document.querySelector(`.dock .dock-item[data-open="${id}"]`);
+                if (dockItem) {
+                    dockItem.classList.toggle('active', !!active);
+                }
+            }
+
+            function setupIconOpens() {
+                icons.forEach(el => {
+                    el.addEventListener('click', () => {
+                        if (el._dragged) return;
+                        const targetId = el.getAttribute('data-target');
+                        const win = targetId ? document.getElementById(targetId) : null;
+                        if (win) {
+                            win.classList.remove('hidden');
+                            focusWindow(win);
+                            setDockActiveByModalId(targetId, true);
+                        }
+                    });
+                });
+            }
+
+            function setupWindowClose() {
+                document.querySelectorAll('.window.modal .traffic .dot.close').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const win = e.currentTarget.closest('.window.modal');
+                        if (win) {
+                            win.classList.add('hidden');
+                            if (win.id) setDockActiveByModalId(win.id, false);
+                        }
+                    });
+                });
+            }
+
+            icons.forEach(makeDraggable);
+            applySavedPositions();
+            setupIconOpens();
+            setupWindowClose();
+        })();
+
+        // Dock magnification and interactions
+        (function() {
+            const dock = document.getElementById('dock');
+            if (!dock) return;
+            const icons = Array.from(dock.querySelectorAll('.dock-icon'));
+            const maxScale = 1.9;
+            const influence = 90; // px influence radius around cursor
+            let isMobile = window.matchMedia('(max-width: 520px)').matches;
+
+            function magnify(clientX) {
+                const dockRect = dock.getBoundingClientRect();
+                icons.forEach(img => {
+                    const r = img.getBoundingClientRect();
+                    const centerX = r.left + r.width / 2;
+                    const dist = Math.abs(clientX - centerX);
+                    const factor = Math.max(0, 1 - dist / influence);
+                    const scale = 1 + factor * (maxScale - 1);
+                    img.style.transform = `translateY(${(-8 * factor).toFixed(1)}px) scale(${scale.toFixed(3)})`;
+                });
+            }
+
+            function reset() { icons.forEach(img => { img.style.transform = 'translateY(0) scale(1)'; }); }
+
+            if (!isMobile) {
+                dock.addEventListener('mousemove', (e) => magnify(e.clientX));
+                dock.addEventListener('mouseleave', reset);
+            }
+
+            dock.addEventListener('click', (e) => {
+                const icon = e.target.closest('.dock-icon');
+                if (!icon) return;
+                icon.classList.remove('bounce');
+                // force reflow to restart animation
+                void icon.offsetWidth;
+                icon.classList.add('bounce');
+
+                const item = e.target.closest('.dock-item');
+                const openId = item && item.getAttribute('data-open');
+                if (openId) {
+                    e.preventDefault();
+                    const win = document.getElementById(openId);
+                    if (win) {
+                        win.classList.remove('hidden');
+                        // reuse focusWindow from prior IIFE
+                        if (typeof window.focusModalWindow === 'function') {
+                            window.focusModalWindow(win);
+                        } else {
+                            // fallback: bring to front
+                            win.style.zIndex = '999';
+                        }
+                        item.classList.add('active');
+                    }
+                } else {
+                    // Treat external app icons as active once launched
+                    item.classList.add('active');
+                }
+            });
+        })();
+
+        // Menus and selection rectangle
+        (function() {
+            const menuBar = document.querySelector('.menu-bar');
+            const dropdown = document.getElementById('menu-dropdown');
+            const desktop = document.querySelector('.desktop');
+            const selection = document.getElementById('selection-rect');
+            const icons = Array.from(document.querySelectorAll('.desktop .icon-item'));
+            let menuOpen = false;
+
+            function openMenu(x, y) {
+                if (!dropdown) return;
+                dropdown.style.left = Math.max(8, (x || 8)) + 'px';
+                dropdown.classList.add('open');
+                menuOpen = true;
+            }
+            function closeMenu() {
+                if (!dropdown) return;
+                dropdown.classList.remove('open');
+                menuOpen = false;
+            }
+
+            // Click on apple or app name opens menu
+            menuBar.addEventListener('click', (e) => {
+                const item = e.target.closest('.menu-item');
+                if (!item) return;
+                const label = item.textContent.trim();
+                if (label === '' || label === 'Relative') {
+                    const rect = item.getBoundingClientRect();
+                    openMenu(rect.left, rect.bottom);
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target) && !menuBar.contains(e.target)) closeMenu();
+            });
+            dropdown.addEventListener('click', (e) => {
+                const row = e.target.closest('.menu-item-row');
+                if (!row) return;
+                const id = row.getAttribute('data-open');
+                if (id) {
+                    const win = document.getElementById(id);
+                    if (win) {
+                        win.classList.remove('hidden');
+                        if (typeof window.focusModalWindow === 'function') window.focusModalWindow(win);
+                    }
+                }
+                closeMenu();
+            });
+
+            // Desktop selection rectangle for icons
+            let startX = 0, startY = 0, selecting = false;
+            desktop.addEventListener('pointerdown', (e) => {
+                // ignore when clicking on windows, icons, dock, or menus
+                if (e.target.closest('.window') || e.target.closest('.icon-item') || e.target.closest('.dock') || e.target.closest('.menu-dropdown') || e.target.closest('.menu-bar')) return;
+                startX = e.clientX; startY = e.clientY; selecting = true;
+                selection.style.left = startX + 'px';
+                selection.style.top = startY + 'px';
+                selection.style.width = '0px';
+                selection.style.height = '0px';
+                selection.style.display = 'block';
+                icons.forEach(i => i.classList.remove('selected'));
+            });
+            window.addEventListener('pointermove', (e) => {
+                if (!selecting) return;
+                const x = Math.min(e.clientX, startX);
+                const y = Math.min(e.clientY, startY);
+                const w = Math.abs(e.clientX - startX);
+                const h = Math.abs(e.clientY - startY);
+                selection.style.left = x + 'px';
+                selection.style.top = y + 'px';
+                selection.style.width = w + 'px';
+                selection.style.height = h + 'px';
+                const selRect = selection.getBoundingClientRect();
+                icons.forEach(icon => {
+                    const r = icon.getBoundingClientRect();
+                    const overlap = !(selRect.right < r.left || selRect.left > r.right || selRect.bottom < r.top || selRect.top > r.bottom);
+                    icon.classList.toggle('selected', overlap);
+                });
+            });
+            window.addEventListener('pointerup', () => {
+                if (!selecting) return;
+                selecting = false;
+                selection.style.display = 'none';
+            });
+        })();
+        </script>
 </body>
 </html>
