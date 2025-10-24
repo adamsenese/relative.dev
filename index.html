@@ -282,7 +282,7 @@
         }
         .dock-item { position: relative; display: inline-flex; align-items: flex-end; justify-content: center; height: 72px; }
         .dock-item.active::after { content: ""; position: absolute; bottom: 2px; width: 6px; height: 6px; border-radius: 50%; background: #2D88FF; box-shadow: 0 0 6px rgba(45,136,255,0.5); }
-        .dock-icon { width: 48px; height: 48px; object-fit: cover; border-radius: 10px; border: 1px solid rgba(169,180,195,0.9); background: #FFFFFF; box-shadow: 0 2px 3px rgba(0,0,0,0.15), inset 0 1px 2px rgba(0,0,0,0.06); transform-origin: bottom center; transition: transform 0.08s ease-out; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0,0,0,0.12)); }
+        .dock-icon { width: 48px; height: 48px; object-fit: contain; border-radius: 0; border: none; background: transparent; box-shadow: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); transform-origin: bottom center; transition: transform 0.08s ease-out; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0,0,0,0.12)); }
         .dock-icon.bounce { animation: dock-bounce 0.6s ease-out; }
         @keyframes dock-bounce { 0% { transform: translateY(0) scale(1); } 25% { transform: translateY(-14px) scale(1.05); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.03); } 100% { transform: translateY(0) scale(1); } }
         @media (max-width: 520px) {
