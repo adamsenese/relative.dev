@@ -107,6 +107,9 @@
             z-index: 2;
         }
         @media (max-width: 840px) { .windows { grid-template-columns: 1fr; } }
+        .window.draggable { position: absolute; z-index: 4; cursor: default; }
+        .window.draggable .titlebar { cursor: move; }
+        @media (max-width: 840px) { .window.draggable { position: static !important; } }
 
         .window {
             background: var(--panel);
@@ -167,7 +170,7 @@
         .icon-item { position: absolute; width: 72px; text-align: center; cursor: default; user-select: none; }
         .icon-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid #A9B4C3; background: #FFFFFF; box-shadow: 0 1px 0 rgba(255,255,255,0.7), inset 0 1px 2px rgba(0,0,0,0.06); margin: 0 auto; }
         .icon-thumb { object-fit: contain; border-radius: 0; border: none; background: transparent; box-shadow: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); }
-        .icon-label { margin-top: 6px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+        .icon-label { margin-top: 2px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
         .icon-item:active .icon-thumb { filter: brightness(0.95); }
         @media (max-width: 520px) {
             .icon-item { position: static; display: inline-block; margin: 8px 10px; width: 68px; }
@@ -187,7 +190,8 @@
         .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
         .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
         /* Chess board */
-        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; line-height: 1; position: relative; overflow: hidden; transition: filter 120ms ease, transform 120ms ease; }
+        .chess-square { display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:600; line-height: 1; position: relative; overflow: hidden; transition: filter 120ms ease, transform 120ms ease; }
+        @media (max-width: 520px) { .chess-square { font-size:22px; } }
         .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
         .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
         .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
@@ -385,7 +389,7 @@
         </div>
 
         <section class="windows">
-            <div class="window metal">
+            <div id="win-products" class="window metal draggable" style="left: 220px; top: 160px; width: min(92vw, 560px);">
                 <div class="titlebar">
                     <div class="traffic"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <div class="title">Products</div>
@@ -411,7 +415,7 @@
                 </div>
             </div>
 
-            <div class="window">
+            <div id="win-creators" class="window draggable" style="left: 820px; top: 160px; width: min(92vw, 520px);">
                 <div class="titlebar">
                     <div class="traffic"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <div class="title">Made with ☕ by</div>
@@ -927,6 +931,39 @@
             });
         })();
 
+        // Draggable windows (Products and Creators)
+        (function() {
+            const container = document.querySelector('.desktop');
+            if (!container) return;
+            const wins = Array.from(document.querySelectorAll('.window.draggable'));
+            const saved = JSON.parse(localStorage.getItem('draggableWindowPositions') || '{}');
+            let zTop = 50;
+            function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+            function applySaved(win){
+                const id = win.id; if (!id) return; const pos = saved[id]; if (!pos) return;
+                const rect = container.getBoundingClientRect();
+                win.style.left = clamp(pos.left, 0, rect.width - win.offsetWidth) + 'px';
+                win.style.top = clamp(pos.top, 0, rect.height - win.offsetHeight) + 'px';
+            }
+            function save(win){ const id = win.id; if (!id) return; const style = getComputedStyle(win); saved[id] = { left: parseFloat(style.left)||0, top: parseFloat(style.top)||0 }; localStorage.setItem('draggableWindowPositions', JSON.stringify(saved)); }
+            wins.forEach(win => {
+                applySaved(win);
+                const handle = win.querySelector('.titlebar'); if (!handle) return;
+                let sx=0, sy=0, sl=0, st=0, dragging=false;
+                handle.addEventListener('pointerdown', (e)=>{
+                    if (window.matchMedia('(max-width: 840px)').matches) return;
+                    sx=e.clientX; sy=e.clientY; const cs=getComputedStyle(win); sl=parseFloat(cs.left)||0; st=parseFloat(cs.top)||0; dragging=true; win.style.zIndex=(++zTop).toString(); handle.setPointerCapture?.(e.pointerId);
+                });
+                window.addEventListener('pointermove', (e)=>{
+                    if (!dragging) return; const rect = container.getBoundingClientRect();
+                    const nl = clamp(sl + (e.clientX - sx), 0, rect.width - win.offsetWidth);
+                    const nt = clamp(st + (e.clientY - sy), 0, rect.height - win.offsetHeight);
+                    win.style.left = nl + 'px'; win.style.top = nt + 'px';
+                });
+                window.addEventListener('pointerup', (e)=>{ if (!dragging) return; dragging=false; save(win); handle.releasePointerCapture?.(e.pointerId); });
+            });
+        })();
+
         // Chess game (simple rules, random-move bot for black)
         (function() {
             const boardEl = document.getElementById('chess-board');
@@ -991,10 +1028,10 @@
                 return false;
             }
 
-            function genMovesFor(idx) {
+            function pseudoMovesFor(idx, colorFilter) {
                 const moves=[]; const {r,c}=idxToRC(idx); const p=board[idx]; if (p==='.') return moves;
                 const color = isWhite(p)?'w':'b';
-                if ((color==='w' && turn!=='w') || (color==='b' && turn!=='b')) return moves;
+                if (colorFilter && color!==colorFilter) return moves;
                 const dir = color==='w'?-1:1;
                 switch (p.toLowerCase()) {
                     case 'p': {
@@ -1044,8 +1081,32 @@
                 return moves;
             }
 
-            function allMoves(color) {
-                const res=[]; for (let i=0;i<64;i++){ const p=board[i]; if (p==='.') continue; if ((color==='w'&&isWhite(p))||(color==='b'&&isBlack(p))) res.push(...genMovesFor(i)); }
+            function findKing(color, b=board){
+                const target = color==='w' ? 'K' : 'k';
+                for (let i=0;i<64;i++) if (b[i]===target) return i; return -1;
+            }
+            function squareAttacked(idx, byColor, b=board){
+                const {r,c}=idxToRC(idx);
+                // pawns
+                const dir = byColor==='w'?-1:1;
+                for (const dc of [-1,1]){ const rr=r+dir, cc=c+dc; if (inBounds(rr,cc)) { const ch=b[rcToIdx(rr,cc)]; if (byColor==='w' && ch==='P') return true; if (byColor==='b' && ch==='p') return true; } }
+                // knights
+                for (const [dr,dc] of [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) { const rr=r+dr, cc=c+dc; if (!inBounds(rr,cc)) continue; const ch=b[rcToIdx(rr,cc)]; if (byColor==='w' && ch==='N') return true; if (byColor==='b' && ch==='n') return true; }
+                // bishops/queens
+                for (const [dr,dc] of [[-1,-1],[-1,1],[1,-1],[1,1]]) { let rr=r+dr, cc=c+dc; while(inBounds(rr,cc)){ const ch=b[rcToIdx(rr,cc)]; if (ch!=='.'){ if (byColor==='w' && (ch==='B'||ch==='Q')) return true; if (byColor==='b' && (ch==='b'||ch==='q')) return true; break; } rr+=dr; cc+=dc; } }
+                // rooks/queens
+                for (const [dr,dc] of [[-1,0],[1,0],[0,-1],[0,1]]) { let rr=r+dr, cc=c+dc; while(inBounds(rr,cc)){ const ch=b[rcToIdx(rr,cc)]; if (ch!=='.'){ if (byColor==='w' && (ch==='R'||ch==='Q')) return true; if (byColor==='b' && (ch==='r'||ch==='q')) return true; break; } rr+=dr; cc+=dc; } }
+                // king
+                for (const [dr,dc] of [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) { const rr=r+dr, cc=c+dc; if (!inBounds(rr,cc)) continue; const ch=b[rcToIdx(rr,cc)]; if (byColor==='w' && ch==='K') return true; if (byColor==='b' && ch==='k') return true; }
+                return false;
+            }
+            function inCheck(color, b=board){ const k = findKing(color,b); if (k<0) return true; const opp = color==='w'?'b':'w'; return squareAttacked(k, opp, b); }
+            function doMove(b, m){ const nb=b.slice(); nb[m.to]=nb[m.from]; nb[m.from]='.'; return nb; }
+            function legalMoves(color){
+                const res=[]; for (let i=0;i<64;i++){ const p=board[i]; if (p==='.') continue; if ((color==='w'&&isWhite(p))||(color==='b'&&isBlack(p))) {
+                    const pseudo = pseudoMovesFor(i, color);
+                    for (const m of pseudo){ const nb=doMove(board,m); if (!inCheck(color, nb)) res.push(m); }
+                } }
                 return res;
             }
 
@@ -1059,7 +1120,7 @@
                 });
             }
             function botMove(){
-                const moves = allMoves('b');
+                const moves = legalMoves('b');
                 if (moves.length===0) { statusEl.textContent = 'Game over'; return; }
                 const m = moves[Math.floor(Math.random()*moves.length)];
                 move(m); turn='w'; statusEl.textContent='White to move'; render(); markLast();
@@ -1069,15 +1130,25 @@
                 const sq = e.target.closest('.chess-square'); if (!sq) return; const i = parseInt(sq.dataset.idx,10);
                 if (sel===-1) {
                     const p=board[i]; if (p==='.') return; if ((turn==='w' && !isWhite(p)) || (turn==='b' && !isBlack(p))) return;
-                    sel=i; targets=genMovesFor(i).map(m=>m.to); render();
+                    sel=i; targets=legalMoves('w').filter(m=>m.from===i).map(m=>m.to); render();
                 } else {
                     if (i===sel) { sel=-1; targets=[]; render(); return; }
                     if (targets.includes(i)) {
-                        const m = genMovesFor(sel).find(x=>x.to===i);
+                        const mAll = legalMoves('w');
+                        const m = mAll.find(x=>x.from===sel && x.to===i);
                         if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render();
                             const fromEl = boardEl.children[lastMove.from]; const toEl = boardEl.children[lastMove.to];
                             if (fromEl) fromEl.classList.add('moved'); if (toEl) toEl.classList.add('moved');
-                            setTimeout(botMove, 350); }
+                            // Checkmate or stalemate detection before bot moves
+                            const oppMoves = legalMoves('b');
+                            if (oppMoves.length===0){ if (inCheck('b')) { statusEl.textContent='Checkmate — White wins'; } else { statusEl.textContent='Stalemate'; } return; }
+                            setTimeout(()=>{
+                                // Bot move then check endgame for white
+                                botMove();
+                                const myMoves = legalMoves('w');
+                                if (myMoves.length===0){ if (inCheck('w')) { statusEl.textContent='Checkmate — Black wins'; } else { statusEl.textContent='Stalemate'; } }
+                            }, 350);
+                        }
                     } else { sel=-1; targets=[]; render(); }
                 }
             });
