@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EEF3FA"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F7FAFF"/>
+      <stop offset="100%" stop-color="#DCE3EE"/>
+    </linearGradient>
+  </defs>
+  <path d="M26 12h48l20 20v84a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8V20a8 8 0 0 1 8-8z" fill="url(#paper)" stroke="#A9B4C3"/>
+  <path d="M74 12v20a8 8 0 0 0 8 8h20L74 12z" fill="url(#fold)" stroke="#A9B4C3"/>
+  <rect x="34" y="56" width="60" height="6" rx="3" fill="#C0CAD9"/>
+  <rect x="34" y="68" width="60" height="6" rx="3" fill="#C0CAD9"/>
+  <rect x="34" y="80" width="40" height="6" rx="3" fill="#C0CAD9"/>
+  <rect x="40" y="28" width="48" height="18" rx="9" fill="#2D88FF"/>
+  <text x="64" y="41" text-anchor="middle" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12" fill="#FFFFFF">TXT</text>
+</svg>

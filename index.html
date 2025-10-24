@@ -84,7 +84,7 @@
             padding-top: calc(var(--menu-height) + 12px);
             padding-left: 12px;
             padding-right: 12px;
-            padding-bottom: 40px;
+            padding-bottom: 120px;
             min-height: 100vh;
             background: repeating-linear-gradient(0deg, var(--stripe-1) 0 2px, var(--stripe-2) 2px 4px);
         }
@@ -175,6 +175,17 @@
 
         .window-content { padding: 10px; background: #FFFFFF; }
 
+        /* Finder window */
+        .finder-toolbar { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: linear-gradient(#F7FAFF, #E7EDF6); border-bottom: 1px solid #AFBACB; }
+        .finder-body { display: grid; grid-template-columns: 180px 1fr; min-height: 220px; }
+        .finder-sidebar { border-right: 1px solid #D3DAE6; background: #F8FAFD; padding: 8px; }
+        .finder-sidebar .side-item { padding: 6px 8px; border-radius: 6px; font-size: 12px; color: #0B1B3A; }
+        .finder-sidebar .side-item.active, .finder-sidebar .side-item:hover { background: linear-gradient(#5BA1FF, #2D88FF); color: #FFFFFF; }
+        .finder-content { padding: 10px; }
+        .finder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
+        .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
+
         /* Egg window helpers */
         .prefs-grid { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 10px; }
         .pref-item { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--panel-mid); background: #FAFCFF; }
@@ -224,7 +235,7 @@
         .handle { font-weight: 700; font-size: 13px; color: #000; }
         .action { font-size: 12px; color: #333; }
 
-        footer { text-align: center; font-size: 12px; color: #333; padding: 16px 8px calc(24px + var(--safe-bottom)); }
+        footer { text-align: center; font-size: 12px; color: #333; padding: 16px 8px calc(24px + var(--safe-bottom)); position: relative; z-index: 1; }
 
         /* Menus */
         .menu-dropdown { position: fixed; display: none; top: calc(var(--menu-height) + var(--safe-top)); left: 8px; background: linear-gradient(#FFFFFF, #F0F4FA); border: 1px solid #AAB3C2; box-shadow: 0 8px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9); border-radius: 6px; padding: 6px 0; z-index: 20; min-width: 180px; }
@@ -300,6 +311,7 @@
             <li class="menu-item-row" data-open="egg-apps">Applications</li>
             <li class="menu-item-row" data-open="egg-readme">ReadMe.txt</li>
             <li class="menu-item-row" data-open="egg-quote">Aqua Quote</li>
+            <li class="menu-item-row" data-open="egg-about-panel">About Relative.dev</li>
             <li class="menu-sep"></li>
             <li class="menu-item-row" data-open="egg-trash">Empty Trash</li>
         </ul>
@@ -315,27 +327,27 @@
 
         <div class="desktop-icons">
             <div class="icon-item" data-id="about" data-target="egg-about" style="left: 16px; top: 88px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="About">
+                <img class="icon-thumb" src="images/aqua-prefs.svg" alt="About">
                 <div class="icon-label">About</div>
             </div>
             <div class="icon-item" data-id="readme" data-target="egg-readme" style="left: 16px; top: 168px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="ReadMe.txt">
+                <img class="icon-thumb" src="images/aqua-txt.svg" alt="ReadMe.txt">
                 <div class="icon-label">ReadMe.txt</div>
             </div>
             <div class="icon-item" data-id="prefs" data-target="egg-prefs" style="left: 16px; top: 248px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="System Preferences">
+                <img class="icon-thumb" src="images/aqua-prefs.svg" alt="System Preferences">
                 <div class="icon-label">System Prefs</div>
             </div>
             <div class="icon-item" data-id="apps" data-target="egg-apps" style="left: 16px; top: 328px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="Applications">
+                <img class="icon-thumb" src="images/aqua-apps.svg" alt="Applications">
                 <div class="icon-label">Applications</div>
             </div>
             <div class="icon-item" data-id="trash" data-target="egg-trash" style="left: 16px; top: 408px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="Trash">
+                <img class="icon-thumb" src="images/aqua-trash.svg" alt="Trash">
                 <div class="icon-label">Trash</div>
             </div>
             <div class="icon-item" data-id="quote" data-target="egg-quote" style="left: 16px; top: 488px;">
-                <img class="icon-thumb" src="images/relativefavi.png" alt="Aqua Quote">
+                <img class="icon-thumb" src="images/aqua-txt.svg" alt="Aqua Quote">
                 <div class="icon-label">Aqua</div>
             </div>
         </div>
@@ -415,6 +427,61 @@
             </div>
         </div>
 
+        <div id="egg-finder" class="window modal hidden metal">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Finder — Relative</div>
+            </div>
+            <div class="finder-toolbar">
+                <span style="font-size:12px; color:#2B3F5C;">Back ▸</span>
+                <span style="font-size:12px; color:#2B3F5C;">View ☐▣▦</span>
+                <span style="margin-left:auto; font-size:12px; color:#2B3F5C;">Search</span>
+            </div>
+            <div class="finder-body">
+                <div class="finder-sidebar">
+                    <div class="side-item active">All Products</div>
+                    <div class="side-item">Favorites</div>
+                    <div class="side-item">Creators</div>
+                </div>
+                <div class="finder-content">
+                    <div class="finder-grid">
+                        <a href="https://hermesvoice.com" class="finder-item">
+                            <img class="icon" src="images/Hermes-Share-Banner.jpg" alt="Hermes">
+                            <div>
+                                <div class="primary">Hermes</div>
+                                <div class="secondary">AI Voice-to-Text for Every App</div>
+                            </div>
+                        </a>
+                        <a href="https://cutgun.ai" class="finder-item">
+                            <img class="icon" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
+                            <div>
+                                <div class="primary">Cutgun</div>
+                                <div class="secondary">AI Video & Image Studio</div>
+                            </div>
+                        </a>
+                        <a href="#" class="finder-item">
+                            <img class="icon" src="images/aqua-txt.svg" alt="MiniTab">
+                            <div>
+                                <div class="primary">MiniTab</div>
+                                <div class="secondary">Coming Soon</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="egg-about-panel" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">About Relative.dev</div>
+            </div>
+            <div class="window-content">
+                <p style="margin:0 0 8px 0; font-size:13px;">Relative.dev builds AI apps for everyone.</p>
+                <p style="margin:0; font-size:12px; color:#333;">Crafted with the spirit of Aqua — simple, fun, and usable.</p>
+            </div>
+        </div>
+
         <div id="egg-prefs" class="window modal hidden metal">
             <div class="titlebar">
                 <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
@@ -481,8 +548,8 @@
     </footer>
 
     <div class="dock" id="dock" aria-label="Dock">
-        <a href="#" class="dock-item" data-open="egg-about" aria-label="Finder">
-            <img src="images/relativefavi.png" alt="Finder" class="dock-icon">
+        <a href="#" class="dock-item" data-open="egg-finder" aria-label="Finder">
+            <img src="images/aqua-prefs.svg" alt="Finder" class="dock-icon">
         </a>
         <a href="https://hermesvoice.com" target="_blank" rel="noopener" class="dock-item" aria-label="Hermes">
             <img src="images/Hermes-Share-Banner.jpg" alt="Hermes" class="dock-icon">
@@ -491,13 +558,13 @@
             <img src="images/Cutgun-Share-Banner.jpg" alt="Cutgun" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-apps" aria-label="Applications">
-            <img src="images/relativefavi.png" alt="Applications" class="dock-icon">
+            <img src="images/aqua-apps.svg" alt="Applications" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-prefs" aria-label="System Preferences">
-            <img src="images/relativefavi.png" alt="System Preferences" class="dock-icon">
+            <img src="images/aqua-prefs.svg" alt="System Preferences" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-trash" aria-label="Trash">
-            <img src="images/relativefavi.png" alt="Trash" class="dock-icon">
+            <img src="images/aqua-trash.svg" alt="Trash" class="dock-icon">
         </a>
     </div>
 
