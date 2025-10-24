@@ -4,24 +4,30 @@
       <stop offset="0%" stop-color="#F7FAFF"/>
       <stop offset="100%" stop-color="#DCE3EE"/>
     </radialGradient>
-    <linearGradient id="ring" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#C7D3E4"/>
-      <stop offset="100%" stop-color="#A9B4C3"/>
+    <linearGradient id="bezel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#C7D3E4"/>
     </linearGradient>
+    <radialGradient id="shine" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect x="12" y="12" width="104" height="104" rx="14" fill="url(#bg)" stroke="#9FA9B8"/>
-  <g transform="translate(64 64)">
-    <circle r="28" fill="#E7EDF6" stroke="#A9B4C3"/>
+  <rect x="12" y="12" width="104" height="104" rx="18" fill="url(#bg)" stroke="#9FA9B8"/>
+  <rect x="16" y="16" width="96" height="20" rx="10" fill="url(#bezel)" opacity="0.8"/>
+  <g transform="translate(64 66)">
+    <circle r="30" fill="#E7EDF6" stroke="#A9B4C3"/>
     <circle r="12" fill="#B9C6D8"/>
-    <g fill="url(#ring)" stroke="#8E99AA">
-      <rect x="-4" y="-52" width="8" height="20" rx="3"/>
-      <rect x="-4" y="32" width="8" height="20" rx="3"/>
-      <rect x="32" y="-4" width="20" height="8" rx="3"/>
-      <rect x="-52" y="-4" width="20" height="8" rx="3"/>
-      <rect x="26" y="-36" width="8" height="18" rx="3" transform="rotate(45)"/>
-      <rect x="-34" y="-36" width="8" height="18" rx="3" transform="rotate(-45)"/>
-      <rect x="26" y="18" width="8" height="18" rx="3" transform="rotate(-45)"/>
-      <rect x="-34" y="18" width="8" height="18" rx="3" transform="rotate(45)"/>
+    <g fill="#C7D3E4" stroke="#8E99AA">
+      <rect x="-4" y="-54" width="8" height="22" rx="3"/>
+      <rect x="-4" y="32" width="8" height="22" rx="3"/>
+      <rect x="32" y="-4" width="22" height="8" rx="3"/>
+      <rect x="-54" y="-4" width="22" height="8" rx="3"/>
+      <rect x="26" y="-38" width="8" height="20" rx="3" transform="rotate(45)"/>
+      <rect x="-34" y="-38" width="8" height="20" rx="3" transform="rotate(-45)"/>
+      <rect x="26" y="18" width="8" height="20" rx="3" transform="rotate(-45)"/>
+      <rect x="-34" y="18" width="8" height="20" rx="3" transform="rotate(45)"/>
     </g>
   </g>
+  <ellipse cx="64" cy="30" rx="40" ry="10" fill="url(#shine)"/>
 </svg>
