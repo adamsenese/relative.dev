@@ -193,8 +193,12 @@
         .app { text-align: center; }
         .app .icon-thumb { width: 44px; height: 44px; }
         .app .icon-label { font-size: 11px; }
+        .app .desc { font-size: 11px; color: #555; margin-top: 2px; }
         .trash-note { font-size: 12px; color: #555; }
         blockquote.quote { margin: 0; padding: 10px 12px; background: #F7FBFF; border-left: 3px solid #2D88FF; font-size: 13px; color: #02224D; }
+        .pref-item .text { display: flex; flex-direction: column; }
+        .pref-item .label { font-size: 12px; font-weight: 600; color: #0B1B3A; }
+        .pref-item .desc { font-size: 11px; color: #555; }
 
         /* List view */
         .list-view { border: 1px solid var(--panel-dark); background: #FFFFFF; }
@@ -356,7 +360,7 @@
             </div>
             <div class="icon-item" data-id="orb" data-target="egg-orb" style="left: 16px; top: 648px;">
                 <img class="icon-thumb" src="images/orb.png" alt="Aqua Orb">
-                <div class="icon-label">Aqua Orb</div>
+                <div class="icon-label">Orb</div>
             </div>
         </div>
 
@@ -497,12 +501,12 @@
             </div>
             <div class="window-content">
                 <div class="prefs-grid">
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#2D88FF;border-radius:3px;display:inline-block;"></span><span>Appearance</span></div>
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#34C84A;border-radius:3px;display:inline-block;"></span><span>Dock</span></div>
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#E74C3C;border-radius:3px;display:inline-block;"></span><span>Internet</span></div>
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#F2B60D;border-radius:3px;display:inline-block;"></span><span>Network</span></div>
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#9B59B6;border-radius:3px;display:inline-block;"></span><span>Speech</span></div>
-                    <div class="pref-item"><span style="width:16px;height:16px;background:#16A085;border-radius:3px;display:inline-block;"></span><span>Energy</span></div>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#2D88FF;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Appearance</div><div class="desc">Change the look of Aqua</div></div></a>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#34C84A;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Dock</div><div class="desc">Resize and magnify the Dock</div></div></a>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#E74C3C;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Internet</div><div class="desc">Configure your connection</div></div></a>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#F2B60D;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Network</div><div class="desc">Wi‑Fi and Ethernet settings</div></div></a>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#9B59B6;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Speech</div><div class="desc">Text to speech options</div></div></a>
+                    <a href="#" class="pref-item"><span style="width:16px;height:16px;background:#16A085;border-radius:3px;display:inline-block;"></span><div class="text"><div class="label">Energy</div><div class="desc">Power and sleep preferences</div></div></a>
                 </div>
             </div>
         </div>
@@ -514,18 +518,21 @@
             </div>
             <div class="window-content">
                 <div class="apps-grid">
-                    <div class="app">
-                        <img class="icon-thumb" src="images/relativefavi.png" alt="Hermes">
+                    <a class="app" href="https://hermesvoice.com" target="_blank" rel="noopener">
+                        <img class="icon-thumb" src="images/Hermes-iOS-Default-1024x1024@1x.png" alt="Hermes">
                         <div class="icon-label">Hermes</div>
-                    </div>
-                    <div class="app">
-                        <img class="icon-thumb" src="images/relativefavi.png" alt="Cutgun">
+                        <div class="desc">Voice‑to‑Text for every app</div>
+                    </a>
+                    <a class="app" href="https://cutgun.ai" target="_blank" rel="noopener">
+                        <img class="icon-thumb" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
                         <div class="icon-label">Cutgun</div>
-                    </div>
-                    <div class="app">
+                        <div class="desc">AI video & image studio</div>
+                    </a>
+                    <a class="app" href="#" onclick="return false;">
                         <img class="icon-thumb" src="images/relativefavi.png" alt="MiniTab">
                         <div class="icon-label">MiniTab</div>
-                    </div>
+                        <div class="desc">Coming soon</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -567,11 +574,11 @@
         <div id="egg-orb" class="window modal hidden">
             <div class="titlebar">
                 <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
-                <div class="title">Aqua Orb</div>
+                <div class="title">Orb</div>
             </div>
             <div class="window-content" style="text-align:center;">
-                <img src="images/orb.png" alt="Aqua Orb" style="width:80px; height:80px; border-radius:50%; border:1px solid #9FA9B8;"/>
-                <p style="font-size:12px; color:#333; margin:8px 0 0;">Shiny, glossy, and lickable.</p>
+                <img src="images/orb.png" alt="Orb" style="width:80px; height:80px; border-radius:50%; border:1px solid #9FA9B8;"/>
+                <p style="font-size:12px; color:#333; margin:8px 0 0;">Sorry, I can't read your future. Please come back later.</p>
             </div>
         </div>
     </main>
