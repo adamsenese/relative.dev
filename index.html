@@ -896,7 +896,7 @@
                 const item = e.target.closest('.menu-item');
                 if (!item) return;
                 const label = item.textContent.trim();
-                if (label === '' || label === 'Relative') {
+                if (label === '' || label === 'Relative' || label === 'Edit') {
                     const rect = item.getBoundingClientRect();
                     openMenu(rect.left, rect.bottom);
                 }
@@ -908,6 +908,32 @@
                 const row = e.target.closest('.menu-item-row');
                 if (!row) return;
                 const id = row.getAttribute('data-open');
+                const action = row.getAttribute('data-action');
+                if (action === 'organize-icons') {
+                    // Snap icons to a tidy left-to-right grid and clear saved positions
+                    const desktop = document.querySelector('.desktop');
+                    const icons = Array.from(document.querySelectorAll('.desktop .icon-item'));
+                    if (desktop && icons.length) {
+                        const rect = desktop.getBoundingClientRect();
+                        const marginLeft = 16;
+                        const marginTop = 88;
+                        const xStep = 96;  // horizontal spacing
+                        const yStep = 84;  // vertical spacing
+                        const bottomGuard = 140; // keep space above dock
+                        let x = marginLeft;
+                        let y = marginTop;
+                        icons.forEach(el => {
+                            const h = el.offsetHeight || 72;
+                            if (y + h + 10 > rect.height - bottomGuard) { x += xStep; y = marginTop; }
+                            el.style.left = x + 'px';
+                            el.style.top = y + 'px';
+                            y += yStep;
+                        });
+                        localStorage.removeItem('desktopIconPositions');
+                    }
+                    closeMenu();
+                    return;
+                }
                 if (id) {
                     const win = document.getElementById(id);
                     if (win) {
