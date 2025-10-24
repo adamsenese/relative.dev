@@ -11,5 +11,6 @@
   </defs>
   <rect x="12" y="12" width="104" height="104" rx="18" fill="url(#glass)" stroke="#1B5FCC"/>
   <ellipse cx="64" cy="26" rx="40" ry="10" fill="url(#shine)"/>
-  <path d="M44 36h10v8h20v-8h10v14h-6v10h6v42H44V60h6V50h-6V36zm6 54h28v10H50V90z" fill="#F7FAFF" opacity="0.95" stroke="#1B5FCC"/>
+  <!-- Knight silhouette -->
+  <path d="M76 36c-6 2-10 6-12 10-4 6-10 6-10 6l4 8-8 2 4 6-6 4 4 6h32l4-8-6-6 6-6-6-12c-1-2-2-3-2-4 0-4-2-6-4-6zM50 84h28v10H50z" fill="#F7FAFF" opacity="0.95" stroke="#1B5FCC"/>
 </svg>

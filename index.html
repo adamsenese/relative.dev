@@ -187,9 +187,14 @@
         .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
         .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
         /* Chess board */
-        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; }
-        .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); }
-        .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; }
+        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; position: relative; }
+        .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
+        .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
+        .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
+        .chess-square.last { box-shadow: inset 0 0 0 3px rgba(255,215,0,0.4); }
+        .chess-square.target::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: rgba(45,136,255,0.55); box-shadow: 0 0 6px rgba(45,136,255,0.5); }
+        .chess-square.target.capture::after { width: 18px; height: 18px; background: rgba(231,76,60,0.55); box-shadow: 0 0 6px rgba(231,76,60,0.5); }
+        .chess-square.hover { filter: saturate(115%); }
         .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
         .chess-square.target { box-shadow: inset 0 0 0 3px rgba(45,136,255,0.5); }
 
@@ -246,7 +251,12 @@
         .handle { font-weight: 700; font-size: 13px; color: #000; }
         .action { font-size: 12px; color: #333; }
 
-        footer { text-align: center; font-size: 12px; color: #333; padding: 16px 8px calc(24px + var(--safe-bottom)); position: relative; z-index: 1; }
+        footer { display: none; }
+        /* Corner footer overlays */
+        .corner-info { position: fixed; bottom: calc(70px + var(--safe-bottom)); font-size: 12px; color: #333; z-index: 7; padding: 4px 8px; background: rgba(255,255,255,0.65); border: 1px solid rgba(170,179,194,0.6); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8); backdrop-filter: blur(6px) saturate(130%); }
+        .corner-info.left { left: 12px; }
+        .corner-info.right { right: 12px; }
+        @media (max-width: 520px) { .corner-info { bottom: calc(62px + var(--safe-bottom)); font-size: 11px; } }
 
         /* Menus */
         .menu-dropdown { position: fixed; display: none; top: calc(var(--menu-height) + var(--safe-top)); left: 8px; background: linear-gradient(#FFFFFF, #F0F4FA); border: 1px solid #AAB3C2; box-shadow: 0 8px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9); border-radius: 6px; padding: 6px 0; z-index: 20; min-width: 180px; }
@@ -498,6 +508,8 @@
             <div class="window-content">
                 <p style="margin:0 0 8px 0; font-size:13px;">Relative.dev builds AI apps for everyone.</p>
                 <p style="margin:0; font-size:12px; color:#333;">Crafted with the spirit of Aqua — simple, fun, and usable.</p>
+                <hr style="margin:10px 0; border:0; height:1px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.15), transparent);"/>
+                <p style="margin:0; font-size:12px; color:#333;">Relative Industries LLC · <a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></p>
             </div>
         </div>
 
@@ -605,9 +617,8 @@
         </div>
     </main>
 
-    <footer>
-        Relative Industries LLC · <a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a>
-        </footer>
+    <div class="corner-info left">Relative Industries LLC</div>
+    <div class="corner-info right"><a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></div>
 
     <div class="dock" id="dock" aria-label="Dock">
         <a href="#" class="dock-item" data-open="egg-finder" aria-label="Finder">
@@ -954,7 +965,10 @@
                     const sq=document.createElement('div');
                     sq.className = 'chess-square ' + ((r+c)%2===0?'light':'dark');
                     if (i===sel) sq.classList.add('sel');
-                    if (targets.includes(i)) sq.classList.add('target');
+                    if (targets.includes(i)) {
+                        sq.classList.add('target');
+                        if (board[i]!=='.') sq.classList.add('capture');
+                    }
                     const p=board[i];
                     if (p!=='.') sq.textContent = sym[p];
                     sq.dataset.idx=i;
@@ -1030,13 +1044,20 @@
                 return res;
             }
 
-            function move(m){ board[m.to]=board[m.from]; board[m.from]='.'; }
+            let lastMove = null;
+            function move(m){ board[m.to]=board[m.from]; board[m.from]='.'; lastMove=m; }
 
+            function markLast(){
+                if (!lastMove) return;
+                Array.from(boardEl.children).forEach((sq,idx)=>{
+                    if (idx===lastMove.from || idx===lastMove.to) sq.classList.add('last');
+                });
+            }
             function botMove(){
                 const moves = allMoves('b');
                 if (moves.length===0) { statusEl.textContent = 'Game over'; return; }
                 const m = moves[Math.floor(Math.random()*moves.length)];
-                move(m); turn='w'; statusEl.textContent='White to move'; render();
+                move(m); turn='w'; statusEl.textContent='White to move'; render(); markLast();
             }
 
             boardEl.addEventListener('click', (e)=>{
@@ -1048,10 +1069,17 @@
                     if (i===sel) { sel=-1; targets=[]; render(); return; }
                     if (targets.includes(i)) {
                         const m = genMovesFor(sel).find(x=>x.to===i);
-                        if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render();
-                            setTimeout(botMove, 300); }
+                        if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render(); markLast();
+                            setTimeout(botMove, 350); }
                     } else { sel=-1; targets=[]; render(); }
                 }
+            });
+
+            // Hover preview
+            boardEl.addEventListener('mousemove', (e)=>{
+                const sq = e.target.closest('.chess-square');
+                Array.from(boardEl.children).forEach(s=>s.classList.remove('hover'));
+                if (!sq) return; sq.classList.add('hover');
             });
 
             function reset(){ board=start.slice(); turn='w'; sel=-1; targets=[]; statusEl.textContent='White to move'; render(); }
