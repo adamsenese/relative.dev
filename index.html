@@ -190,7 +190,7 @@
         .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
         .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
         /* Chess board */
-        .chess-square { display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:600; line-height: 1; position: relative; overflow: hidden; transition: filter 120ms ease, transform 120ms ease; }
+        .chess-square { display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:600; line-height: 1; position: relative; overflow: hidden; transition: filter 120ms ease, transform 120ms ease; }
         @media (max-width: 520px) { .chess-square { font-size:22px; } }
         .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
         .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
@@ -259,11 +259,9 @@
         .action { font-size: 12px; color: #333; }
 
         footer { display: none; }
-        /* Corner footer overlays */
-        .corner-info { position: fixed; bottom: calc(70px + var(--safe-bottom)); font-size: 12px; color: #333; z-index: 7; padding: 4px 8px; background: rgba(255,255,255,0.65); border: 1px solid rgba(170,179,194,0.6); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8); backdrop-filter: blur(6px) saturate(130%); }
-        .corner-info.left { left: 12px; }
-        .corner-info.right { right: 12px; }
-        @media (max-width: 520px) { .corner-info { bottom: calc(62px + var(--safe-bottom)); font-size: 11px; } }
+        /* Dock-aligned overlays */
+        .dock-info { position: fixed; font-size: 12px; color: #333; z-index: 7; padding: 4px 8px; background: rgba(255,255,255,0.65); border: 1px solid rgba(170,179,194,0.6); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8); backdrop-filter: blur(6px) saturate(130%); }
+        @media (max-width: 520px) { .dock-info { font-size: 11px; } }
 
         /* Menus */
         .menu-dropdown { position: fixed; display: none; top: calc(var(--menu-height) + var(--safe-top)); left: 8px; background: linear-gradient(#FFFFFF, #F0F4FA); border: 1px solid #AAB3C2; box-shadow: 0 8px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9); border-radius: 6px; padding: 6px 0; z-index: 20; min-width: 180px; }
@@ -594,7 +592,7 @@
                 <div class="title">Jobs</div>
             </div>
             <div class="window-content">
-                <blockquote class="quote">“... it's liquid, one of the design goals was when you saw it you wanted to lick it” — Steve Jobs</blockquote>
+                <blockquote class="quote">“... it's liquid, one of the design goals was when you saw it you wanted to lick it" — Steve Jobs</blockquote>
             </div>
         </div>
 
@@ -624,8 +622,8 @@
         </div>
     </main>
 
-    <div class="corner-info left">Relative Industries LLC</div>
-    <div class="corner-info right"><a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></div>
+    <div id="dock-left-info" class="dock-info">Relative Industries LLC</div>
+    <div id="dock-right-info" class="dock-info"><a href="https://x.com/relativedotdev">X</a> · <a href="https://www.linkedin.com/company/relativeindustries">LinkedIn</a></div>
 
     <div class="dock" id="dock" aria-label="Dock">
         <a href="#" class="dock-item" data-open="egg-finder" aria-label="Finder">
@@ -675,14 +673,21 @@
             function applySavedPositions() {
                 if (!desktop) return;
                 const rect = desktop.getBoundingClientRect();
+                let hasAnySaved = false;
                 icons.forEach(el => {
                     const id = el.getAttribute('data-id');
                     const pos = saved[id];
                     if (pos) {
+                        hasAnySaved = true;
                         el.style.left = clamp(pos.left, 0, rect.width - el.offsetWidth) + 'px';
                         el.style.top = clamp(pos.top, 0, rect.height - el.offsetHeight) + 'px';
                     }
                 });
+                // Default left alignment for desktop (no saved positions)
+                if (!hasAnySaved && !window.matchMedia('(max-width: 520px)').matches) {
+                    let top = 88; const left = 16; const vGap = 72;
+                    icons.forEach(el => { el.style.left = left + 'px'; el.style.top = top + 'px'; top += vGap; });
+                }
             }
 
             function savePosition(id, left, top) {
@@ -844,6 +849,21 @@
                     item.classList.add('active');
                 }
             });
+
+            // Position dock overlay info boxes relative to Dock
+            const leftInfo = document.getElementById('dock-left-info');
+            const rightInfo = document.getElementById('dock-right-info');
+            function placeOverlays(){
+                if (!leftInfo || !rightInfo) return;
+                const r = dock.getBoundingClientRect();
+                const bottom = (window.innerHeight - r.top) + 8; // 8px above dock top
+                leftInfo.style.left = Math.max(8, r.left) + 'px';
+                leftInfo.style.bottom = bottom + 'px';
+                rightInfo.style.left = Math.max(8, r.right - rightInfo.offsetWidth) + 'px';
+                rightInfo.style.bottom = bottom + 'px';
+            }
+            placeOverlays();
+            window.addEventListener('resize', placeOverlays);
         })();
 
         // Menus and selection rectangle
