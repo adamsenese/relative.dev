@@ -166,6 +166,7 @@
         .desktop-icons { position: relative; z-index: 1; }
         .icon-item { position: absolute; width: 72px; text-align: center; cursor: default; user-select: none; }
         .icon-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; border: 1px solid #A9B4C3; background: #FFFFFF; box-shadow: 0 1px 0 rgba(255,255,255,0.7), inset 0 1px 2px rgba(0,0,0,0.06); margin: 0 auto; }
+        .icon-thumb { object-fit: contain; border-radius: 0; border: none; background: transparent; box-shadow: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); }
         .icon-label { margin-top: 6px; font-size: 11px; color: #0B1B3A; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
         .icon-item:active .icon-thumb { filter: brightness(0.95); }
         @media (max-width: 520px) {
@@ -337,35 +338,35 @@
 
         <div class="desktop-icons">
             <div class="icon-item" data-id="about" data-target="egg-about" style="left: 16px; top: 88px;">
-                <img class="icon-thumb" src="images/finder.png" alt="About">
+                <img class="icon-thumb" src="images/finder.png?v=2" alt="About">
                 <div class="icon-label">About</div>
             </div>
             <div class="icon-item" data-id="readme" data-target="egg-readme" style="left: 16px; top: 168px;">
-                <img class="icon-thumb" src="images/txt.png" alt="ReadMe.txt">
+                <img class="icon-thumb" src="images/txt.png?v=2" alt="ReadMe.txt">
                 <div class="icon-label">ReadMe.txt</div>
             </div>
             <div class="icon-item" data-id="prefs" data-target="egg-chess" style="left: 16px; top: 248px;">
-                <img class="icon-thumb" src="images/aqua-chess.svg" alt="Chess">
+                <img class="icon-thumb" src="images/aqua-chess.svg?v=3" alt="Chess">
                 <div class="icon-label">Chess</div>
             </div>
             <div class="icon-item" data-id="apps" data-target="egg-apps" style="left: 16px; top: 328px;">
-                <img class="icon-thumb" src="images/folder.png" alt="Applications">
+                <img class="icon-thumb" src="images/folder.png?v=2" alt="Applications">
                 <div class="icon-label">Applications</div>
             </div>
             <div class="icon-item" data-id="trash" data-target="egg-trash" style="left: 16px; top: 408px;">
-                <img class="icon-thumb" src="images/trash.png" alt="Trash">
+                <img class="icon-thumb" src="images/trash.png?v=2" alt="Trash">
                 <div class="icon-label">Trash</div>
             </div>
             <div class="icon-item" data-id="quote" data-target="egg-quote" style="left: 16px; top: 488px;">
-                <img class="icon-thumb" src="images/txt.png" alt="Jobs Quote">
+                <img class="icon-thumb" src="images/txt.png?v=2" alt="Jobs Quote">
                 <div class="icon-label">Jobs</div>
             </div>
             <div class="icon-item" data-id="ipod" data-target="egg-ipod" style="left: 16px; top: 568px;">
-                <img class="icon-thumb" src="images/ipod.png" alt="iPod">
+                <img class="icon-thumb" src="images/ipod.png?v=2" alt="iPod">
                 <div class="icon-label">iPod</div>
             </div>
             <div class="icon-item" data-id="orb" data-target="egg-orb" style="left: 16px; top: 648px;">
-                <img class="icon-thumb" src="images/orb.png" alt="Aqua Orb">
+                <img class="icon-thumb" src="images/orb.png?v=2" alt="Aqua Orb">
                 <div class="icon-label">Orb</div>
             </div>
         </div>
@@ -610,25 +611,25 @@
 
     <div class="dock" id="dock" aria-label="Dock">
         <a href="#" class="dock-item" data-open="egg-finder" aria-label="Finder">
-            <img src="images/finder.png" alt="Finder" class="dock-icon">
+            <img src="images/finder.png?v=2" alt="Finder" class="dock-icon">
         </a>
         <a href="https://hermesvoice.com" target="_blank" rel="noopener" class="dock-item" aria-label="Hermes">
-            <img src="images/Hermes-iOS-Default-1024x1024@1x.png" alt="Hermes" class="dock-icon">
+            <img src="images/Hermes-iOS-Default-1024x1024@1x.png?v=2" alt="Hermes" class="dock-icon">
         </a>
         <a href="https://cutgun.ai" target="_blank" rel="noopener" class="dock-item" aria-label="Cutgun">
             <img src="images/Cutgun-Share-Banner.jpg" alt="Cutgun" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-apps" aria-label="Applications">
-            <img src="images/folder.png" alt="Applications" class="dock-icon">
+            <img src="images/folder.png?v=2" alt="Applications" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-prefs" aria-label="System Preferences">
             <img src="images/aqua-prefs.svg" alt="System Preferences" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-ipod" aria-label="iPod">
-            <img src="images/ipod.png" alt="iPod" class="dock-icon">
+            <img src="images/ipod.png?v=2" alt="iPod" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-trash" aria-label="Trash">
-            <img src="images/trash.png" alt="Trash" class="dock-icon">
+            <img src="images/trash.png?v=2" alt="Trash" class="dock-icon">
         </a>
     </div>
 
