@@ -187,14 +187,17 @@
         .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
         .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
         /* Chess board */
-        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; position: relative; }
+        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; line-height: 1; position: relative; overflow: hidden; transition: filter 120ms ease, transform 120ms ease; }
         .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); }
         .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
         .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
         .chess-square.last { box-shadow: inset 0 0 0 3px rgba(255,215,0,0.4); }
-        .chess-square.target::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: rgba(45,136,255,0.55); box-shadow: 0 0 6px rgba(45,136,255,0.5); }
+        .chess-square.target::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border-radius: 50%; background: rgba(45,136,255,0.55); box-shadow: 0 0 6px rgba(45,136,255,0.5); pointer-events: none; }
         .chess-square.target.capture::after { width: 18px; height: 18px; background: rgba(231,76,60,0.55); box-shadow: 0 0 6px rgba(231,76,60,0.5); }
         .chess-square.hover { filter: saturate(115%); }
+        .chess-square.moved { animation: piece-pop 160ms ease; }
+        .chess-square.can-move { cursor: pointer; }
+        .chess-square.grab { cursor: grabbing; }
         .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
         .chess-square.target { box-shadow: inset 0 0 0 3px rgba(45,136,255,0.5); }
 
@@ -519,7 +522,7 @@
                 <div class="title">Chess</div>
             </div>
             <div class="window-content">
-                <div id="chess-board" style="width: min(92vw, 420px); aspect-ratio: 1; display: grid; grid-template-columns: repeat(8, 1fr); border: 1px solid #A9B4C3; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); background: #F4F6FA;">
+                <div id="chess-board" style="width: min(92vw, 420px); aspect-ratio: 1; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); user-select: none; border: 1px solid #A9B4C3; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); background: #F4F6FA;">
                 </div>
                 <div style="margin-top: 8px; font-size: 12px; color: #333; display:flex; gap:8px; align-items:center;">
                     <button id="chess-new" style="padding:4px 8px; border:1px solid #A9B4C3; background:#F7FAFF;">New Game</button>
@@ -968,12 +971,14 @@
                     if (targets.includes(i)) {
                         sq.classList.add('target');
                         if (board[i]!=='.') sq.classList.add('capture');
+                        sq.classList.add('can-move');
                     }
                     const p=board[i];
                     if (p!=='.') sq.textContent = sym[p];
                     sq.dataset.idx=i;
                     boardEl.appendChild(sq);
                 }
+                markLast();
             }
 
             function addMove(moves, fromR, fromC, toR, toC, color) {
@@ -1069,7 +1074,9 @@
                     if (i===sel) { sel=-1; targets=[]; render(); return; }
                     if (targets.includes(i)) {
                         const m = genMovesFor(sel).find(x=>x.to===i);
-                        if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render(); markLast();
+                        if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render();
+                            const fromEl = boardEl.children[lastMove.from]; const toEl = boardEl.children[lastMove.to];
+                            if (fromEl) fromEl.classList.add('moved'); if (toEl) toEl.classList.add('moved');
                             setTimeout(botMove, 350); }
                     } else { sel=-1; targets=[]; render(); }
                 }
@@ -1080,6 +1087,12 @@
                 const sq = e.target.closest('.chess-square');
                 Array.from(boardEl.children).forEach(s=>s.classList.remove('hover'));
                 if (!sq) return; sq.classList.add('hover');
+            });
+            boardEl.addEventListener('pointerdown', (e)=>{
+                const sq = e.target.closest('.chess-square'); if (!sq) return; sq.classList.add('grab');
+            });
+            boardEl.addEventListener('pointerup', (e)=>{
+                Array.from(boardEl.children).forEach(s=>s.classList.remove('grab'));
             });
 
             function reset(){ board=start.slice(); turn='w'; sel=-1; targets=[]; statusEl.textContent='White to move'; render(); }
