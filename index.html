@@ -185,6 +185,12 @@
         .finder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
         .finder-item { display: flex; gap: 8px; align-items: center; padding: 8px; border: 1px solid #D3DAE6; background: #FFFFFF; border-radius: 8px; }
         .finder-item .icon { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #BDBDBD; }
+        /* Chess board */
+        .chess-square { display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:600; }
+        .chess-square.light { background: linear-gradient(#F7FAFF, #E7EDF6); }
+        .chess-square.dark { background: linear-gradient(#B9C6D8, #8EA0B6); color:#0B1B3A; }
+        .chess-square.sel { outline: 2px solid #2D88FF; outline-offset: -2px; }
+        .chess-square.target { box-shadow: inset 0 0 0 3px rgba(45,136,255,0.5); }
 
         /* Egg window helpers */
         .prefs-grid { display: grid; grid-template-columns: repeat(3, minmax(120px, 1fr)); gap: 10px; }
@@ -338,9 +344,9 @@
                 <img class="icon-thumb" src="images/txt.png" alt="ReadMe.txt">
                 <div class="icon-label">ReadMe.txt</div>
             </div>
-            <div class="icon-item" data-id="prefs" data-target="egg-prefs" style="left: 16px; top: 248px;">
-                <img class="icon-thumb" src="images/aqua-prefs.svg" alt="System Preferences">
-                <div class="icon-label">System Prefs</div>
+            <div class="icon-item" data-id="prefs" data-target="egg-chess" style="left: 16px; top: 248px;">
+                <img class="icon-thumb" src="images/aqua-chess.svg" alt="Chess">
+                <div class="icon-label">Chess</div>
             </div>
             <div class="icon-item" data-id="apps" data-target="egg-apps" style="left: 16px; top: 328px;">
                 <img class="icon-thumb" src="images/folder.png" alt="Applications">
@@ -491,6 +497,21 @@
             <div class="window-content">
                 <p style="margin:0 0 8px 0; font-size:13px;">Relative.dev builds AI apps for everyone.</p>
                 <p style="margin:0; font-size:12px; color:#333;">Crafted with the spirit of Aqua — simple, fun, and usable.</p>
+            </div>
+        </div>
+
+        <div id="egg-chess" class="window modal hidden">
+            <div class="titlebar">
+                <div class="traffic"><span class="dot close"></span><span class="dot"></span><span class="dot"></span></div>
+                <div class="title">Chess</div>
+            </div>
+            <div class="window-content">
+                <div id="chess-board" style="width: min(92vw, 420px); aspect-ratio: 1; display: grid; grid-template-columns: repeat(8, 1fr); border: 1px solid #A9B4C3; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); background: #F4F6FA;">
+                </div>
+                <div style="margin-top: 8px; font-size: 12px; color: #333; display:flex; gap:8px; align-items:center;">
+                    <button id="chess-new" style="padding:4px 8px; border:1px solid #A9B4C3; background:#F7FAFF;">New Game</button>
+                    <span id="chess-status">White to move</span>
+                </div>
             </div>
         </div>
 
@@ -889,6 +910,160 @@
                 selecting = false;
                 selection.style.display = 'none';
             });
+        })();
+
+        // Chess game (simple rules, random-move bot for black)
+        (function() {
+            const boardEl = document.getElementById('chess-board');
+            if (!boardEl) return;
+            const statusEl = document.getElementById('chess-status');
+            const newBtn = document.getElementById('chess-new');
+
+            // Unicode pieces
+            const sym = { K:'\u2654', Q:'\u2655', R:'\u2656', B:'\u2657', N:'\u2658', P:'\u2659',
+                          k:'\u265A', q:'\u265B', r:'\u265C', b:'\u265D', n:'\u265E', p:'\u265F' };
+
+            // Initial board (white bottom, a1 bottom-left)
+            const start = (
+                'rnbqkbnr' +
+                'pppppppp' +
+                '........' +
+                '........' +
+                '........' +
+                '........' +
+                'PPPPPPPP' +
+                'RNBQKBNR'
+            ).split('');
+
+            let board = start.slice();
+            let turn = 'w';
+            let sel = -1;
+            let targets = [];
+
+            function idxToRC(i){ return { r: Math.floor(i/8), c: i%8 }; }
+            function rcToIdx(r,c){ return r*8+c; }
+            function inBounds(r,c){ return r>=0&&r<8&&c>=0&&c<8; }
+            function isWhite(ch){ return ch>='A' && ch<='Z'; }
+            function isBlack(ch){ return ch>='a' && ch<='z'; }
+
+            function render() {
+                boardEl.innerHTML='';
+                for (let i=0;i<64;i++) {
+                    const {r,c}=idxToRC(i);
+                    const sq=document.createElement('div');
+                    sq.className = 'chess-square ' + ((r+c)%2===0?'light':'dark');
+                    if (i===sel) sq.classList.add('sel');
+                    if (targets.includes(i)) sq.classList.add('target');
+                    const p=board[i];
+                    if (p!=='.') sq.textContent = sym[p];
+                    sq.dataset.idx=i;
+                    boardEl.appendChild(sq);
+                }
+            }
+
+            function addMove(moves, fromR, fromC, toR, toC, color) {
+                if (!inBounds(toR,toC)) return false;
+                const to = rcToIdx(toR,toC);
+                const ch = board[to];
+                if (ch==='.') { moves.push({from:rcToIdx(fromR,fromC), to}); return true; }
+                if (color==='w' && isBlack(ch)) { moves.push({from:rcToIdx(fromR,fromC), to}); return false; }
+                if (color==='b' && isWhite(ch)) { moves.push({from:rcToIdx(fromR,fromC), to}); return false; }
+                return false;
+            }
+
+            function genMovesFor(idx) {
+                const moves=[]; const {r,c}=idxToRC(idx); const p=board[idx]; if (p==='.') return moves;
+                const color = isWhite(p)?'w':'b';
+                if ((color==='w' && turn!=='w') || (color==='b' && turn!=='b')) return moves;
+                const dir = color==='w'?-1:1;
+                switch (p.toLowerCase()) {
+                    case 'p': {
+                        const f1=rcToIdx(r+dir,c); if (inBounds(r+dir,c) && board[f1]==='.') moves.push({from:idx,to:f1});
+                        // double
+                        const startRank = color==='w'?6:1; const f2=rcToIdx(r+2*dir,c);
+                        if (r===startRank && board[f1]==='.' && board[f2]==='.') moves.push({from:idx,to:f2});
+                        // captures
+                        [[dir,-1],[dir,1]].forEach(([dr,dc])=>{
+                            const tr=r+dr, tc=c+dc; if (!inBounds(tr,tc)) return; const to=rcToIdx(tr,tc); const ch=board[to];
+                            if (color==='w' && isBlack(ch)) moves.push({from:idx,to});
+                            if (color==='b' && isWhite(ch)) moves.push({from:idx,to});
+                        });
+                        break;
+                    }
+                    case 'n': {
+                        [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>{
+                            addMove(moves,r,c,r+dr,c+dc,color);
+                        });
+                        break;
+                    }
+                    case 'b': {
+                        [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>{
+                            let tr=r+dr, tc=c+dc; while(inBounds(tr,tc)) { if(!addMove(moves,r,c,tr,tc,color)) break; tr+=dr; tc+=dc; }
+                        });
+                        break;
+                    }
+                    case 'r': {
+                        [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>{
+                            let tr=r+dr, tc=c+dc; while(inBounds(tr,tc)) { if(!addMove(moves,r,c,tr,tc,color)) break; tr+=dr; tc+=dc; }
+                        });
+                        break;
+                    }
+                    case 'q': {
+                        [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>{
+                            let tr=r+dr, tc=c+dc; while(inBounds(tr,tc)) { if(!addMove(moves,r,c,tr,tc,color)) break; tr+=dr; tc+=dc; }
+                        });
+                        break;
+                    }
+                    case 'k': {
+                        [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>{
+                            addMove(moves,r,c,r+dr,c+dc,color);
+                        });
+                        break;
+                    }
+                }
+                return moves;
+            }
+
+            function allMoves(color) {
+                const res=[]; for (let i=0;i<64;i++){ const p=board[i]; if (p==='.') continue; if ((color==='w'&&isWhite(p))||(color==='b'&&isBlack(p))) res.push(...genMovesFor(i)); }
+                return res;
+            }
+
+            function move(m){ board[m.to]=board[m.from]; board[m.from]='.'; }
+
+            function botMove(){
+                const moves = allMoves('b');
+                if (moves.length===0) { statusEl.textContent = 'Game over'; return; }
+                const m = moves[Math.floor(Math.random()*moves.length)];
+                move(m); turn='w'; statusEl.textContent='White to move'; render();
+            }
+
+            boardEl.addEventListener('click', (e)=>{
+                const sq = e.target.closest('.chess-square'); if (!sq) return; const i = parseInt(sq.dataset.idx,10);
+                if (sel===-1) {
+                    const p=board[i]; if (p==='.') return; if ((turn==='w' && !isWhite(p)) || (turn==='b' && !isBlack(p))) return;
+                    sel=i; targets=genMovesFor(i).map(m=>m.to); render();
+                } else {
+                    if (i===sel) { sel=-1; targets=[]; render(); return; }
+                    if (targets.includes(i)) {
+                        const m = genMovesFor(sel).find(x=>x.to===i);
+                        if (m) { move(m); sel=-1; targets=[]; turn='b'; statusEl.textContent='Black thinking…'; render();
+                            setTimeout(botMove, 300); }
+                    } else { sel=-1; targets=[]; render(); }
+                }
+            });
+
+            function reset(){ board=start.slice(); turn='w'; sel=-1; targets=[]; statusEl.textContent='White to move'; render(); }
+            newBtn.addEventListener('click', reset);
+
+            // Ensure chess icon opens chess modal (in case of earlier mapping)
+            const chessIcon = Array.from(document.querySelectorAll('.icon-item .icon-label')).find(el=>el.textContent.trim()==='Chess');
+            if (chessIcon) {
+                const holder = chessIcon.closest('.icon-item');
+                if (holder) holder.setAttribute('data-target','egg-chess');
+            }
+
+            render();
         })();
         </script>
 </body>
