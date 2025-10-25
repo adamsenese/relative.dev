@@ -911,7 +911,11 @@
                 label.textContent = aria;
                 const r = item.getBoundingClientRect();
                 label.style.left = (r.left + r.width/2 - label.offsetWidth/2) + 'px';
-                label.style.top = (r.bottom + 6) + 'px';
+                // Prefer below the icon, but clamp within viewport; if no room, place above
+                const desiredBelow = r.bottom + 6;
+                const maxTop = window.innerHeight - label.offsetHeight - 6;
+                const top = desiredBelow <= maxTop ? desiredBelow : (r.top - label.offsetHeight - 6);
+                label.style.top = top + 'px';
                 label.classList.add('show');
             });
 
