@@ -235,6 +235,10 @@
         .icon { width: 28px; height: 28px; object-fit: cover; border: 1px solid #BDBDBD; background: #FFF; }
         .primary { font-weight: 700; color: #000; font-size: 13px; }
         .secondary { color: #333; font-size: 12px; }
+        .actions { display: flex; gap: 8px; margin-top: 6px; }
+        .aqua-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; font-size: 12px; border-radius: 8px; text-decoration: none; color: #FFFFFF; background: linear-gradient(#5BA1FF, #2D88FF); border: 1px solid #1B5FCC; box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(255,255,255,0.25); }
+        .aqua-btn:hover { filter: saturate(115%); }
+        .aqua-btn.secondary { color: #0B1B3A; background: linear-gradient(#FFFFFF, #EAF0FA); border: 1px solid #AAB3C2; }
 
         /* Mobile list layout */
         @media (max-width: 520px) {
@@ -408,16 +412,26 @@
                 </div>
                 <div class="window-content">
                     <div class="list-view">
-                        <a href="https://hermesvoice.com" class="list-row">
+                        <div class="list-row">
                             <img class="icon" src="images/Hermes-iOS-Default-1024x1024@1x.png" alt="Hermes">
-                            <div class="primary">Hermes</div>
-                            <div class="secondary">AI Voice-to-Text for Every App</div>
-                        </a>
-                        <a href="https://cutgun.ai" class="list-row">
+                            <div class="primary"><a href="https://hermesvoice.com" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Hermes</a></div>
+                            <div class="secondary">AI Voice-to-Text for Every App
+                                <div class="actions">
+                                    <a class="aqua-btn" href="https://hermesvoice.com" target="_blank" rel="noopener">Open</a>
+                                    <a class="aqua-btn secondary" href="https://hermesvoice.com" target="_blank" rel="noopener">Learn more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-row">
                             <img class="icon" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
-                            <div class="primary">Cutgun</div>
-                            <div class="secondary">AI Video & Image Studio</div>
-                        </a>
+                            <div class="primary"><a href="https://cutgun.ai" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Cutgun</a></div>
+                            <div class="secondary">AI Video & Image Studio
+                                <div class="actions">
+                                    <a class="aqua-btn" href="https://cutgun.ai" target="_blank" rel="noopener">Open</a>
+                                    <a class="aqua-btn secondary" href="https://cutgun.ai" target="_blank" rel="noopener">Learn more</a>
+                                </div>
+                            </div>
+                        </div>
                         <a href="https://example.com/link4" class="list-row">
                             <img class="icon" src="images/relativefavi.png" alt="MiniTab">
                             <div class="primary">MiniTab</div>
