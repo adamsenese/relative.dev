@@ -330,7 +330,28 @@
         </div>
     </div>
 
-    <div class="menu-dropdown" id="menu-dropdown">
+    <div class="menu-dropdown" id="menu-dropdown-apple">
+        <ul class="menu-list">
+            <li class="menu-item-row" data-open="egg-about">About This Mac…</li>
+            <li class="menu-sep"></li>
+            <li class="menu-item-row" data-open="egg-prefs">System Preferences…</li>
+            <li class="menu-item-row" data-open="egg-apps">Applications</li>
+            <li class="menu-item-row" data-open="egg-readme">ReadMe.txt</li>
+            <li class="menu-item-row" data-open="egg-quote">Jobs Quote</li>
+            <li class="menu-sep"></li>
+            <li class="menu-item-row" data-open="egg-trash">Empty Trash</li>
+        </ul>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown-relative">
+        <ul class="menu-list">
+            <li class="menu-item-row" data-open="egg-about-panel">About Relative.dev</li>
+            <li class="menu-item-row" data-open="egg-finder">Open Finder</li>
+            <li class="menu-sep"></li>
+            <li class="menu-item-row"><a href="https://x.com/relativedotdev" target="_blank" rel="noopener">X (Twitter)</a></li>
+            <li class="menu-item-row"><a href="https://www.linkedin.com/company/relativeindustries" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+    </div>
+    <div class="menu-dropdown" id="menu-dropdown-edit">
         <ul class="menu-list">
             <li class="menu-item-row" data-action="organize-icons">Organize Icons</li>
         </ul>
@@ -862,38 +883,43 @@
         // Menus and selection rectangle
         (function() {
             const menuBar = document.querySelector('.menu-bar');
-            const dropdown = document.getElementById('menu-dropdown');
+            const menus = {
+                apple: document.getElementById('menu-dropdown-apple'),
+                relative: document.getElementById('menu-dropdown-relative'),
+                edit: document.getElementById('menu-dropdown-edit')
+            };
             const desktop = document.querySelector('.desktop');
             const selection = document.getElementById('selection-rect');
             const icons = Array.from(document.querySelectorAll('.desktop .icon-item'));
             let menuOpen = false;
 
-            function openMenu(x, y) {
-                if (!dropdown) return;
-                dropdown.style.left = Math.max(8, (x || 8)) + 'px';
-                dropdown.classList.add('open');
-                menuOpen = true;
-            }
-            function closeMenu() {
-                if (!dropdown) return;
-                dropdown.classList.remove('open');
+            function closeAllMenus(){
+                document.querySelectorAll('.menu-dropdown.open').forEach(m=>m.classList.remove('open'));
                 menuOpen = false;
             }
+            function openMenuEl(el, x, y){
+                if (!el) return;
+                closeAllMenus();
+                el.style.left = Math.max(8, (x || 8)) + 'px';
+                el.classList.add('open');
+                menuOpen = true;
+            }
 
-            // Only Edit opens menu
+            // Apple, Relative, and Edit open their respective menus
             menuBar.addEventListener('click', (e) => {
                 const item = e.target.closest('.menu-item');
                 if (!item) return;
                 const label = item.textContent.trim();
-                if (label === 'Edit') {
-                    const rect = item.getBoundingClientRect();
-                    openMenu(rect.left, rect.bottom);
-                }
+                const rect = item.getBoundingClientRect();
+                if (label === '') return openMenuEl(menus.apple, rect.left, rect.bottom);
+                if (label === 'Relative') return openMenuEl(menus.relative, rect.left, rect.bottom);
+                if (label === 'Edit') return openMenuEl(menus.edit, rect.left, rect.bottom);
             });
             document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target) && !menuBar.contains(e.target)) closeMenu();
+                const anyOpen = document.querySelector('.menu-dropdown.open');
+                if (anyOpen && !anyOpen.contains(e.target) && !menuBar.contains(e.target)) closeAllMenus();
             });
-            dropdown.addEventListener('click', (e) => {
+            function handleMenuClick(e) {
                 const row = e.target.closest('.menu-item-row');
                 if (!row) return;
                 const id = row.getAttribute('data-open');
@@ -920,11 +946,19 @@
                         });
                         localStorage.removeItem('desktopIconPositions');
                     }
-                    closeMenu();
+                    closeAllMenus();
                     return;
                 }
-                closeMenu();
-            });
+                if (id) {
+                    const win = document.getElementById(id);
+                    if (win) {
+                        win.classList.remove('hidden');
+                        if (typeof window.focusModalWindow === 'function') window.focusModalWindow(win);
+                    }
+                }
+                closeAllMenus();
+            }
+            Object.values(menus).forEach(m => m && m.addEventListener('click', handleMenuClick));
 
             // Desktop selection rectangle for icons
             let startX = 0, startY = 0, selecting = false;
