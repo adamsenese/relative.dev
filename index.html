@@ -290,9 +290,9 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: calc(10px + var(--safe-bottom));
-            background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.35));
+            background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(245,248,255,0.55) 55%, rgba(225,234,248,0.35) 100%);
             border: 1px solid rgba(170, 179, 194, 0.85);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.8);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -6px 10px rgba(0,0,0,0.05);
             border-radius: 14px;
             padding: 6px 10px;
             display: flex;
@@ -311,8 +311,18 @@
             background: linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0));
             border-radius: 10px;
         }
+        .dock::after {
+            content: "";
+            position: absolute;
+            left: 6px; right: 6px; top: 2px;
+            height: 6px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            border-radius: 10px;
+            pointer-events: none;
+        }
         .dock-item { position: relative; display: inline-flex; align-items: flex-end; justify-content: center; height: 72px; }
-        .dock-item.active::after { content: ""; position: absolute; bottom: 2px; width: 6px; height: 6px; border-radius: 50%; background: #2D88FF; box-shadow: 0 0 6px rgba(45,136,255,0.5); }
+        /* Black triangle indicator under open apps (Aqua) */
+        .dock-item.active::after { content: ""; position: absolute; bottom: 2px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 6px solid rgba(0,0,0,0.75); }
         .dock-icon { width: 48px; height: 48px; object-fit: contain; border-radius: 0; border: none; background: transparent; box-shadow: none; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.18)); transform-origin: bottom center; transition: transform 0.08s ease-out; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0,0,0,0.12)); }
         .dock-icon.bounce { animation: dock-bounce 0.6s ease-out; }
         @keyframes dock-bounce { 0% { transform: translateY(0) scale(1); } 25% { transform: translateY(-14px) scale(1.05); } 50% { transform: translateY(0) scale(1); } 75% { transform: translateY(-8px) scale(1.03); } 100% { transform: translateY(0) scale(1); } }
@@ -321,6 +331,9 @@
             .dock-item { height: 60px; }
             .dock-icon { width: 36px; height: 36px; }
         }
+        /* Dock hover label */
+        .dock-label { position: fixed; padding: 4px 8px; font-size: 12px; color: #0B1B3A; background: linear-gradient(#FFFFFF, #EEF3FA); border: 1px solid #AAB3C2; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9); pointer-events: none; opacity: 0; transition: opacity 120ms ease; z-index: 20; }
+        .dock-label.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -827,8 +840,8 @@
             const dock = document.getElementById('dock');
             if (!dock) return;
             const icons = Array.from(dock.querySelectorAll('.dock-icon'));
-            const maxScale = 1.9;
-            const influence = 90; // px influence radius around cursor
+            const maxScale = 2.0;
+            const influence = 100; // px influence radius around cursor
             let isMobile = window.matchMedia('(max-width: 520px)').matches;
 
             function magnify(clientX) {
@@ -837,9 +850,9 @@
                     const r = img.getBoundingClientRect();
                     const centerX = r.left + r.width / 2;
                     const dist = Math.abs(clientX - centerX);
-                    const factor = Math.max(0, 1 - dist / influence);
+                    const factor = Math.max(0, 1 - Math.pow(dist / influence, 2)); // smoother curve
                     const scale = 1 + factor * (maxScale - 1);
-                    img.style.transform = `translateY(${(-8 * factor).toFixed(1)}px) scale(${scale.toFixed(3)})`;
+                    img.style.transform = `translateY(${(-10 * factor).toFixed(1)}px) scale(${scale.toFixed(3)})`;
                 });
             }
 
@@ -847,7 +860,7 @@
 
             if (!isMobile) {
                 dock.addEventListener('mousemove', (e) => magnify(e.clientX));
-                dock.addEventListener('mouseleave', reset);
+                dock.addEventListener('mouseleave', () => { reset(); if (label) label.classList.remove('show'); });
             }
 
             dock.addEventListener('click', (e) => {
@@ -878,6 +891,22 @@
                     // Treat external app icons as active once launched
                     item.classList.add('active');
                 }
+            });
+
+            // Hover labels above icons
+            let label = document.createElement('div');
+            label.className = 'dock-label';
+            document.body.appendChild(label);
+            dock.addEventListener('mousemove', (e) => {
+                const item = e.target.closest('.dock-item');
+                if (!item) return;
+                const aria = item.getAttribute('aria-label') || item.querySelector('.dock-icon')?.getAttribute('alt') || '';
+                if (!aria) return;
+                label.textContent = aria;
+                const r = item.getBoundingClientRect();
+                label.style.left = (r.left + r.width/2 - label.offsetWidth/2) + 'px';
+                label.style.top = (r.top - 28) + 'px';
+                label.classList.add('show');
             });
 
             // Position dock overlay info boxes relative to Dock
