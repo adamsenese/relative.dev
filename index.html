@@ -15,23 +15,23 @@
         * { box-sizing: border-box; }
 
         :root {
-            --bg: #E7EEF8;                 /* Aqua canvas */
-            --stripe-1: #F6FAFF;           /* Pinstripe light */
-            --stripe-2: #E7F0FF;           /* Pinstripe shadow */
-            --panel: #F4F6FA;              /* Light panel */
-            --panel-mid: #DDE3ED;          /* Mid panel */
-            --panel-dark: #A9B4C3;         /* Edge */
-            --shadow: rgba(0,0,0,0.18);    /* Soft shadow */
-            --text: #111214;
-            --subtext: #3A3F45;
-            --link: #0033CC;               /* Aqua link */
-            --aqua-blue-1: #75B6FF;        /* Titlebar top */
-            --aqua-blue-2: #2D88FF;        /* Titlebar bottom */
-            --menubar-1: #FFFFFF;          /* Menubar top */
-            --menubar-2: #E9EEF5;          /* Menubar bottom */
-            --menubar-border: #AAB3C2;     /* Menubar line */
+            --bg: #EAF2FB;                 /* Softer canvas */
+            --stripe-1: #F8FBFF;           /* Faint pinstripe */
+            --stripe-2: #EDF4FF;           /* Faint pinstripe shadow */
+            --panel: rgba(255, 255, 255, 0.82); /* Glass panel */
+            --panel-mid: rgba(200, 210, 225, 0.55);
+            --panel-dark: rgba(145, 158, 176, 0.7);
+            --shadow: rgba(0,0,0,0.14);    /* Softer, longer shadow */
+            --text: #0F141A;
+            --subtext: #46505A;
+            --link: #1E5FFF;               /* Modern blue */
+            --aqua-blue-1: #6AA8FF;        /* Titlebar top */
+            --aqua-blue-2: #2A7BFF;        /* Titlebar bottom */
+            --menubar-1: rgba(255,255,255,0.85); /* Glass menubar */
+            --menubar-2: rgba(233,238,245,0.75);
+            --menubar-border: rgba(170,179,194,0.8);
             --menu-height: 22px;           /* early OS X */
-            --radius: 8px;
+            --radius: 12px;                /* Slightly rounder */
             --safe-top: env(safe-area-inset-top);
             --safe-right: env(safe-area-inset-right);
             --safe-bottom: env(safe-area-inset-bottom);
@@ -43,9 +43,9 @@
             padding: 0;
             background-color: var(--bg);
             color: var(--text);
-            font-family: Geneva, Tahoma, Verdana, "Lucida Grande", "Trebuchet MS", Arial, sans-serif;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
             font-weight: 500;
-            line-height: 1.4;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             min-height: 100vh;
@@ -67,7 +67,8 @@
             padding: var(--safe-top) 8px 0 8px;
             background: linear-gradient(var(--menubar-1), var(--menubar-2));
             border-bottom: 1px solid var(--menubar-border);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 1px rgba(0,0,0,0.06);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 8px 20px rgba(0,0,0,0.05);
+            backdrop-filter: saturate(130%) blur(8px);
             z-index: 10;
             user-select: none;
         }
@@ -115,8 +116,10 @@
             background: var(--panel);
             border: 1px solid var(--panel-dark);
             border-radius: var(--radius);
-            box-shadow: 0 10px 22px var(--shadow);
+            box-shadow: 0 12px 30px var(--shadow);
             overflow: hidden;
+            backdrop-filter: saturate(140%) blur(10px);
+            -webkit-backdrop-filter: saturate(140%) blur(10px);
         }
         .window.hidden { display: none; }
         .window.modal { position: fixed; left: 50%; transform: translateX(-50%); top: calc(var(--menu-height) + 24px); width: min(92vw, 560px); z-index: 5; }
@@ -124,12 +127,12 @@
 
         /* Brushed metal window (early OS X iTunes style) */
         .window.metal {
-            background: repeating-linear-gradient(0deg, #F2F5FA 0 2px, #E7ECF6 2px 4px);
-            border-color: #9FA9B8;
+            background: linear-gradient(180deg, rgba(250,252,255,0.9) 0%, rgba(235,242,255,0.9) 100%);
+            border-color: rgba(159,169,184,0.8);
         }
         .window.metal .titlebar {
-            background: linear-gradient(#F7FAFF, #DCE3EE);
-            border-bottom: 1px solid #AFBACB;
+            background: linear-gradient(180deg, #F6FAFF 0%, #DCE6F5 100%);
+            border-bottom: 1px solid rgba(175,186,203,0.9);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
         }
         .window.metal .title { color: #2B3F5C; text-shadow: 0 1px 0 rgba(255,255,255,0.8); }
@@ -144,7 +147,7 @@
             gap: 8px;
             height: 22px;
             padding: 0 8px;
-            background: linear-gradient(var(--aqua-blue-1), var(--aqua-blue-2));
+            background: linear-gradient(180deg, var(--aqua-blue-1) 0%, var(--aqua-blue-2) 100%);
             border-bottom: 1px solid #1B5FCC;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
         }
@@ -178,7 +181,7 @@
             .desktop-icons { display: flex; flex-wrap: wrap; gap: 4px 8px; }
         }
 
-        .window-content { padding: 10px; background: #FFFFFF; }
+        .window-content { padding: 10px; background: rgba(255,255,255,0.85); }
 
         /* Finder window */
         .finder-toolbar { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: linear-gradient(#F7FAFF, #E7EDF6); border-bottom: 1px solid #AFBACB; }
@@ -221,7 +224,7 @@
         .pref-item .desc { font-size: 11px; color: #555; }
 
         /* List view */
-        .list-view { border: 1px solid var(--panel-dark); background: #FFFFFF; }
+        .list-view { border: 1px solid var(--panel-dark); background: rgba(255,255,255,0.9); }
         .list-row {
             display: grid;
             grid-template-columns: 36px 1.2fr 2fr;
@@ -230,18 +233,17 @@
             padding: 8px 10px;
             border-bottom: 1px solid #E5E5E5;
         }
-        .list-row:hover { background: #F3F3F3; }
+        .list-row:hover { background: linear-gradient(180deg, rgba(248,250,255,0.9), rgba(240,246,255,0.9)); }
         .list-row:last-child { border-bottom: 0; }
         .icon { width: 28px; height: 28px; object-fit: cover; border: 1px solid #BDBDBD; background: #FFF; }
         .primary { font-weight: 700; color: #000; font-size: 13px; }
         .secondary { color: #333; font-size: 12px; }
         .actions { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
-        .aqua-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 13px; font-weight: 700; letter-spacing: 0.2px; border-radius: 12px; text-decoration: none; line-height: 1; white-space: nowrap; transition: filter 120ms ease; }
-        .aqua-btn.primary { color: #FFFFFF; background: linear-gradient(180deg, #4C9BFF 0%, #1E6FFF 100%); border: 1px solid #1B5FCC; box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), inset 0 -8px 14px rgba(0,0,0,0.12); }
-        .aqua-btn.secondary { color: #0B1B3A; background: linear-gradient(180deg, #FFFFFF 0%, #E9F0FA 100%); border: 1px solid #AAB3C2; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -8px 14px rgba(0,0,0,0.06); }
-        .aqua-btn:hover { filter: saturate(110%); }
-        .aqua-btn:active { filter: saturate(100%); }
-        .aqua-btn:hover { filter: saturate(115%); }
+        .aqua-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; font-size: 13px; font-weight: 700; letter-spacing: 0.2px; border-radius: 14px; text-decoration: none; line-height: 1; white-space: nowrap; transition: transform 120ms ease, filter 120ms ease; }
+        .aqua-btn.primary { color: #FFFFFF; background: linear-gradient(180deg, #3D86FF 0%, #1E6FFF 100%); border: 1px solid #1B5FCC; box-shadow: 0 6px 18px rgba(30,111,255,0.26), inset 0 1px 0 rgba(255,255,255,0.65); }
+        .aqua-btn.secondary { color: #0B1B3A; background: linear-gradient(180deg, #FFFFFF 0%, #EDF3FF 100%); border: 1px solid #AAB3C2; box-shadow: 0 4px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9); }
+        .aqua-btn:hover { filter: saturate(110%); transform: translateY(-1px); }
+        .aqua-btn:active { filter: saturate(98%); transform: translateY(0); }
         .aqua-btn.secondary { color: #0B1B3A; background: linear-gradient(#FFFFFF, #EAF0FA); border: 1px solid #AAB3C2; }
 
         /* Mobile list layout */
@@ -290,7 +292,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: calc(10px + var(--safe-bottom));
-            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(242,247,255,0.5) 55%, rgba(220,232,248,0.28) 100%);
+            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(242,247,255,0.5) 55%, rgba(220,232,248,0.32) 100%);
             border: 1px solid rgba(170, 179, 194, 0.8);
             box-shadow: 0 6px 16px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -4px 8px rgba(0,0,0,0.04);
             border-radius: 14px;
@@ -301,7 +303,7 @@
             z-index: 6;
             user-select: none;
             -webkit-user-select: none;
-            backdrop-filter: saturate(140%) blur(6px);
+            backdrop-filter: saturate(150%) blur(10px);
         }
         .dock::before {
             content: "";
@@ -332,8 +334,8 @@
             .dock-icon { width: 36px; height: 36px; }
         }
         /* Dock hover label */
-        .dock-label { position: fixed; padding: 3px 8px; font-size: 11px; color: #0B1B3A; background: linear-gradient(#FFFFFF, #EEF3FA); border: 1px solid #AAB3C2; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); pointer-events: none; opacity: 0; transition: opacity 120ms ease; z-index: 20; }
-        .dock-label.show { opacity: 1; }
+        .dock-label { position: fixed; padding: 3px 8px; font-size: 11px; color: #0B1B3A; background: linear-gradient(#FFFFFF, #EEF3FA); border: 1px solid #AAB3C2; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9); pointer-events: none; opacity: 0; transition: opacity 120ms ease, transform 120ms ease; z-index: 20; transform: translateY(2px); }
+        .dock-label.show { opacity: 1; transform: translateY(0); }
     </style>
     <script
       defer
@@ -453,11 +455,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="https://example.com/link4" class="list-row">
-                            <img class="icon" src="images/relativefavi.png" alt="MiniTab">
-                            <div class="primary">MiniTab</div>
-                            <div class="secondary">Save up to 95% memory in Chrome (Coming Soon)</div>
-                        </a>
+                        
                     </div>
                 </div>
             </div>
@@ -542,13 +540,7 @@
                                 <div class="secondary">AI Video & Image Studio</div>
                         </div>
                     </a>
-                        <a href="#" class="finder-item">
-                            <img class="icon" src="images/aqua-txt.svg" alt="MiniTab">
-                            <div>
-                                <div class="primary">MiniTab</div>
-                                <div class="secondary">Coming Soon</div>
-                        </div>
-                    </a>
+                        
                 </div>
             </div>
         </div>
@@ -616,11 +608,7 @@
                         <div class="icon-label">Cutgun</div>
                         <div class="desc">AI video & image studio</div>
                     </a>
-                    <a class="app" href="#" onclick="return false;">
-                        <img class="icon-thumb" src="images/relativefavi.png" alt="MiniTab">
-                        <div class="icon-label">MiniTab</div>
-                        <div class="desc">Coming soon</div>
-                    </a>
+                    
                 </div>
             </div>
         </div>
