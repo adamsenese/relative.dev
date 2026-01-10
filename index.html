@@ -36,6 +36,15 @@
             --safe-right: env(safe-area-inset-right);
             --safe-bottom: env(safe-area-inset-bottom);
             --safe-left: env(safe-area-inset-left);
+            --gadget-shell-top: #F4F8FF;
+            --gadget-shell-bottom: #D5E2F7;
+            --gadget-frame: rgba(123, 144, 176, 0.65);
+            --gadget-face: #0F1F3A;
+            --gadget-face-glow: rgba(73, 142, 255, 0.35);
+            --gadget-lime: #6CF2C5;
+            --gadget-amber: #FFD084;
+            --gadget-rose: #FF8FB6;
+            --gadget-gridline: rgba(255,255,255,0.14);
         }
         
         body {
@@ -269,6 +278,231 @@
         .handle { font-weight: 700; font-size: 13px; color: #000; }
         .action { font-size: 12px; color: #333; }
 
+        /* Aqua gadget lab */
+        .aqua-gadget-lab {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .aqua-gadget {
+            position: relative;
+            padding: 16px 18px 18px;
+            border-radius: 18px;
+            border: 1px solid var(--gadget-frame);
+            background: linear-gradient(180deg, var(--gadget-shell-top) 0%, var(--gadget-shell-bottom) 100%);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.9),
+                inset 0 -1px 0 rgba(255,255,255,0.5),
+                0 10px 24px rgba(30, 80, 140, 0.18);
+            overflow: hidden;
+        }
+        .aqua-gadget::before {
+            content: "";
+            position: absolute;
+            inset: 8px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7), rgba(255,255,255,0)),
+                        radial-gradient(circle at 80% 80%, rgba(148,186,255,0.25), rgba(148,186,255,0));
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        .aqua-gadget header {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #234373;
+        }
+        .gadget-badge {
+            padding: 4px 8px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(108,210,255,0.45) 0%, rgba(60,124,255,0.65) 100%);
+            color: #0F1C36;
+            font-weight: 700;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+        }
+        .gadget-time {
+            padding: 3px 8px;
+            border-radius: 9px;
+            background: rgba(15, 31, 58, 0.08);
+            border: 1px solid rgba(47,91,155,0.28);
+            font-weight: 600;
+        }
+        .gadget-display {
+            position: relative;
+            z-index: 1;
+            margin-top: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(10,24,48,0.94) 0%, rgba(14,30,55,0.96) 100%);
+            color: #E8F2FF;
+            font-family: "SFMono-Regular", "Menlo", monospace;
+            box-shadow: inset 0 0 0 1px rgba(84,124,186,0.45), 0 10px 22px rgba(12,28,52,0.45);
+        }
+        .gadget-display::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(78,137,255,0.25) 0%, rgba(21,40,72,0.05) 60%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+        .gadget-display .label {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(197,216,255,0.7);
+        }
+        .gadget-display .value {
+            margin-top: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+        .gadget-display .meta {
+            margin-top: 6px;
+            font-size: 12px;
+            color: rgba(197,216,255,0.78);
+        }
+        .gadget-progress {
+            position: relative;
+            z-index: 1;
+            margin: 14px 0 0;
+            height: 10px;
+            border-radius: 6px;
+            background: rgba(36,74,128,0.16);
+            overflow: hidden;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.35);
+        }
+        .gadget-progress span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, rgba(108,242,197,0.8), rgba(59,143,255,0.9));
+            box-shadow: 0 0 12px rgba(86,190,255,0.6);
+        }
+        .gadget-progress::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+        .gadget-playlist {
+            position: relative;
+            z-index: 1;
+            margin-top: 16px;
+            display: grid;
+            gap: 6px;
+        }
+        .gadget-playlist li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.35);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+            color: #1B3158;
+        }
+        .gadget-playlist li span:last-child {
+            font-weight: 600;
+            color: #17305E;
+        }
+        .gadget-meta-grid {
+            position: relative;
+            z-index: 1;
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+        .gadget-meta-pill {
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(149,172,205,0.6);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+            font-size: 12px;
+            color: #1D3359;
+        }
+        .gadget-meter {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(16,33,60,0.12);
+            border: 1px solid rgba(80,120,180,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+        }
+        .gadget-meter .meter-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: #234373;
+        }
+        .gadget-meter .meter-track {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+        .gadget-meter .meter-track span {
+            height: 32px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(179,202,238,0.45) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .gadget-meter .meter-track span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: var(--fill, 30%);
+            background: linear-gradient(180deg, rgba(108,242,197,0.9) 0%, rgba(59,143,255,0.9) 100%);
+            box-shadow: 0 0 8px rgba(86,190,255,0.45);
+        }
+        .aqua-gadget.notes {
+            background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(232,239,252,0.92) 100%);
+        }
+        .aqua-gadget.notes::before {
+            background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(216,227,247,0.0) 60%),
+                        linear-gradient(90deg, rgba(170,195,238,0.25), rgba(255,255,255,0));
+        }
+        .aqua-gadget.notes ul {
+            position: relative;
+            z-index: 1;
+            margin: 8px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+        .aqua-gadget.notes li {
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.65);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 0 rgba(180,200,226,0.6);
+            font-size: 12px;
+            color: #263B60;
+        }
+        @media (max-width: 520px) {
+            .aqua-gadget-lab {
+                grid-template-columns: 1fr;
+            }
+        }
+
         footer { display: none; }
         /* Dock-aligned overlays */
         .dock-info { position: fixed; font-size: 12px; color: #333; z-index: 7; padding: 4px 8px; background: rgba(255,255,255,0.65); border: 1px solid rgba(170,179,194,0.6); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.8); backdrop-filter: blur(6px) saturate(130%); }
@@ -446,15 +680,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="list-row">
-                            <img class="icon" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
-                            <div class="primary"><a href="https://cutgun.ai" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Cutgun</a></div>
-                            <div class="secondary">AI Video & Image Studio
-                                <div class="actions">
-                                    <a class="aqua-btn primary" href="https://cutgun.ai" target="_blank" rel="noopener">Open</a>
-                                </div>
-                            </div>
-                        </div>
                         
                     </div>
                 </div>
@@ -481,6 +706,77 @@
                                 <div class="action">Follow on X</div>
                         </div>
                     </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="win-interface" class="window metal draggable" style="left: 520px; top: 420px; width: min(92vw, 580px);">
+                <div class="titlebar">
+                    <div class="traffic"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <div class="title">Interface Lab</div>
+                </div>
+                <div class="window-content">
+                    <p style="margin:0 0 12px; font-size:12px; color:#29436C;">Aqua takes a trip through late‑90s futureware. Curved shells, luminous meters, and chrome accents translated for Relative.</p>
+                    <div class="aqua-gadget-lab">
+                        <article class="aqua-gadget">
+                            <header>
+                                <span class="gadget-badge">Hermes</span>
+                                <span class="gadget-time">03:00</span>
+                            </header>
+                            <div class="gadget-display">
+                                <div class="label">Now Playing</div>
+                                <div class="value">Self-Esteem · Live</div>
+                                <div class="meta">Latency held at 42&nbsp;ms · 98.4% transcript fidelity</div>
+                            </div>
+                            <div class="gadget-progress"><span style="width:68%;"></span></div>
+                            <ul class="gadget-playlist">
+                                <li><span>01 • Capture</span><span>Streaming</span></li>
+                                <li><span>02 • Clean</span><span>Noise off</span></li>
+                                <li><span>03 • Publish</span><span>Auto</span></li>
+                            </ul>
+                        </article>
+
+                        <article class="aqua-gadget">
+                            <header>
+                                <span class="gadget-badge">Analyzer</span>
+                                <span class="gadget-time">Ready</span>
+                            </header>
+                            <div class="gadget-display">
+                                <div class="label">Signal Health</div>
+                                <div class="value">+18&nbsp;db</div>
+                                <div class="meta">Glass EQ keeps dialog warm without drift.</div>
+                            </div>
+                            <div class="gadget-meta-grid">
+                                <div class="gadget-meta-pill">Waveform polishing</div>
+                                <div class="gadget-meta-pill">Smart captions</div>
+                                <div class="gadget-meta-pill">Multilingual mix</div>
+                                <div class="gadget-meta-pill">Touch-safe controls</div>
+                            </div>
+                            <div class="gadget-meter">
+                                <div class="meter-label">Output Flow</div>
+                                <div class="meter-track">
+                                    <span style="--fill: 20%;"></span>
+                                    <span style="--fill: 35%;"></span>
+                                    <span style="--fill: 55%;"></span>
+                                    <span style="--fill: 70%;"></span>
+                                    <span style="--fill: 45%;"></span>
+                                    <span style="--fill: 30%;"></span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="aqua-gadget notes">
+                            <header>
+                                <span class="gadget-badge">UI Study</span>
+                                <span class="gadget-time">Log 121</span>
+                            </header>
+                            <ul>
+                                <li>Hybrid metallic shells keep Aqua glass while nodding to retro decks.</li>
+                                <li>Segmented progress bars echo hardware LEDs for status clarity.</li>
+                                <li>Microcopy leans playful—think gadget labels, not marketing speak.</li>
+                                <li>Apply neon bias only for active or live states to protect calm UX.</li>
+                            </ul>
+                        </article>
                     </div>
                 </div>
             </div>
@@ -533,13 +829,6 @@
                                 <div class="secondary">AI Voice-to-Text for Every App</div>
                             </div>
                         </a>
-                        <a href="https://cutgun.ai" class="finder-item">
-                            <img class="icon" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
-                            <div>
-                                <div class="primary">Cutgun</div>
-                                <div class="secondary">AI Video & Image Studio</div>
-                        </div>
-                    </a>
                         
                 </div>
             </div>
@@ -603,11 +892,6 @@
                         <div class="icon-label">Hermes</div>
                         <div class="desc">Voice‑to‑Text for every app</div>
                     </a>
-                    <a class="app" href="https://cutgun.ai" target="_blank" rel="noopener">
-                        <img class="icon-thumb" src="images/Cutgun-Share-Banner.jpg" alt="Cutgun">
-                        <div class="icon-label">Cutgun</div>
-                        <div class="desc">AI video & image studio</div>
-                    </a>
                     
                 </div>
             </div>
@@ -670,9 +954,6 @@
         </a>
         <a href="https://hermesvoice.com" target="_blank" rel="noopener" class="dock-item" aria-label="Hermes">
             <img src="images/Hermes-iOS-Default-1024x1024@1x.png?v=2" alt="Hermes" class="dock-icon">
-        </a>
-        <a href="https://cutgun.ai" target="_blank" rel="noopener" class="dock-item" aria-label="Cutgun">
-            <img src="images/Cutgun-Share-Banner.jpg" alt="Cutgun" class="dock-icon">
         </a>
         <a href="#" class="dock-item" data-open="egg-apps" aria-label="Applications">
             <img src="images/folder.png?v=2" alt="Applications" class="dock-icon">
