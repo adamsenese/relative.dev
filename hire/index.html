@@ -159,7 +159,7 @@
         }
         .hero h1 em { font-style: italic; }
         .hero h1 .grad {
-            background: linear-gradient(95deg, var(--accent), var(--accent-ink));
+            background: linear-gradient(100deg, #7C5CFF, #2B4BFF 46%, #0CA5A5);
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -216,6 +216,7 @@
             margin-top: 26px;
         }
         .card {
+            --c: var(--accent);
             position: relative;
             background: var(--surface);
             border: 1px solid var(--line);
@@ -225,17 +226,17 @@
             overflow: hidden;
             transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), border-color 320ms ease;
         }
-        /* cursor spotlight */
+        /* cursor spotlight — tinted per card */
         .card.lift::before {
             content: "";
             position: absolute;
             inset: 0;
             opacity: 0;
             transition: opacity 300ms ease;
-            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(43,75,255,0.10), transparent 60%);
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--c) 16%, transparent), transparent 60%);
             pointer-events: none;
         }
-        .card.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--line-strong); }
+        .card.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--c) 28%, var(--line-strong)); }
         .card.lift:hover::before { opacity: 1; }
 
         .span-2 { grid-column: span 2; }
@@ -253,7 +254,7 @@
             text-transform: uppercase;
             color: var(--ink-faint);
         }
-        .card-label .ic { color: var(--accent); }
+        .card-label .ic { color: var(--c); }
         .card h2 {
             font-family: 'Instrument Serif', serif;
             font-weight: 400;
@@ -274,9 +275,9 @@
         .feature {
             display: flex;
             flex-direction: column;
-            border-color: rgba(43,75,255,0.22);
+            border-color: color-mix(in srgb, var(--c) 24%, var(--line));
             background:
-                linear-gradient(180deg, rgba(43,75,255,0.05), rgba(255,255,255,0) 38%),
+                linear-gradient(180deg, color-mix(in srgb, var(--c) 7%, transparent), rgba(255,255,255,0) 38%),
                 var(--surface);
         }
         .feature::after {
@@ -284,8 +285,8 @@
             position: absolute;
             top: 0; left: 26px; right: 26px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0.55;
+            background: linear-gradient(90deg, transparent, var(--c), transparent);
+            opacity: 0.6;
         }
         .price-row {
             display: flex;
@@ -320,8 +321,8 @@
             margin-top: 1px;
             width: 19px; height: 19px;
             border-radius: 50%;
-            background: rgba(43,75,255,0.10);
-            color: var(--accent);
+            background: color-mix(in srgb, var(--c) 13%, transparent);
+            color: var(--c);
             display: grid; place-items: center;
         }
         .incl li small { color: var(--ink-faint); display: block; font-size: 12.5px; margin-top: 1px; }
@@ -332,20 +333,20 @@
             display: inline-flex;
             align-items: baseline;
             gap: 6px;
-            background: var(--surface-2);
-            border: 1px solid var(--line);
+            background: color-mix(in srgb, var(--c) 9%, var(--surface-2));
+            border: 1px solid color-mix(in srgb, var(--c) 24%, var(--line));
             border-radius: 12px;
             padding: 8px 13px;
             margin-top: 18px;
         }
-        .chip b { font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; }
+        .chip b { font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; color: var(--c); }
         .chip span { font-size: 13px; color: var(--ink-soft); }
 
         .mini-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 9px; }
         .mini-list li { font-size: 14px; color: var(--ink-soft); display: flex; gap: 9px; align-items: center; }
         .mini-list li::before {
             content: ""; width: 5px; height: 5px; border-radius: 50%;
-            background: var(--accent); flex: none;
+            background: var(--c); flex: none;
         }
 
         /* ----- shopify card ----- */
@@ -453,7 +454,7 @@
         .step .num {
             font-family: 'Instrument Serif', serif;
             font-size: 20px;
-            color: var(--accent);
+            color: var(--c);
             line-height: 1.4;
         }
         .step b { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
@@ -466,7 +467,7 @@
             font-size: clamp(40px, 6vw, 54px);
             letter-spacing: -0.02em;
             line-height: 1;
-            background: linear-gradient(100deg, var(--ink), var(--accent-ink));
+            background: linear-gradient(100deg, var(--ink), var(--c));
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
         .stat p { margin-top: 8px; }
@@ -609,7 +610,7 @@
         <section class="bento">
 
             <!-- WEB DESIGN (feature) -->
-            <article id="web-design" class="card lift feature span-3 reveal">
+            <article id="web-design" class="card lift feature span-3 reveal" style="--c:#2B4BFF">
                 <span class="card-label"><span class="ic">◆</span>Web Design</span>
                 <h2>Designed &amp; built,<br>end to end.</h2>
                 <p>A modern, mobile-first site rebuilt around one goal: turning visitors into calls, bookings, and customers.</p>
@@ -632,7 +633,7 @@
             </article>
 
             <!-- SHOPIFY -->
-            <article class="card lift shop span-3 reveal">
+            <article class="card lift shop span-3 reveal" style="--c:#2F9E44">
                 <div class="shop-badge" aria-hidden="true">
                     <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 </div>
@@ -644,7 +645,7 @@
             </article>
 
             <!-- CARE PLAN -->
-            <article class="card lift span-2 reveal">
+            <article class="card lift span-2 reveal" style="--c:#0CA5A5">
                 <span class="card-label"><span class="ic">◆</span>Care Plan</span>
                 <div class="chip"><b>$99</b><span>/ month</span></div>
                 <ul class="mini-list">
@@ -657,14 +658,14 @@
             </article>
 
             <!-- DIFFERENTIATOR -->
-            <article class="card lift span-2 reveal">
+            <article class="card lift span-2 reveal" style="--c:#7C5CFF">
                 <span class="card-label"><span class="ic">◆</span>The Difference</span>
                 <h3 style="margin-top:14px;font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;">We build it before you buy it.</h3>
                 <p>Most agencies sell a promise. We send you a working redesign of your own site first — so you decide with proof, not a pitch deck.</p>
             </article>
 
             <!-- STAT -->
-            <article class="card lift span-2 stat reveal">
+            <article class="card lift span-2 stat reveal" style="--c:#E8830C">
                 <span class="card-label"><span class="ic">◆</span>Speed to launch</span>
                 <div class="big" style="margin-top:18px;">Days,<br>not&nbsp;months.</div>
                 <p>From approved concept to a live, fully migrated site — without the drawn-out agency timeline.</p>
@@ -709,7 +710,7 @@
             </article>
 
             <!-- PROCESS -->
-            <article class="card lift span-3 reveal">
+            <article class="card lift span-3 reveal" style="--c:#E0457B">
                 <span class="card-label"><span class="ic">◆</span>How it works</span>
                 <div class="steps">
                     <div class="step"><span class="num">1</span><div><b>We reach out with a concept</b><p>You receive a modern redesign of your own site — already built.</p></div></div>
@@ -720,7 +721,7 @@
             </article>
 
             <!-- WHO IT'S FOR -->
-            <article class="card lift span-3 reveal">
+            <article class="card lift span-3 reveal" style="--c:#C4683C">
                 <span class="card-label"><span class="ic">◆</span>Who we build for</span>
                 <h3 style="margin-top:14px;font-family:'Instrument Serif',serif;font-weight:400;font-size:26px;">Established businesses, dated websites.</h3>
                 <p>Dentists, med spas, law firms, restaurants, trades, retail — businesses winning by reputation whose site doesn't match the quality of the work.</p>
