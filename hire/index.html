@@ -100,11 +100,15 @@
             align-items: center;
             gap: 9px;
         }
-        .dot {
-            width: 9px; height: 9px; border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(43,75,255,0.14);
+        .mark {
+            width: 24px; height: 24px;
+            border-radius: 7px;
+            display: block;
+            object-fit: cover;
+            box-shadow: 0 1px 3px rgba(26,22,16,0.20), 0 0 0 1px rgba(26,22,16,0.07);
+            transition: transform 240ms var(--ease);
         }
+        .wordmark:hover .mark { transform: rotate(-4deg) scale(1.05); }
         nav a {
             color: var(--ink-soft);
             text-decoration: none;
@@ -269,9 +273,18 @@
         .feature {
             display: flex;
             flex-direction: column;
+            border-color: rgba(43,75,255,0.22);
             background:
-                linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)) ,
+                linear-gradient(180deg, rgba(43,75,255,0.05), rgba(255,255,255,0) 38%),
                 var(--surface);
+        }
+        .feature::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 26px; right: 26px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.55;
         }
         .price-row {
             display: flex;
@@ -576,7 +589,7 @@
 <body>
     <div class="wrap">
         <header>
-            <a class="wordmark" href="/"><span class="dot"></span>Relative Industries</a>
+            <a class="wordmark" href="/"><img class="mark" src="/images/relativefavi.png?v=3" alt="Relative Industries" width="24" height="24">Relative Industries</a>
             <nav><a href="/">← Back to home</a></nav>
         </header>
 
@@ -610,7 +623,7 @@
                 <ul class="incl">
                     <li><span class="c">✓</span><div>Custom design &amp; build<small>Mobile-first, fast, conversion-focused</small></div></li>
                     <li><span class="c">✓</span><div>Migration &amp; launch<small>We move you over and preserve your SEO</small></div></li>
-                    <li><span class="c">✓</span><div>Hosting &amp; care — <b>$99/mo</b><small>Optional. Updates, backups &amp; uptime</small></div></li>
+                    <li><span class="c">✓</span><div>Hosting &amp; care — <b>$99/mo</b><small>Updates, backups, security &amp; uptime</small></div></li>
                     <li><span class="c">✓</span><div>Growth services<small>SEO, content &amp; more — priced to scope</small></div></li>
                 </ul>
 
@@ -620,13 +633,13 @@
             <!-- SHOPIFY -->
             <article class="card lift shop span-3 reveal">
                 <div class="shop-badge" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 5v6c0 5 3.4 8.2 8 11 4.6-2.8 8-6 8-11V5l-8-3Z"/></svg>
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 </div>
                 <span class="card-label" style="margin-top:16px;"><span class="ic">◆</span>Shopify Development</span>
                 <h2>Stores that<br>actually sell.</h2>
                 <p>Custom Shopify builds, theme work, and migrations — engineered for speed, trust, and checkout conversion. Scope and pricing tailored to your catalog.</p>
-                <div class="quote-tag">Request a quote →</div>
-                <a href="#quote" class="btn btn-primary">Get a quote <span class="arr">→</span></a>
+                <div class="quote-tag">Priced to your store.</div>
+                <a href="#quote" class="btn btn-primary">Request a quote <span class="arr">→</span></a>
             </article>
 
             <!-- CARE PLAN -->
@@ -639,7 +652,7 @@
                     <li>Automatic backups</li>
                     <li>Minor text edits</li>
                 </ul>
-                <p style="font-size:13px;margin-top:14px;">Optional. Keeps your site fast, secure, and online — no maintenance on your end.</p>
+                <p style="font-size:13px;margin-top:14px;">Keeps your site fast, secure, and online — with zero maintenance on your end.</p>
             </article>
 
             <!-- DIFFERENTIATOR -->
@@ -651,9 +664,9 @@
 
             <!-- STAT -->
             <article class="card lift span-2 stat reveal">
-                <span class="card-label"><span class="ic">◆</span>Built for results</span>
-                <div class="big" style="margin-top:18px;">100%</div>
-                <p>mobile-first. Every build is engineered for the screen most of your customers actually use.</p>
+                <span class="card-label"><span class="ic">◆</span>Speed to launch</span>
+                <div class="big" style="margin-top:18px;">Days,<br>not&nbsp;months.</div>
+                <p>From approved concept to a live, fully migrated site — without the drawn-out agency timeline.</p>
             </article>
 
             <!-- BEFORE / AFTER COMPARE -->
