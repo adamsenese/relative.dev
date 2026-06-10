@@ -43,9 +43,18 @@
         }
 
         .wordmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
             font-size: 15px;
             font-weight: 500;
             letter-spacing: -0.01em;
+        }
+
+        .wordmark img {
+            width: 20px;
+            height: 20px;
+            display: block;
         }
 
         nav a {
@@ -116,7 +125,7 @@
 </head>
 <body>
     <header>
-        <div class="wordmark">Relative Industries</div>
+        <div class="wordmark"><img src="images/relative-industries-icon.png" alt="" width="20" height="20">Relative Industries</div>
         <nav><a href="/hire">Hire us</a></nav>
     </header>
 
