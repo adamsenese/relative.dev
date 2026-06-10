@@ -17,6 +17,10 @@
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
+        :root { --ease: cubic-bezier(0.22, 1, 0.36, 1); --accent: #2B4BFF; }
+
+        ::selection { background: rgba(43, 75, 255, 0.16); }
+
         html, body {
             margin: 0;
             padding: 0;
@@ -49,13 +53,43 @@
             font-size: 15px;
             font-weight: 500;
             letter-spacing: -0.01em;
+            color: #1A1A1A;
+            cursor: default;
         }
 
-        .wordmark img {
+        .logo {
             width: 20px;
             height: 20px;
             display: block;
+            overflow: visible;
+            animation: logoIn 700ms var(--ease) both;
         }
+        .logo .tile { fill: currentColor; }
+
+        @keyframes logoIn {
+            from { opacity: 0; transform: translateY(2px) scale(0.86); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        /* signature microinteraction: tiles ripple in a left-to-right sweep on hover */
+        @keyframes tileWave {
+            0%   { opacity: 1; }
+            38%  { opacity: 0.1; }
+            100% { opacity: 1; }
+        }
+        .wordmark:hover .logo .tile { animation: tileWave 900ms var(--ease) both; }
+        .wordmark:hover .logo .tile:nth-child(1),
+        .wordmark:hover .logo .tile:nth-child(2)  { animation-delay: 0ms; }
+        .wordmark:hover .logo .tile:nth-child(3),
+        .wordmark:hover .logo .tile:nth-child(4),
+        .wordmark:hover .logo .tile:nth-child(5),
+        .wordmark:hover .logo .tile:nth-child(6)  { animation-delay: 90ms; }
+        .wordmark:hover .logo .tile:nth-child(7),
+        .wordmark:hover .logo .tile:nth-child(8),
+        .wordmark:hover .logo .tile:nth-child(9),
+        .wordmark:hover .logo .tile:nth-child(10) { animation-delay: 180ms; }
+        .wordmark:hover .logo .tile:nth-child(11),
+        .wordmark:hover .logo .tile:nth-child(12) { animation-delay: 270ms; }
 
         nav a {
             color: #1A1A1A;
@@ -63,10 +97,28 @@
             font-size: 15px;
             font-weight: 400;
             opacity: 0.7;
-            transition: opacity 150ms ease;
+            background-image: linear-gradient(currentColor, currentColor);
+            background-size: 0% 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            transition: opacity 150ms ease, background-size 280ms var(--ease);
         }
 
-        nav a:hover { opacity: 1; }
+        nav a:hover { opacity: 1; background-size: 100% 1px; }
+
+        header, main, footer { position: relative; z-index: 1; }
+
+        /* cursor-following ambient glow */
+        .glow {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 800ms ease;
+            background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(124, 92, 255, 0.08), transparent 62%);
+        }
+        body.pointer-active .glow { opacity: 1; }
 
         main {
             flex: 1;
@@ -85,6 +137,16 @@
             margin: 0 0 1em;
             font-weight: 400;
             letter-spacing: -0.01em;
+            opacity: 0;
+            animation: fadeUp 850ms var(--ease) forwards;
+        }
+        .content p:nth-child(1) { animation-delay: 140ms; }
+        .content p:nth-child(2) { animation-delay: 280ms; }
+        .content p:nth-child(3) { animation-delay: 420ms; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: none; }
         }
 
         .content em {
@@ -112,9 +174,19 @@
         footer a {
             color: #1A1A1A;
             text-decoration: none;
+            background-image: linear-gradient(currentColor, currentColor);
+            background-size: 0% 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            transition: background-size 280ms var(--ease);
         }
 
-        footer a:hover { opacity: 0.7; }
+        footer a:hover { background-size: 100% 1px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo, .content p, .wordmark:hover .logo .tile { animation: none !important; opacity: 1 !important; transform: none !important; }
+            .glow { display: none; }
+        }
 
         @media (max-width: 640px) {
             body { padding: 20px; }
@@ -124,8 +196,26 @@
     </style>
 </head>
 <body>
+    <div class="glow" aria-hidden="true"></div>
+
     <header>
-        <div class="wordmark"><img src="images/relative-industries-icon.png" alt="" width="20" height="20">Relative Industries</div>
+        <div class="wordmark">
+            <svg class="logo" viewBox="0 0 256 256" width="20" height="20" role="img" aria-label="Relative Industries" focusable="false">
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 0 96.0059)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 0 159.992)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 63.9805 32.0215)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 63.9805 96.0059)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 63.9805 159.992)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 63.9805 223.977)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 127.961 32.0215)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 127.961 96.0059)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 127.961 159.992)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 127.961 223.977)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 191.942 96.0059)"/>
+                <rect class="tile" width="45.2908" height="45.2908" transform="matrix(0.707187 -0.707026 0.707187 0.707026 191.942 159.992)"/>
+            </svg>
+            Relative Industries
+        </div>
         <nav><a href="/hire">Hire us</a></nav>
     </header>
 
@@ -140,5 +230,28 @@
     <footer>
         <span>&copy; 2026 Relative Industries LLC</span>
     </footer>
+
+    <script>
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (!window.matchMedia('(pointer: fine)').matches) return;
+            var glow = document.querySelector('.glow');
+            if (!glow) return;
+            var x = 0, y = 0, raf = null;
+            window.addEventListener('pointermove', function (e) {
+                x = e.clientX; y = e.clientY;
+                document.body.classList.add('pointer-active');
+                if (raf) return;
+                raf = requestAnimationFrame(function () {
+                    raf = null;
+                    glow.style.setProperty('--gx', x + 'px');
+                    glow.style.setProperty('--gy', y + 'px');
+                });
+            });
+            document.addEventListener('mouseleave', function () {
+                document.body.classList.remove('pointer-active');
+            });
+        })();
+    </script>
 </body>
 </html>
