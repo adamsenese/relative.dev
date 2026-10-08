@@ -555,18 +555,16 @@
             };
             var btn = $('aBtn');
             btn.disabled = true;
-            var finish = function (viaEmail) {
+            var finish = function () {
                 $('doneName').textContent = lead.name.split(' ')[0];
-                if (viaEmail) $('doneText').textContent = "Your email draft is ready, so just hit send. We'll reply today with a few times that suit you.";
                 f.style.display = 'none';
                 $('done').classList.add('on');
             };
             Relative.send(lead).then(function (ok) {
-                if (ok) return finish(false);
-                Relative.mailto('Let\'s talk — ' + lead.business,
+                if (ok) return finish();
+                Relative.failed(btn, 'Let\'s talk — ' + lead.business,
                     'Hi Relative team,\n\nWe\'d like to talk about the plan for ' + lead.business + '.\n\nPackage: ' + lead.package + (lead.care_plan ? ' + Care Plan' : '') +
                     '\nIdeas we picked:\n- ' + lead.picked.join('\n- ') + '\n\nBest time: ' + lead.when + '\n\n' + lead.message + '\n\n' + lead.name);
-                finish(true);
             });
         });
     </script>

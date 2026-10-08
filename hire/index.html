@@ -436,20 +436,18 @@
             if (calc && calc.attached) lead.estimate = calc;
             var btn = $('submitBtn');
             btn.disabled = true;
-            var finish = function (viaEmail) {
+            var finish = function () {
                 $('doneName').textContent = lead.name.split(' ')[0];
-                if (viaEmail) $('doneText').textContent = "Your email draft is ready, so just hit send. Your plan will follow within two business days.";
                 f.style.display = 'none';
                 $('done').classList.add('on');
             };
             Relative.send(lead).then(function (ok) {
-                if (ok) return finish(false);
-                Relative.mailto('Free plan — ' + lead.business,
+                if (ok) return finish();
+                Relative.failed(btn, 'Free plan — ' + lead.business,
                     'Name: ' + lead.name + '\nBusiness: ' + lead.business + '\nEmail: ' + lead.email + '\nWebsite: ' + (lead.website || '—') +
                     '\nTeam size: ' + lead.team_size + '\nTime goes to: ' + (lead.pains.join(', ') || '—') +
                     (lead.package ? '\nInterested in: ' + lead.package : '') +
                     (lead.estimate ? '\nEstimate: ' + lead.estimate.weekly + ' hrs/week back' : '') + '\n\n' + lead.message);
-                finish(true);
             });
         });
     </script>

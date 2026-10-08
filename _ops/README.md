@@ -1,5 +1,17 @@
 # Lead intake setup
 
+## Form emails (required, 1 minute)
+
+Both forms (the free-plan form on `/hire` and "Let's talk" on plan pages) email every submission to **hello@relative.dev** through [FormSubmit](https://formsubmit.co), a free form-to-email service. There's no account to set up:
+
+1. Submit the form on relative.dev/hire once yourself.
+2. FormSubmit sends an **Activate Form** email to hello@relative.dev. Click the button in it.
+3. Every submission from then on arrives in that inbox as a tidy table, and pressing Reply goes straight to the lead.
+
+To use a different inbox, change `LEADS_EMAIL` at the top of `assets/relative.js` (and activate again). Until the form is activated, a visitor who submits sees a polite message with a direct email link instead.
+
+## Lead sheet and plan-open tracking (optional)
+
 The site sends three kinds of events to a small Google Apps Script (`leads.gs`):
 
 | Event | Comes from | What happens |

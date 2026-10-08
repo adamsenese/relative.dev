@@ -289,3 +289,7 @@ p, li { text-wrap: pretty; }
     .rv { opacity: 1; transform: none; }
 }
 .label-row + .rows { border-top: 0; }
+
+/* form send failure */
+.form-error { margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--clay-wash); color: var(--ink); font-size: 15px; }
+.form-error a { color: var(--clay-deep); font-weight: 700; }

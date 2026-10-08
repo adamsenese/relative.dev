@@ -1,11 +1,15 @@
 /* Relative Industries — shared behaviour for landing pages. */
 (function () {
-    // Paste the Google Apps Script web-app URL here (see _ops/README.md).
-    // While empty, forms fall back to a pre-filled email to hello@relative.dev.
+    // Where form submissions are emailed (via FormSubmit, see _ops/README.md).
+    // The first submission sends an "Activate" email to this inbox; click it once.
+    var LEADS_EMAIL = 'hello@relative.dev';
+
+    // Optional: the Google Apps Script web-app URL, for the lead sheet and
+    // plan-open tracking (see _ops/README.md). Leave empty to skip.
     var LEADS_ENDPOINT = '';
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var R = window.Relative = { endpoint: LEADS_ENDPOINT, reduce: reduce };
+    var R = window.Relative = { email: LEADS_EMAIL, endpoint: LEADS_ENDPOINT, reduce: reduce };
 
     // ---- sticky nav gains a surface once you scroll ----
     R.nav = function () {
@@ -87,20 +91,67 @@
         io.observe(el);
     };
 
-    // ---- send an event or lead to the sheet ----
-    // resolves true when the sheet accepted it, false otherwise (never throws)
+    // ---- send an event or lead ----
+    // Leads go to your inbox (FormSubmit) and, if configured, the lead sheet.
+    // Plan-open events go to the sheet only. Resolves true if anything accepted
+    // it, false otherwise (never throws).
     R.send = function (payload) {
-        if (!R.endpoint) return Promise.resolve(false);
         payload.page = location.origin + location.pathname;
         payload.referrer = document.referrer || '';
         var q = new URLSearchParams(location.search), t = {};
         ['utm_source', 'utm_medium', 'utm_campaign', 'ref'].forEach(function (k) { if (q.get(k)) t[k] = q.get(k); });
         payload.tracking = t;
-        // text/plain keeps this a "simple" request: no CORS preflight for Apps Script
-        return fetch(R.endpoint, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' } })
-            .then(function (r) { return r.ok ? r.json() : { ok: false }; })
-            .then(function (res) { return !!res.ok; })
-            .catch(function () { return false; });
+
+        var jobs = [];
+        if (R.endpoint) {
+            // text/plain keeps this a "simple" request: no CORS preflight for Apps Script
+            jobs.push(fetch(R.endpoint, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' } })
+                .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+                .then(function (res) { return !!res.ok; })
+                .catch(function () { return false; }));
+        }
+        if (R.email && payload.type !== 'view') {
+            jobs.push(fetch('https://formsubmit.co/ajax/' + R.email, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(R.emailFields(payload))
+            })
+                .then(function (r) { return r.ok ? r.json() : {}; })
+                .then(function (res) { return String(res.success) === 'true'; })
+                .catch(function () { return false; }));
+        }
+        if (!jobs.length) return Promise.resolve(false);
+        return Promise.all(jobs).then(function (rs) { return rs.some(Boolean); });
+    };
+
+    // Flatten a lead into readable rows for the notification email.
+    R.emailFields = function (p) {
+        var title = p.type === 'plan_request' ? 'Plan request: ' + p.business + ' wants to talk' : 'New free-plan request: ' + p.business;
+        var f = { _subject: title, _template: 'table', _captcha: 'false', _replyto: p.email };
+        var add = function (k, v) { if (v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && !v.length)) f[k] = Array.isArray(v) ? v.join(', ') : String(v); };
+        add('Name', p.name); add('Email', p.email); add('Business', p.business); add('Website', p.website);
+        add('Team size', p.team_size); add('Time goes to', p.pains); add('Package', p.package);
+        if (p.type === 'plan_request') { add('Care Plan', p.care_plan ? 'Yes' : 'No'); add('Ideas they picked', p.picked); add('Best time for a call', p.when); }
+        if (p.estimate) add('Estimate', p.estimate.weekly + ' hrs/week back (~$' + p.estimate.yearly + '/yr)');
+        add('Message', p.message);
+        add('Campaign', [p.tracking.utm_source, p.tracking.utm_campaign].filter(Boolean).join(' / '));
+        add('Page', p.page);
+        return f;
+    };
+
+    // When sending fails: keep the form, re-enable the button, and offer a
+    // pre-filled email link the visitor can click (never auto-open a mail app).
+    R.failed = function (btn, subject, body) {
+        btn.disabled = false;
+        var note = btn.parentNode.querySelector('.form-error');
+        if (!note) {
+            note = document.createElement('p');
+            note.className = 'form-error';
+            note.setAttribute('role', 'alert');
+            btn.insertAdjacentElement('afterend', note);
+        }
+        var href = 'mailto:' + R.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        note.innerHTML = 'Sorry, that didn\'t go through. Please try again, or <a href="' + href + '">email us at ' + R.email + '</a> and we\'ll take it from there.';
     };
 
     R.mailto = function (subject, body) {
