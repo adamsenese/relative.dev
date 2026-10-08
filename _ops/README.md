@@ -2,10 +2,10 @@
 
 ## Form emails (required, 1 minute)
 
-Both forms (the free-plan form on `/hire` and "Let's talk" on plan pages) email every submission to **hello@relative.dev** through [FormSubmit](https://formsubmit.co), a free form-to-email service. There's no account to set up:
+Both forms (the free-plan form on `/hire` and "Let's talk" on plan pages) email every submission to **adam@relative.dev** through [FormSubmit](https://formsubmit.co), a free form-to-email service. There's no account to set up:
 
 1. Submit the form on relative.dev/hire once yourself.
-2. FormSubmit sends an **Activate Form** email to hello@relative.dev. Click the button in it.
+2. FormSubmit sends an **Activate Form** email to adam@relative.dev. Click the button in it.
 3. Every submission from then on arrives in that inbox as a tidy table, and pressing Reply goes straight to the lead.
 
 To use a different inbox, change `LEADS_EMAIL` at the top of `assets/relative.js` (and activate again). Until the form is activated, a visitor who submits sees a polite message with a direct email link instead.
@@ -20,7 +20,7 @@ The site sends three kinds of events to a small Google Apps Script (`leads.gs`):
 | **view** | a prospect opening their personal plan page (`/for/#p=…`) | Logged to the **Plan views** sheet, so you know who's warm |
 | **plan_request** | a prospect picking ideas on their plan page and tapping "Let's talk" | Logged to **Leads** as a top-priority "Plan request". They get a confirmation and you get an urgent alert. |
 
-Until you connect the script, forms still work. They open a pre-filled email to hello@relative.dev instead.
+Until you connect the script, forms still email you through FormSubmit (above); you just won't get the sheet or plan-open tracking.
 
 > This folder starts with `_`, so GitHub Pages (Jekyll) doesn't publish it.
 
@@ -29,7 +29,7 @@ Until you connect the script, forms still work. They open a pre-filled email to 
 1. **Create the sheet.** Make a new Google Sheet called "Relative Leads". Use the Google account that should send the emails.
 2. **Add the script.** In the sheet, open **Extensions → Apps Script**. Delete the starter code, then paste in all of `leads.gs` and save.
 3. **Set properties.** Open **Project Settings (gear) → Script Properties** and add:
-   - `NOTIFY_EMAIL` = the address that should get new-lead alerts, e.g. `hello@relative.dev`
+   - `NOTIFY_EMAIL` = the address that should get new-lead alerts, e.g. `adam@relative.dev`
    - `ANTHROPIC_API_KEY` = your Claude API key from console.anthropic.com. This is optional; skip it and you won't get auto-drafted plans.
 4. **Deploy.** Click **Deploy → New deployment → Web app**, and set:
    - *Execute as:* **Me**

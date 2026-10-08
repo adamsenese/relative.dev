@@ -12,7 +12,7 @@
  *                 → "Leads" sheet, confirmation to them, urgent alert to the team
  *
  * Setup steps live in _ops/README.md. Script properties used:
- *   NOTIFY_EMAIL       where new-lead alerts go        (default hello@relative.dev)
+ *   NOTIFY_EMAIL       where new-lead alerts go        (default adam@relative.dev)
  *   ANTHROPIC_API_KEY  optional; enables step 3        (Claude API key)
  */
 
@@ -256,7 +256,7 @@ function draftPlan_(lead) {
 /* ---------- helpers ---------- */
 
 function notifyEmail_() {
-  return PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL') || 'hello@relative.dev';
+  return PropertiesService.getScriptProperties().getProperty('NOTIFY_EMAIL') || 'adam@relative.dev';
 }
 
 function isEmail_(s) {

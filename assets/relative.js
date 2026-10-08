@@ -2,7 +2,7 @@
 (function () {
     // Where form submissions are emailed (via FormSubmit, see _ops/README.md).
     // The first submission sends an "Activate" email to this inbox; click it once.
-    var LEADS_EMAIL = 'hello@relative.dev';
+    var LEADS_EMAIL = 'adam@relative.dev';
 
     // Optional: the Google Apps Script web-app URL, for the lead sheet and
     // plan-open tracking (see _ops/README.md). Leave empty to skip.
@@ -155,7 +155,7 @@
     };
 
     R.mailto = function (subject, body) {
-        window.location.href = 'mailto:hello@relative.dev?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = 'mailto:adam@relative.dev?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     };
 
     // ---- plans travel inside the link: #p=<base64url(deflate-raw(JSON))> ----
