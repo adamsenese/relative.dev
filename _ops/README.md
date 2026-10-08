@@ -1,13 +1,14 @@
 # Lead intake setup
 
-The form on `/hire` sends each submission to a small Google Apps Script (`leads.gs`). That script:
+The site sends three kinds of events to a small Google Apps Script (`leads.gs`):
 
-1. logs the lead in a Google Sheet, with a 0–100 fit score,
-2. emails the lead a friendly confirmation,
-3. if you add an API key, asks Claude to draft their free Time-Back Plan,
-4. emails you the lead together with the draft plan, so you can review it and send it.
+| Event | Comes from | What happens |
+|---|---|---|
+| **lead** | the free-plan form on `/hire` | Logged to the **Leads** sheet with a 0–100 fit score. The lead gets a confirmation. If you add an API key, Claude drafts their plan and you get an alert with the draft. |
+| **view** | a prospect opening their personal plan page (`/for/#p=…`) | Logged to the **Plan views** sheet, so you know who's warm |
+| **plan_request** | a prospect picking ideas on their plan page and tapping "Let's talk" | Logged to **Leads** as a top-priority "Plan request". They get a confirmation and you get an urgent alert. |
 
-Until you connect the script, the form still works. It opens a pre-filled email to hello@relative.dev instead.
+Until you connect the script, forms still work. They open a pre-filled email to hello@relative.dev instead.
 
 > This folder starts with `_`, so GitHub Pages (Jekyll) doesn't publish it.
 
@@ -23,12 +24,12 @@ Until you connect the script, the form still works. It opens a pre-filled email 
    - *Who has access:* **Anyone**
 
    Click Deploy, approve the permissions it asks for, and copy the **Web app URL**. It ends in `/exec`.
-5. **Connect the site.** In `hire/index.html`, find this line and paste the URL between the quotes:
+5. **Connect the site.** In `assets/relative.js`, find this line and paste the URL between the quotes:
    ```js
    var LEADS_ENDPOINT = '';
    ```
    Commit and push.
-6. **Test it.** Submit the form on relative.dev/hire using your own email. You should see a new row in the sheet, a confirmation email in your inbox, and an alert containing the draft plan.
+6. **Test it.** Submit the form on relative.dev/hire using your own email. You should see a new row in the sheet, a confirmation email in your inbox, and an alert containing the draft plan. Then open relative.dev/for/ and try "Let's talk". The sample page doesn't log views; real plan links do.
 
 When you edit `leads.gs` later, go to **Deploy → Manage deployments → Edit → New version**. That keeps the same URL.
 

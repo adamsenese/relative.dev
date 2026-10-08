@@ -1,11 +1,15 @@
 /**
- * Relative Industries — lead intake for relative.dev/hire
+ * Relative Industries — lead intake for relative.dev
  *
- * A Google Apps Script web app. Every form submission:
- *   1. is appended to the "Leads" sheet (with a simple fit score),
- *   2. sends the lead a friendly confirmation email,
- *   3. asks Claude to draft their free Time-Back Plan (10 ideas, top 3 first),
- *   4. emails your team the lead + the draft plan to review and send.
+ * A Google Apps Script web app that receives three kinds of events:
+ *
+ *   lead          the free-plan form on /hire
+ *                 → "Leads" sheet (with a fit score), confirmation to the lead,
+ *                   Claude drafts their plan, team gets an alert with the draft
+ *   view          a prospect opened their personal plan page (/for/#p=…)
+ *                 → "Plan views" sheet, so you know who's warm
+ *   plan_request  a prospect picked ideas on their plan page and asked to talk
+ *                 → "Leads" sheet, confirmation to them, urgent alert to the team
  *
  * Setup steps live in _ops/README.md. Script properties used:
  *   NOTIFY_EMAIL       where new-lead alerts go        (default hello@relative.dev)
@@ -27,6 +31,11 @@ function doPost(e) {
     // honeypot: real people never fill this hidden field
     if (lead.company_url) return json_({ ok: true });
 
+    if (lead.type === 'view') {
+      logView_(lead);
+      return json_({ ok: true });
+    }
+
     if (!lead.name || !isEmail_(lead.email) || !lead.business) {
       return json_({ ok: false, error: 'missing required fields' });
     }
@@ -37,6 +46,12 @@ function doPost(e) {
       appendLead_(lead);
     } finally {
       lock.releaseLock();
+    }
+
+    if (lead.type === 'plan_request') {
+      sendPlanConfirmation_(lead);
+      notifyPlanRequest_(lead);
+      return json_({ ok: true });
     }
 
     sendConfirmation_(lead);
@@ -73,10 +88,14 @@ function sheet_() {
 function appendLead_(lead) {
   var est = lead.estimate || {};
   var t = lead.tracking || {};
+  var isRequest = lead.type === 'plan_request';
+  var interest = isRequest
+    ? lead.package + (lead.care_plan ? ' + Care Plan' : '') + ' · picked: ' + (lead.picked || []).join('; ') + ' · call: ' + (lead.when || '')
+    : lead.package;
   sheet_().appendRow([
-    new Date(), score_(lead), 'New', clean_(lead.name), clean_(lead.email), clean_(lead.business),
+    new Date(), isRequest ? 100 : score_(lead), isRequest ? 'Plan request' : 'New', clean_(lead.name), clean_(lead.email), clean_(lead.business),
     clean_(lead.website), clean_(lead.team_size), (lead.pains || []).map(clean_).join(', '),
-    clean_(lead.package), clean_(lead.message), est.weekly || '', est.yearly || '',
+    clean_(interest), clean_(lead.message), est.weekly || '', est.yearly || '',
     [t.utm_source, t.utm_medium, t.utm_campaign, t.ref].filter(Boolean).map(clean_).join(' / '),
     clean_(lead.page), clean_(lead.referrer)
   ]);
@@ -95,7 +114,50 @@ function score_(lead) {
   return Math.min(100, s);
 }
 
+function logView_(ev) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('Plan views') || ss.insertSheet('Plan views');
+  if (sh.getLastRow() === 0) {
+    sh.appendRow(['Opened', 'Business', 'Niche', 'Referrer']);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, 4).setFontWeight('bold');
+  }
+  sh.appendRow([new Date(), clean_(ev.business), clean_(ev.niche), clean_(ev.referrer)]);
+}
+
 /* ---------- emails ---------- */
+
+function sendPlanConfirmation_(lead) {
+  var first = String(lead.name).split(' ')[0];
+  MailApp.sendEmail({
+    to: lead.email,
+    replyTo: notifyEmail_(),
+    name: 'Relative Industries',
+    subject: 'Let\'s make your plan real',
+    body:
+      'Hi ' + first + ',\n\n' +
+      'Thank you, we\'re so glad the plan for ' + lead.business + ' resonated. ' +
+      'We\'ll be in touch today with a few times for a relaxed 20-minute call' +
+      (lead.when && lead.when !== 'Just email me' ? ' (' + lead.when.toLowerCase() + ', as you asked)' : '') + '.\n\n' +
+      'If anything comes to mind before then, just reply here.\n\n' +
+      'Warmly,\nRelative Industries\nhttps://relative.dev'
+  });
+}
+
+function notifyPlanRequest_(lead) {
+  MailApp.sendEmail({
+    to: notifyEmail_(),
+    replyTo: lead.email,
+    subject: 'Plan request: ' + lead.business + ' wants to talk',
+    body:
+      lead.name + ' <' + lead.email + '> from ' + lead.business + ' asked to talk from their plan page.\n\n' +
+      'Package:   ' + lead.package + (lead.care_plan ? ' + Care Plan' : '') + '\n' +
+      'Best time: ' + (lead.when || '—') + '\n' +
+      'Ideas they picked:\n- ' + (lead.picked || []).join('\n- ') + '\n\n' +
+      'Note:\n' + (lead.message || '—') + '\n\n' +
+      'Reply today with 2–3 times. Their confirmation email promised it.'
+  });
+}
 
 function sendConfirmation_(lead) {
   var first = String(lead.name).split(' ')[0];
