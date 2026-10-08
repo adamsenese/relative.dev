@@ -271,7 +271,7 @@
                         <button type="button" role="tab" id="tabNote" aria-selected="false" aria-controls="askForm">Send a note</button>
                     </div>
                     <div class="book" id="book" role="tabpanel" aria-labelledby="tabBook">
-                        <p class="lead">Pick a time that suits you. We'll walk through your plan and the concept together. No obligation.</p>
+                        <p class="lead">Pick a time for a 20&#8209;minute walkthrough of your plan and the concept. No obligation.</p>
                         <div id="calEmbed"></div>
                         <p class="small">Prefer to write? <a class="textlink" href="#real" id="toNote">Send us a note instead</a>, or simply reply to our email.</p>
                     </div>
@@ -476,7 +476,7 @@
             Cal.ns['30min']('inline', {
                 elementOrSelector: '#calEmbed',
                 config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'light', notes: notes },
-                calLink: 'relative/30min'
+                calLink: 'relative/20min'
             });
             Cal.ns['30min']('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: 'light', cssVarsPerTheme: { light: { 'cal-brand': '#C65D3B' } }, styles: { branding: { brandColor: '#C65D3B' } } });
             Cal.ns['30min']('on', { action: 'bookingSuccessful', callback: function () {
