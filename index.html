@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Relative Industries makes simple apps for productivity, positive thinking, and personal growth.">
+    <meta name="description" content="Relative Industries is a small, design-minded studio. We make simple apps, and help businesses get hours back with crafted websites and Claude-powered automation.">
+    <meta name="theme-color" content="#F5F2EB">
     <meta name="keywords" content="Relative, Relative Industries, productivity apps, personal growth, positive thinking">
     <title>Relative Industries</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=3">
@@ -108,6 +109,28 @@
 
         header, main, footer { position: relative; z-index: 1; }
 
+        /* diamond field: the logo's tiles, tiled across the page, lit by the cursor */
+        .field {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1400ms ease;
+        }
+        .field.ready { opacity: 1; }
+
+        /* soft paper vignette so text always sits on calm ground */
+        .veil {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 720px 520px at 50% 50%, rgba(245,242,235,0.94), rgba(245,242,235,0.55) 60%, rgba(245,242,235,0) 100%);
+        }
+
         /* cursor-following ambient glow */
         .glow {
             position: fixed;
@@ -143,17 +166,60 @@
         .content p:nth-child(1) { animation-delay: 140ms; }
         .content p:nth-child(2) { animation-delay: 280ms; }
         .content p:nth-child(3) { animation-delay: 420ms; }
+        .content p:nth-child(4) { animation-delay: 560ms; }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: none; }
+            from { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+            to   { opacity: 1; transform: none; filter: blur(0); }
         }
+
+        /* "now booking" invitation under the manifesto */
+        .invite {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+            margin-top: 44px;
+            opacity: 0;
+            animation: fadeUp 850ms var(--ease) 640ms forwards;
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 18px 11px 14px;
+            border-radius: 999px;
+            background: #1A1A1A;
+            color: #F5F2EB;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: -0.005em;
+            box-shadow: 0 1px 2px rgba(26,22,16,0.08), 0 8px 24px rgba(26,22,16,0.12);
+            transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
+        }
+        .pill:hover { transform: translateY(-2px); box-shadow: 0 2px 6px rgba(26,22,16,0.1), 0 18px 38px rgba(26,22,16,0.18); }
+        .pill .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #6EE7A0;
+            box-shadow: 0 0 0 0 rgba(110,231,160,0.6);
+            animation: pulse 2.4s infinite;
+        }
+        .pill .arr { transition: transform 260ms var(--ease); }
+        .pill:hover .arr { transform: translateX(3px); }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(110,231,160,0.5); }
+            70%  { box-shadow: 0 0 0 7px rgba(110,231,160,0); }
+            100% { box-shadow: 0 0 0 0 rgba(110,231,160,0); }
+        }
+        .content .pill, .content .pill:hover { color: #F5F2EB; text-decoration: none; opacity: 1; }
+        .invite small { font-size: 14px; opacity: 0.6; }
 
         .content em {
             font-style: italic;
         }
 
-        .content p:last-child { margin-bottom: 0; }
+        .content p:last-of-type { margin-bottom: 0; }
 
         .content a {
             color: #1A1A1A;
@@ -184,7 +250,7 @@
         footer a:hover { background-size: 100% 1px; }
 
         @media (prefers-reduced-motion: reduce) {
-            .logo, .content p, .wordmark:hover .logo .tile { animation: none !important; opacity: 1 !important; transform: none !important; }
+            .logo, .content p, .invite, .pill .dot, .wordmark:hover .logo .tile { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
             .glow { display: none; }
         }
 
@@ -192,10 +258,13 @@
             body { padding: 20px; }
             main { padding: 48px 0; }
             .content p { font-size: 24px; }
+            .invite { margin-top: 32px; }
         }
     </style>
 </head>
 <body>
+    <canvas class="field" aria-hidden="true"></canvas>
+    <div class="veil" aria-hidden="true"></div>
     <div class="glow" aria-hidden="true"></div>
 
     <header>
@@ -216,14 +285,19 @@
             </svg>
             Relative Industries
         </div>
-        <nav><a href="/hire">Hire us</a></nav>
+        <nav><a href="/hire">Work with us</a></nav>
     </header>
 
     <main>
         <div class="content">
             <p><em>Relative Industries</em> is a small studio making simple apps for productivity, positive thinking, and personal growth.</p>
             <p>We believe software should be quiet, useful, and on your side. Our apps are designed to help you focus, feel better, and become a little more of who you want to be.</p>
+            <p>Lately, we've been bringing that same care to <em>other people's</em> businesses — crafted websites and Claude-powered workflows that quietly give teams their hours back.</p>
             <p>We have much to build.</p>
+            <div class="invite">
+                <a class="pill" href="/hire"><span class="dot" aria-hidden="true"></span>Now booking consulting for fall <span class="arr">→</span></a>
+                <small>Web design &amp; business automation</small>
+            </div>
         </div>
     </main>
 
@@ -232,6 +306,69 @@
     </footer>
 
     <script>
+        // diamond field — a lattice of the logo's tiles that breathes slowly
+        // and lifts toward the cursor (or drifts on its own on touch screens)
+        (function () {
+            var canvas = document.querySelector('.field');
+            if (!canvas || !canvas.getContext) return;
+            var ctx = canvas.getContext('2d');
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var fine = window.matchMedia('(pointer: fine)').matches;
+            var GAP = 34, dpr = 1, w = 0, h = 0, tiles = [];
+            var px = -9999, py = -9999, tx = -9999, ty = -9999, t0 = performance.now();
+            var hues = [[124, 92, 255], [43, 75, 255], [12, 165, 165]];
+
+            function build() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth; h = window.innerHeight;
+                canvas.width = w * dpr; canvas.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                tiles = [];
+                for (var y = -GAP, row = 0; y < h + GAP; y += GAP / 2, row++) {
+                    for (var x = (row % 2 ? GAP / 2 : 0) - GAP; x < w + GAP; x += GAP) {
+                        tiles.push({ x: x, y: y, s: Math.random() * Math.PI * 2 });
+                    }
+                }
+            }
+
+            function frame(now) {
+                var t = (now - t0) / 1000;
+                if (!fine && !reduce) { // gentle autonomous drift for touch screens
+                    tx = w * (0.5 + 0.32 * Math.sin(t * 0.21));
+                    ty = h * (0.5 + 0.28 * Math.cos(t * 0.17));
+                }
+                px += (tx - px) * 0.09; py += (ty - py) * 0.09;
+                ctx.clearRect(0, 0, w, h);
+                var R = Math.max(220, Math.min(w, h) * 0.32);
+                for (var i = 0; i < tiles.length; i++) {
+                    var d = tiles[i], dx = d.x - px, dy = d.y - py;
+                    var near = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / R);
+                    near = near * near * (3 - 2 * near);
+                    var breathe = reduce ? 0.5 : 0.5 + 0.5 * Math.sin(t * 0.6 + d.s + d.x * 0.004);
+                    var size = 2.2 + breathe * 0.8 + near * 6.5;
+                    var c = hues[Math.floor(((d.x + d.y) / (w + h)) * 3) % 3] || hues[1];
+                    var a = 0.06 + breathe * 0.03 + near * 0.32;
+                    ctx.fillStyle = near > 0.02
+                        ? 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')'
+                        : 'rgba(26,26,26,' + a.toFixed(3) + ')';
+                    ctx.beginPath();
+                    ctx.moveTo(d.x, d.y - size);
+                    ctx.lineTo(d.x + size, d.y);
+                    ctx.lineTo(d.x, d.y + size);
+                    ctx.lineTo(d.x - size, d.y);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                if (!reduce) requestAnimationFrame(frame);
+            }
+
+            build();
+            window.addEventListener('resize', build);
+            window.addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; });
+            document.addEventListener('mouseleave', function () { tx = ty = -9999; });
+            requestAnimationFrame(function (n) { canvas.classList.add('ready'); frame(n); });
+        })();
+
         (function () {
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             if (!window.matchMedia('(pointer: fine)').matches) return;
