@@ -133,6 +133,15 @@
         .total b { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.02em; }
 
         .ask form { display: grid; gap: 22px; }
+        .ask-tabs { display: inline-flex; gap: 6px; padding: 5px; margin-bottom: 18px; border: 2px solid var(--ink); border-radius: 999px; background: var(--white); }
+        .ask-tabs button { font: 700 14px/1 var(--sans); padding: 11px 16px; border: 0; border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; min-height: 40px; transition: background 200ms ease, color 200ms ease; }
+        .ask-tabs button:hover { background: var(--sand); }
+        .ask-tabs button[aria-selected="true"] { background: var(--ink); color: var(--white); }
+        .book { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: clamp(18px, 2.4vw, 28px); box-shadow: 8px 8px 0 var(--ink); }
+        .book .lead { font-size: clamp(22px, 2.4vw, 30px); margin: 0 0 16px; }
+        #calEmbed { width: 100%; min-height: 640px; overflow: auto; border-radius: 14px; }
+        .book .small { margin: 14px 0 0; }
+        [hidden] { display: none !important; }
         .ask .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
         .ask .btn { justify-self: start; }
         .done { display: none; }
@@ -154,7 +163,7 @@
             .tray.show { transform: none; }
             .concept-cap { margin-top: 28px; }
             .concept-cap .lead { font-size: 24px; }
-            .frame, .ask form { box-shadow: 6px 6px 0 var(--ink); }
+            .frame, .ask form, .book { box-shadow: 6px 6px 0 var(--ink); }
             .offer { box-shadow: 6px 6px 0 var(--blue); }
             .tray { box-shadow: 4px 4px 0 var(--clay); }
             .toggle, .tray .btn { min-height: 44px; }
@@ -257,7 +266,16 @@
                 </div>
 
                 <div class="ask rv">
-                    <form id="askForm" novalidate>
+                    <div class="ask-tabs" role="tablist" aria-label="How would you like to talk?">
+                        <button type="button" role="tab" id="tabBook" aria-selected="true" aria-controls="book">Book a time</button>
+                        <button type="button" role="tab" id="tabNote" aria-selected="false" aria-controls="askForm">Send a note</button>
+                    </div>
+                    <div class="book" id="book" role="tabpanel" aria-labelledby="tabBook">
+                        <p class="lead">Pick a time that suits you. We'll walk through your plan and the concept together. No obligation.</p>
+                        <div id="calEmbed"></div>
+                        <p class="small">Prefer to write? <a class="textlink" href="#real" id="toNote">Send us a note instead</a>, or simply reply to our email.</p>
+                    </div>
+                    <form id="askForm" novalidate role="tabpanel" aria-labelledby="tabNote" hidden>
                         <p class="lead" style="font-size:clamp(22px,2.4vw,30px);">Like what you see? Tell us where to reach you, and we'll arrange a 20&#8209;minute call at a time that suits you. No obligation.</p>
                         <div class="grid2">
                             <div class="field"><label for="aName">Your name</label><input class="input" id="aName" name="name" autocomplete="name" required placeholder="Jane Smith"></div>
@@ -274,7 +292,7 @@
                         <div class="field"><label for="aNote">Anything else? (optional)</label><textarea class="textarea" id="aNote" name="note" placeholder="Questions, timing, or what you'd tweak in the concept"></textarea></div>
                         <div class="hp" aria-hidden="true"><input type="text" name="company_url" tabindex="-1" autocomplete="off"></div>
                         <button class="btn btn-ink" type="submit" id="aBtn">Let's talk <span class="arr">→</span></button>
-                        <p class="small" style="margin:0;">Or simply reply to our email. Either way, a real person answers.</p>
+                        <p class="small" style="margin:0;">Or <a class="textlink" href="#real" id="toBook">book a time directly</a>, or simply reply to our email. Either way, a real person answers.</p>
                     </form>
                     <div class="done" id="done" role="status" aria-live="polite">
                         <p class="lead">Thank you, <span id="doneName">thank you</span>.</p>
@@ -378,6 +396,7 @@
 
             // let us know the plan was opened (once per visit)
             if (!p.sample) Relative.send({ type: 'view', business: p.b, niche: p.n || '' });
+            maybeCal();
         }
 
         function rowHtml(i, title, why, hours, how) {
@@ -433,7 +452,47 @@
             }, { passive: true });
         })();
 
-        // the ask
+        // the ask: book straight into the calendar, or send a note
+        function showTab(book) {
+            $('tabBook').setAttribute('aria-selected', book); $('tabNote').setAttribute('aria-selected', !book);
+            $('book').hidden = !book; $('askForm').hidden = book;
+            if (book) loadCal();
+        }
+        $('tabBook').addEventListener('click', function () { showTab(true); });
+        $('tabNote').addEventListener('click', function () { showTab(false); });
+        $('toBook').addEventListener('click', function (e) { e.preventDefault(); showTab(true); });
+        $('toNote').addEventListener('click', function (e) { e.preventDefault(); showTab(false); $('aName').focus(); });
+
+        var calLoaded = false;
+        function loadCal() {
+            if (calLoaded || !plan) return;
+            calLoaded = true;
+            (function (C, A, L) { var p = function (a, ar) { a.q.push(ar); }; var d = C.document; C.Cal = C.Cal || function () { var cal = C.Cal; var ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement('script')).src = A; cal.loaded = true; } if (ar[0] === L) { var api = function () { p(api, arguments); }; var namespace = ar[1]; api.q = api.q || []; if (typeof namespace === 'string') { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ['initNamespace', namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, 'https://app.cal.com/embed/embed.js', 'init');
+            Cal('init', '30min', { origin: 'https://app.cal.com' });
+            Cal.config = Cal.config || {};
+            Cal.config.forwardQueryParams = true;
+            var pkg = $('optSite').checked ? 'Full Studio' : 'Foundations';
+            var notes = plan.sample ? '' : 'Plan for ' + plan.b + ' · ' + pkg + ($('optCare').checked ? ' + Care Plan' : '') + '\nIdeas picked: ' + selected().map(function (x) { return x.title; }).join('; ');
+            Cal.ns['30min']('inline', {
+                elementOrSelector: '#calEmbed',
+                config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'light', notes: notes },
+                calLink: 'relative/30min'
+            });
+            Cal.ns['30min']('ui', { hideEventTypeDetails: false, layout: 'month_view', theme: 'light', cssVarsPerTheme: { light: { 'cal-brand': '#C65D3B' } }, styles: { branding: { brandColor: '#C65D3B' } } });
+            Cal.ns['30min']('on', { action: 'bookingSuccessful', callback: function () {
+                if (plan.sample) return;
+                Relative.send({ type: 'plan_request', via: 'calendar', business: plan.b, when: 'Booked on calendar',
+                    package: $('optSite').checked ? 'Full Studio' : 'Foundations', care_plan: $('optCare').checked,
+                    picked: selected().map(function (x) { return x.title; }), niche: plan.n || '' });
+            } });
+        }
+        // load the calendar as the section nears the screen (it's the default tab), once the plan is decoded
+        function maybeCal() {
+            if (calLoaded || !plan || $('book').hidden) return;
+            if ($('real').getBoundingClientRect().top < window.innerHeight + 800) loadCal();
+        }
+        window.addEventListener('scroll', maybeCal, { passive: true });
+
         $('askForm').addEventListener('submit', function (e) {
             e.preventDefault();
             var f = e.target;
