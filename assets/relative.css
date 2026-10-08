@@ -8,11 +8,11 @@
     --sand: #F4EEE6;
     --ink: #1B1917;
     --ink-2: rgba(27, 25, 23, 0.70);
-    --ink-3: rgba(27, 25, 23, 0.48);
+    --ink-3: rgba(27, 25, 23, 0.60); /* AA on paper and white */
     --hair: rgba(27, 25, 23, 0.12);
-    --hair-2: rgba(27, 25, 23, 0.24);
-    --clay: #C65D3B;
-    --clay-deep: #A8482A;
+    --hair-2: rgba(27, 25, 23, 0.48); /* 3:1 for input and chip edges */
+    --clay: #B04F2F;
+    --clay-deep: #93401F;
     --clay-wash: #F7E6DC;
     --blue: #2F5BFF;
     --blue-wash: #E3E9FF;
@@ -52,7 +52,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ---------- type ---------- */
 .mono, .eyebrow {
     font-family: var(--sans); font-size: 13px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay);
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay-deep); /* clay-deep keeps small labels at AA */
 }
 .mono b { color: var(--ink); font-weight: 700; }
 .mono.quiet { color: var(--ink-3); }
@@ -79,6 +79,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     margin: 0;
 }
 .body { color: var(--ink-2); font-size: 18px; max-width: 34em; margin: 0; }
+h1, h2, h3, .display, .h2, .lead { text-wrap: balance; }
+p, li { text-wrap: pretty; }
 .small { font-size: 15px; color: var(--ink-2); }
 
 /* ---------- nav ---------- */
@@ -105,6 +107,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .nav-links { display: flex; align-items: center; gap: 26px; }
 .nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; color: var(--ink-2); transition: color 160ms ease; }
 .nav-links a:hover { color: var(--ink); }
+.nav-links a:not(.btn) { padding: 10px 0; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -117,15 +120,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-ink, .btn-clay { background: var(--clay); color: var(--white); box-shadow: var(--pop); }
 .btn-ink:hover, .btn-clay:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
 .btn-ink:active, .btn-clay:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-.btn-line { background: var(--white); color: var(--ink); }
-.btn-line:hover { background: var(--sand); }
+.btn-line { background: var(--white); color: var(--ink); box-shadow: 0 0 0 var(--ink); }
+.btn-line:hover { background: var(--sand); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+.btn-line:active { transform: translate(0, 0); box-shadow: 1px 1px 0 var(--ink); }
 .btn-sm { padding: 11px 18px; font-size: 15px; box-shadow: 3px 3px 0 var(--ink); }
 .btn-sm:hover { box-shadow: 4px 4px 0 var(--ink); }
 .btn .arr { transition: transform 260ms var(--ease); }
 .btn:hover .arr { transform: translateX(4px); }
 .btn[disabled] { opacity: 0.6; cursor: progress; transform: none; }
 .textlink { text-decoration: none; font-weight: 600; color: var(--ink); border-bottom: 2px solid var(--clay); padding-bottom: 1px; transition: color 160ms ease; }
-.textlink:hover { color: var(--clay); }
+.textlink:hover { color: var(--clay-deep); border-bottom-color: var(--clay-deep); }
 
 /* ---------- sections ---------- */
 .section { padding: clamp(88px, 12vw, 160px) 0 0; }
@@ -142,6 +146,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ---------- illustrations ---------- */
 .illus { display: block; height: auto; }
 .spot { width: 88px; height: 74px; flex: none; }
+/* the drawings sit ~15% inside their canvas; pull standalone ones back so their ink lines up with the text edge */
+.illus.flush { margin-left: -16px; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .bob { animation: bob 6s ease-in-out infinite; }
 
@@ -198,7 +204,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     border-bottom: 1px solid var(--hair);
     transition: background 300ms ease;
 }
-.row .n { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--clay); }
+.row .n { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--clay-deep); }
 .row h3 { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
 .row p { margin: 0; color: var(--ink-2); font-size: 16px; }
 .row .t { font-weight: 700; font-size: 14px; color: var(--blue); text-align: right; white-space: nowrap; }
@@ -230,16 +236,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     border: 2px solid var(--hair-2); background: var(--white);
     font: 600 15px/1.2 var(--sans); color: var(--ink); text-transform: none; letter-spacing: 0;
     cursor: pointer; user-select: none;
-    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease);
 }
+.chip:hover { border-color: var(--ink); }
+.chip:active { transform: translateY(1px); }
 .chip input { position: absolute; opacity: 0; pointer-events: none; }
 .field .chip:has(input:checked), .chip:has(input:checked) { background: var(--blue); border-color: var(--ink); color: var(--white); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ---------- people ---------- */
 .people { display: flex; align-items: center; gap: 14px; }
-.faces { display: flex; }
-.faces img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); background: var(--sand); }
+.faces { display: flex; flex: none; }
+.faces img { flex: none; width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--ink); background: var(--sand); }
 .faces img + img { margin-left: -12px; }
 
 /* ---------- footer ---------- */
@@ -264,7 +272,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 760px) {
     body { font-size: 16px; }
-    .nav-links .hide-sm { display: none; }
+    .hide-sm { display: none; }
     .row { grid-template-columns: 64px 1fr; gap: 6px 16px; padding: 22px 0; align-items: start; }
     .row .spot { width: 56px; height: 48px; }
     .row p, .row .t { grid-column: 2; }
@@ -272,7 +280,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     .week-grid { grid-template-columns: 30px repeat(5, 1fr); gap: 4px; }
     .week-cell { border-radius: 6px; }
     .week-cell[data-tip]:hover::before { display: none; }
-    .label-row { margin-bottom: 26px; }
+    .label-row { margin-bottom: 26px; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .row > .spot { grid-row: 1 / span 3; }
+    .chip, .btn-sm { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

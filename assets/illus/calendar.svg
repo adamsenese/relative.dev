@@ -4,4 +4,4 @@
 <path d="M20 40 h80" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="21.5" y="23.5" width="77" height="15" rx="8" fill="#2F5BFF"/>
 <path d="M40 14 v16 M80 14 v16" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <circle cx="40" cy="56" r="3" fill="#1B1917"/><circle cx="60" cy="56" r="3" fill="#1B1917"/><circle cx="40" cy="71" r="3" fill="#1B1917"/><circle cx="60" cy="71" r="3" fill="#1B1917"/>
-<circle cx="80" cy="64" r="11" fill="#C65D3B" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M75 64 l4 4 l7 -8" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<circle cx="80" cy="64" r="11" fill="#B04F2F" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M75 64 l4 4 l7 -8" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>

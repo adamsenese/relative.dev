@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Relative Industries is a small, design-minded studio. We make simple apps, and help businesses get hours back with crafted websites and Claude-powered automation.">
-    <meta name="theme-color" content="#F5F2EB">
+    <meta name="theme-color" content="#FBF8F4">
     <meta name="keywords" content="Relative, Relative Industries, productivity apps, personal growth, positive thinking">
     <title>Relative Industries</title>
+    <meta property="og:title" content="Relative Industries">
+    <meta property="og:description" content="A small, design-minded studio run by Adam &amp; Dom. Simple apps, crafted websites, and Claude-powered workflows that give teams their hours back.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://relative.dev/">
+    <meta property="og:site_name" content="Relative Industries">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=3">
     <link rel="icon" type="image/png" sizes="32x32" href="images/relativefavi.png?v=3">
     <link rel="icon" type="image/png" sizes="16x16" href="images/relativefavi.png?v=3">
@@ -18,7 +23,7 @@
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
-        :root { --ease: cubic-bezier(0.22, 1, 0.36, 1); --accent: #2F5BFF; --clay: #C65D3B; }
+        :root { --ease: cubic-bezier(0.22, 1, 0.36, 1); --accent: #2F5BFF; --clay: #B04F2F; }
 
         ::selection { background: rgba(43, 75, 255, 0.16); }
 
@@ -105,6 +110,9 @@
             background-position: 0 100%;
             background-repeat: no-repeat;
             transition: opacity 150ms ease, background-size 280ms var(--ease);
+            display: inline-block;
+            padding: 12px 0;
+            background-position: 0 calc(100% - 10px);
         }
 
         nav a:hover { opacity: 1; background-size: 100% 1px; }
@@ -141,7 +149,7 @@
             pointer-events: none;
             opacity: 0;
             transition: opacity 800ms ease;
-            background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(198, 93, 59, 0.08), transparent 62%);
+            background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(176, 79, 47, 0.08), transparent 62%);
         }
         body.pointer-active .glow { opacity: 1; }
 
@@ -162,6 +170,7 @@
             margin: 0 0 0.9em;
             font-weight: 500;
             letter-spacing: -0.025em;
+            text-wrap: pretty;
             opacity: 0;
             animation: fadeUp 850ms var(--ease) forwards;
         }
@@ -202,21 +211,23 @@
             transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
         }
         .pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #1B1917; }
+        .pill:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #1B1917; }
+        .pill:focus-visible, nav a:focus-visible, footer a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 999px; }
         .pill .dot {
             width: 7px; height: 7px; border-radius: 50%;
             background: #fff;
-            box-shadow: 0 0 0 0 rgba(110,231,160,0.6);
+            box-shadow: 0 0 0 0 rgba(255,255,255,0.6);
             animation: pulse 2.4s infinite;
         }
         .pill .arr { transition: transform 260ms var(--ease); }
         .pill:hover .arr { transform: translateX(3px); }
         @keyframes pulse {
-            0%   { box-shadow: 0 0 0 0 rgba(110,231,160,0.5); }
-            70%  { box-shadow: 0 0 0 7px rgba(110,231,160,0); }
-            100% { box-shadow: 0 0 0 0 rgba(110,231,160,0); }
+            0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); }
+            70%  { box-shadow: 0 0 0 7px rgba(255,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
         }
         .content .pill, .content .pill:hover { color: #fff; text-decoration: none; opacity: 1; }
-        .invite small { font-size: 14px; opacity: 0.6; }
+        .invite small { font-size: 14px; color: rgba(27, 25, 23, 0.70); }
 
         .content em {
             font-family: 'Fraunces', Georgia, serif;
@@ -240,7 +251,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 13px;
-            opacity: 0.55;
+            color: rgba(27, 25, 23, 0.70);
         }
 
         footer a {
@@ -302,7 +313,7 @@
             <p>We have much to build.</p>
             <div class="invite">
                 <a class="pill" href="/hire"><span class="dot" aria-hidden="true"></span>Get a free plan for your business <span class="arr">→</span></a>
-                <small>Web design &amp; business automation</small>
+                <small>Websites &amp; Claude workflows, from Adam &amp; Dom</small>
             </div>
         </div>
     </main>
@@ -322,7 +333,7 @@
             var fine = window.matchMedia('(pointer: fine)').matches;
             var GAP = 34, dpr = 1, w = 0, h = 0, tiles = [];
             var px = -9999, py = -9999, tx = -9999, ty = -9999, t0 = performance.now();
-            var hues = [[198, 93, 59], [47, 91, 255], [198, 93, 59]];
+            var hues = [[176, 79, 47], [47, 91, 255], [176, 79, 47]];
 
             function build() {
                 dpr = Math.min(window.devicePixelRatio || 1, 2);

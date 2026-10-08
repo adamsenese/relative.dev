@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Relative Industries is a small design studio that gives businesses their week back. We hand your busywork to Claude, give your website the care it deserves, and stay until it's second nature.">
-    <meta name="theme-color" content="#F4F1EA">
+    <meta name="theme-color" content="#FBF8F4">
     <title>Your week, returned — Relative Industries</title>
     <meta property="og:title" content="Your week, returned — Relative Industries">
     <meta property="og:description" content="A small design studio for Claude-powered workflows and websites. Start with a free plan, made for your business.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://relative.dev/hire">
+    <meta property="og:site_name" content="Relative Industries">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=3">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/relativefavi.png?v=3">
     <link rel="apple-touch-icon" href="/images/relativefavi.png?v=3">
@@ -24,7 +26,7 @@
         .hero .body { margin-top: 28px; font-size: clamp(17px, 1.6vw, 19px); }
         .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 36px; }
         .hero-art { width: min(440px, 38vw); }
-        .hello { display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(28px, 4vw, 48px); background: var(--clay-wash); border-radius: 32px; }
+        .hello { display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(28px, 4vw, 48px); background: var(--clay-wash); border-radius: var(--r); }
         .hello .faces img { width: clamp(72px, 9vw, 112px); height: clamp(72px, 9vw, 112px); border-width: 3px; }
         .hello .faces img + img { margin-left: -22px; }
         .hello .lead { max-width: 24em; }
@@ -40,7 +42,7 @@
         .show { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
         .show ol { list-style: none; margin: 28px 0 0; padding: 0; counter-reset: s; }
         .show li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; align-items: center; padding: 12px 0; border-top: 1px solid var(--hair); font-weight: 500; }
-        .show li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 700 14px/1 var(--display); }
+        .show li::before { content: counter(s, decimal-leading-zero); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--clay-deep); color: #fff; font: 700 13px/1 var(--display); }
         .preview {
             position: relative; display: block;
             height: 560px; border-radius: 24px; overflow: hidden;
@@ -51,7 +53,7 @@
         }
         .preview:hover { transform: none; }
         .preview iframe { width: 200%; height: 200%; border: 0; transform: scale(0.5); transform-origin: 0 0; pointer-events: none; }
-        .preview::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(180deg, rgba(244,241,234,0), var(--paper)); }
+        .preview::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; background: linear-gradient(180deg, rgba(251,248,244,0), var(--paper)); }
         .preview .open-link { position: absolute; z-index: 2; left: 50%; bottom: 28px; transform: translateX(-50%); }
 
         /* ---------- calculator as a sentence ---------- */
@@ -63,12 +65,13 @@
             -moz-appearance: textfield;
         }
         .say input.w3 { width: 3.4ch; }
-        .say input:focus { outline: none; border-color: var(--blue); }
+        .say input:focus { outline: none; background: var(--white); box-shadow: 0 0 0 3px var(--blue); }
+        .say input:hover { background: #D6DFFF; }
         .say input::-webkit-outer-spin-button, .say input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .answer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
         .answer > div { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: 24px; box-shadow: var(--pop); }
         .answer > div:first-child { background: var(--blue); color: #fff; }
-        .answer > div:first-child .mono { color: rgba(255,255,255,0.8); }
+        .answer > div:first-child .mono { color: rgba(255,255,255,0.9); }
         .answer b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5.6vw, 76px); line-height: 1; letter-spacing: -0.04em; }
         .answer span { display: block; margin-top: 10px; }
         .fine { margin-top: 24px; font-size: 13.5px; color: var(--ink-3); max-width: 44em; }
@@ -78,6 +81,7 @@
         .steps > div { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: 26px; box-shadow: var(--pop); }
         .steps h3 { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3vw, 40px); letter-spacing: -0.03em; margin: 12px 0 0; }
         .steps p { color: var(--ink-2); margin: 10px 0 0; }
+        .steps .spot { margin-left: -9px; }
 
         /* ---------- pricing ---------- */
         .prices { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
@@ -98,12 +102,12 @@
 
         /* ---------- form ---------- */
         .start { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
-        .start form { display: grid; gap: 22px; background: var(--white); border: 2px solid var(--ink); border-radius: 28px; padding: clamp(22px, 3vw, 36px); box-shadow: 8px 8px 0 var(--ink); }
+        .start form { display: grid; gap: 22px; background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: clamp(22px, 3vw, 36px); box-shadow: 8px 8px 0 var(--ink); }
         .start .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .start .btn[type=submit] { justify-self: start; }
         .promise { list-style: none; margin: 32px 0 0; padding: 0; }
         .promise li { padding: 12px 0; border-top: 1px solid var(--hair); font-weight: 500; display: grid; grid-template-columns: 40px 1fr; align-items: center; }
-        .promise li span { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--clay); color: #fff; font: 700 13px/1 var(--display); }
+        .promise li span { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--clay-deep); color: #fff; font: 700 13px/1 var(--display); }
         .estimate-note { display: none; font-size: 14px; color: var(--ink-2); padding: 14px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
         .estimate-note.on { display: block; }
         .estimate-note b { color: var(--blue); font-weight: 500; }
@@ -113,7 +117,9 @@
 
         /* ---------- faq ---------- */
         .faq { display: grid; gap: 12px; }
-        .faq details { background: var(--white); border: 2px solid var(--ink); border-radius: 18px; padding: 0 24px; }
+        .faq details { background: var(--white); border: 2px solid var(--ink); border-radius: 18px; padding: 0 24px; transition: box-shadow 220ms var(--ease); }
+        .faq details:hover, .faq details[open] { box-shadow: 3px 3px 0 var(--ink); }
+        .faq summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; border-radius: 6px; }
 
         .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr 24px; gap: 16px; padding: 20px 0; font-family: var(--display); font-weight: 700; font-size: clamp(19px, 2vw, 24px); letter-spacing: -0.02em; line-height: 1.25; }
         .faq summary::-webkit-details-marker { display: none; }
@@ -133,6 +139,10 @@
             .start .grid2 { grid-template-columns: 1fr; }
             .preview { height: 380px; }
             .hero-cta { gap: 16px; }
+            .extras div { flex-direction: column; gap: 4px; }
+            .extras span { text-align: left; }
+            .preview, .start form { box-shadow: 6px 6px 0 var(--ink); }
+            .price-col.feat { box-shadow: 6px 6px 0 var(--blue); }
         }
     </style>
 </head>
@@ -170,7 +180,7 @@
             <div class="hero-week rv">
                 <div class="note">
                     <div class="week-count"><span id="heroCount">0</span><small>hours back</small></div>
-                    <p>Here's a typical team of six, over one week. Hover a blue hour to see what Claude took off someone's desk.</p>
+                    <p>Here's a typical team of six, over one week. Each blue square is an hour Claude took off someone's desk.<span class="hide-sm"> Hover one to see what.</span></p>
                 </div>
                 <div>
                     <div class="week" id="heroWeek"></div>
@@ -207,13 +217,13 @@
         <section class="section">
             <div class="show">
                 <div class="rv">
-                    <img class="illus" src="/assets/illus/gift.svg" alt="" width="120" height="100" style="width:110px;margin-bottom:10px;">
+                    <img class="illus flush" src="/assets/illus/gift.svg" alt="" width="120" height="100" style="width:110px;margin-bottom:10px;">
                     <span class="mono">We start with the work</span>
                     <h2 class="h2" style="margin-top:14px;">Before we ask for anything, <em>we make you something.</em></h2>
                     <p class="body" style="margin-top:18px;">Every business we talk to gets a free plan, made just for them. It's our way of saying hello properly.</p>
                     <ol>
                         <li>A first sketch of your homepage, reimagined</li>
-                        <li>Ten ways to get hours back, specific to your trade</li>
+                        <li>Ten ways to get hours back, ranked for your business</li>
                         <li>The three you could have running next week</li>
                     </ol>
                 </div>
@@ -296,8 +306,8 @@
                     <p class="body" style="margin-top:20px;">Tell us a little about your week. Within two business days, one of us will send you:</p>
                     <ul class="promise">
                         <li><span>01</span>A first sketch of your homepage, reimagined</li>
-                        <li><span>02</span>Ten ways to get time back, ranked</li>
-                        <li><span>03</span>The three you could start next week</li>
+                        <li><span>02</span>Ten ways to get hours back, ranked for your business</li>
+                        <li><span>03</span>The three you could have running next week</li>
                     </ul>
                     <div class="people" style="margin-top:32px;">
                         <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="" width="40" height="40"><img src="/images/dom-photo.jpg" alt="" width="40" height="40"></span>
@@ -364,7 +374,7 @@
                 <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="" width="40" height="40"><img src="/images/dom-photo.jpg" alt="" width="40" height="40"></span>
                 <span class="small">&copy; 2026 Relative Industries LLC · Made with care by Adam &amp; Dom</span>
             </div>
-            <span class="mono"><a href="mailto:hello@relative.dev">hello@relative.dev</a></span>
+            <a class="textlink small" href="mailto:hello@relative.dev">hello@relative.dev</a>
         </footer>
     </main>
 

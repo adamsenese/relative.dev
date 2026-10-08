@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-label="Stacked building blocks"><title>Stacked building blocks</title><ellipse cx="60" cy="92" rx="44" ry="5" fill="#F4EEE6"/>
 <rect x="22" y="56" width="34" height="28" rx="5" fill="#2F5BFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="60" y="56" width="38" height="28" rx="5" fill="#FFFFFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="38" y="24" width="38" height="30" rx="5" fill="#C65D3B" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-8 57 39)"/>
+<rect x="38" y="24" width="38" height="30" rx="5" fill="#B04F2F" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-8 57 39)"/>
 <path d="M92 22 Q92 30 100 30 Q92 30 92 38 Q92 30 84 30 Q92 30 92 22Z" fill="#2F5BFF"/></svg>

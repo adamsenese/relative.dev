@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <meta name="theme-color" content="#F4F1EA">
+    <meta name="theme-color" content="#FBF8F4">
     <title>A plan, made for you — Relative Industries</title>
     <meta name="description" content="A free concept and Time-Back Plan from Relative Industries.">
-    <link rel="icon" type="image/png" href="/images/relativefavi.png?v=3">
+    <meta property="og:title" content="A plan, made for you — Relative Industries">
+    <meta property="og:description" content="A first sketch of your new homepage, and ten ways to give your team hours back each week. Made by Adam &amp; Dom at Relative Industries.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Relative Industries">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/relativefavi.png?v=3">
+    <link rel="apple-touch-icon" href="/images/relativefavi.png?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:ital,wght@0,400..800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400..500;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,13 +35,13 @@
             border-radius: 18px;
             overflow: hidden;
             background: #fff;
-            border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--ink);
+            border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
             max-height: 880px;
         }
         .frame::after { /* the fade from their world into ours */
             content: "";
             position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
-            background: linear-gradient(180deg, rgba(244,241,234,0) 0%, rgba(244,241,234,0.7) 38%, rgba(244,241,234,0.96) 62%, var(--paper) 74%);
+            background: linear-gradient(180deg, rgba(251,248,244,0) 0%, rgba(251,248,244,0.7) 38%, rgba(251,248,244,0.96) 62%, var(--paper) 74%);
             pointer-events: none;
         }
         .chrome {
@@ -53,7 +59,7 @@
             font: 400 12.5px/1 var(--sans); color: rgba(0,0,0,0.55);
         }
         .chrome .url svg { opacity: 0.45; }
-        .chrome .tag { font: 700 11px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); background: var(--clay); padding: 6px 9px; border-radius: 999px; }
+        .chrome .tag { font: 700 11px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); background: var(--clay-deep); padding: 6px 9px; border-radius: 999px; }
 
         /* the concept site has its own type + colour, driven by --h */
         .site {
@@ -74,8 +80,9 @@
         .site .orb.a { width: 560px; height: 560px; right: -140px; top: -160px; background: radial-gradient(circle at 35% 35%, hsl(var(--h) 80% 86%), hsl(var(--h) 70% 72% / 0) 68%); }
         .site .orb.b { width: 380px; height: 380px; right: 160px; top: 260px; background: radial-gradient(circle, hsl(calc(var(--h) + 40) 80% 88%), hsl(calc(var(--h) + 40) 70% 80% / 0) 70%); }
         .s-nav { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px clamp(20px, 4vw, 48px); }
-        .s-brand { font-family: var(--site-display); font-weight: 500; font-size: 19px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
-        .s-brand i { width: 26px; height: 26px; border-radius: 8px; background: var(--c); display: grid; place-items: center; color: #fff; font-style: normal; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; }
+        .s-brand { font-family: var(--site-display); font-weight: 500; font-size: 19px; line-height: 1.2; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .s-brand > span { text-wrap: balance; }
+        .s-brand i { flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--c); display: grid; place-items: center; color: #fff; font-style: normal; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 600; }
         .s-links { display: flex; gap: 26px; font-size: 14px; color: hsl(var(--h) 20% 35%); }
         .s-pill { padding: 10px 16px; border-radius: 999px; background: var(--c-ink); color: #fff; font-size: 13.5px; font-weight: 500; white-space: nowrap; }
         .s-hero { position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(28px, 5vw, 64px) clamp(20px, 4vw, 48px) 40px; }
@@ -110,7 +117,7 @@
             padding: 0 var(--gutter);
         }
         .concept-cap .lead { max-width: 18em; margin: 14px auto 0; }
-        .ask form { background: var(--white); border: 2px solid var(--ink); border-radius: 28px; padding: clamp(22px, 3vw, 34px); box-shadow: 8px 8px 0 var(--ink); }
+        .ask form { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: clamp(22px, 3vw, 34px); box-shadow: 8px 8px 0 var(--ink); }
         .week-block .illus { width: 120px; margin-bottom: 8px; }
 
         /* ---------- plan ---------- */
@@ -122,8 +129,13 @@
             font: 700 14px/1 var(--sans);
             padding: 10px 14px; border-radius: 999px;
             border: 2px solid var(--ink); background: var(--white); color: var(--ink);
-            cursor: pointer; transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+            cursor: pointer; transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease);
         }
+        .pick-row:hover .toggle { background: var(--sand); }
+        .pick-row.on:hover .toggle { background: #2149E6; }
+        .toggle:active { transform: translateY(1px); }
+        .pick-row:hover h3 { color: var(--clay-deep); }
+        .row h3 { transition: color 200ms ease; }
         .toggle .box { width: 14px; height: 14px; border-radius: 4px; border: 1px solid currentColor; display: grid; place-items: center; }
         .toggle .box svg { opacity: 0; transition: opacity 160ms ease; }
         .pick-row.on .toggle { background: var(--blue); border-color: var(--ink); color: var(--white); }
@@ -149,6 +161,8 @@
         .tray .sum { font-size: 14px; white-space: nowrap; }
         .tray .sum b { font-weight: 600; }
         .tray .btn { background: var(--clay); color: var(--white); border-color: var(--white); padding: 12px 18px; box-shadow: none; }
+        .tray .btn:hover { background: var(--clay-deep); }
+        .tray .btn:active { transform: translateY(1px); }
 
         /* ---------- make it real ---------- */
         .real { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
@@ -164,6 +178,8 @@
         .switch small { display: block; color: var(--ink-2); font-size: 13px; }
         .switch input { position: absolute; opacity: 0; pointer-events: none; }
         .switch .knob { flex: none; width: 42px; height: 24px; border-radius: 999px; background: var(--hair-2); position: relative; transition: background 200ms ease; }
+        .switch:hover .knob { background: var(--ink-3); }
+        .switch:hover:has(input:checked) .knob { background: var(--clay-deep); }
         .switch .knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 300ms var(--ease); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
         .switch:has(input:checked) .knob { background: var(--clay); }
         .switch:has(input:checked) .knob::after { transform: translateX(18px); }
@@ -185,8 +201,14 @@
             .s-hero { grid-template-columns: 1fr; }
             .s-links { display: none; }
             .frame { max-height: 1100px; }
+            .s-services { padding-bottom: 40px; }
+        }
+        @media (max-width: 480px) {
+            .s-pill { display: none; }
         }
         @media (max-width: 760px) {
+            .frame { max-height: 760px; }
+            .frame::after { height: 34%; background: linear-gradient(180deg, rgba(251,248,244,0) 0%, rgba(251,248,244,0.85) 60%, var(--paper) 96%); }
             .pick-row { grid-template-columns: 36px 1fr; }
             .pick-row > div { grid-column: 2; }
             .pick-row .t { justify-items: start; grid-auto-flow: column; align-items: center; gap: 14px; }
@@ -195,8 +217,14 @@
             .ask .grid2 { grid-template-columns: 1fr; }
             .tray { left: 12px; right: 12px; transform: translateY(140%); justify-content: space-between; padding-left: 18px; }
             .tray.show { transform: none; }
-            .concept-cap { margin-top: -120px; }
+            .concept-cap { margin-top: 28px; }
             .concept-cap .lead { font-size: 24px; }
+            .frame, .ask form { box-shadow: 6px 6px 0 var(--ink); }
+            .offer { box-shadow: 6px 6px 0 var(--blue); }
+            .tray { box-shadow: 4px 4px 0 var(--clay); }
+            .toggle, .tray .btn { min-height: 44px; }
+            .s-nav { padding-top: 18px; padding-bottom: 18px; }
+            .s-brand { font-size: 17px; }
         }
     </style>
 </head>
@@ -209,7 +237,7 @@
             </a>
             <div class="nav-links">
                 <span class="mono hide-sm" id="navFor">Prepared for you</span>
-                <a class="btn btn-ink btn-sm" href="#real">Let's do this</a>
+                <a class="btn btn-ink btn-sm" href="#real">Let's talk</a>
             </div>
         </nav>
     </div>
@@ -218,7 +246,7 @@
         <!-- OPENING -->
         <section class="open">
             <div>
-                <img class="illus gift bob" src="/assets/illus/gift.svg" alt="" width="120" height="100">
+                <img class="illus flush gift bob" src="/assets/illus/gift.svg" alt="" width="120" height="100">
                 <span class="mono" id="kicker">A little gift, before we've even met</span>
                 <h1><span class="rise"><span>We started on</span></span><span class="rise"><span>your <em>new homepage.</em></span></span></h1>
                 <p class="body" id="openBody">We loved what you've built, so we sketched a fresh homepage for you. Below it is the bigger gift: a plan to give your team hours back every week. It's yours to keep, whatever you decide.</p>
@@ -273,7 +301,7 @@
         <section class="section">
             <div class="week-block">
                 <div class="rv">
-                    <img class="illus" src="/assets/illus/calendar.svg" alt="" width="120" height="100">
+                    <img class="illus flush" src="/assets/illus/calendar.svg" alt="" width="120" height="100">
                     <span class="mono">Your week, returned</span>
                     <h2 class="h2" style="margin-top:14px;"><span id="estHours">10–15</span> hours a week, <em>back.</em></h2>
                     <p class="body" style="margin-top:20px;" id="intro"></p>
@@ -289,7 +317,7 @@
         <!-- TOP 3 -->
         <section class="section" id="plan">
             <div class="label-row rv"><span class="mono">Three things for next week</span><span class="mono quiet">Tap any idea to add or remove it</span></div>
-            <h2 class="h2 rv" style="max-width:12em;margin-bottom:40px;">Small moves. Running <em>within days.</em></h2>
+            <h2 class="h2 rv" style="max-width:12em;margin-bottom:40px;">Small moves, running <em>by next week.</em></h2>
             <div class="rows" id="top3"></div>
         </section>
 
@@ -304,7 +332,7 @@
             <div class="label-row rv"><span class="mono">Make it real</span><span class="mono quiet" id="pickCount">3 ideas picked</span></div>
             <div class="real">
                 <div class="rv">
-                    <img class="illus" src="/assets/illus/stay.svg" alt="" width="120" height="100" style="width:110px;margin-bottom:8px;">
+                    <img class="illus flush" src="/assets/illus/stay.svg" alt="" width="120" height="100" style="width:110px;margin-bottom:8px;">
                     <h2 class="h2">We'll do it <em>with you.</em></h2>
                     <p class="body" style="margin-top:20px;">We build each idea, set Claude up for your whole team, and stay beside you in weekly review sessions until it's second nature. One price, agreed up front. Everything we build is yours.</p>
                     <div class="offer" style="margin-top:40px;">
@@ -319,7 +347,7 @@
 
                 <div class="ask rv">
                     <form id="askForm" novalidate>
-                        <p class="lead" style="font-size:clamp(22px,2.4vw,30px);">Like what you see? Tell us where to reach you, and we'll set up a relaxed 20-minute call. No pressure, ever.</p>
+                        <p class="lead" style="font-size:clamp(22px,2.4vw,30px);">Like what you see? Tell us where to reach you, and we'll set up a relaxed 20&#8209;minute call. No pressure, ever.</p>
                         <div class="grid2">
                             <div class="field"><label for="aName">Your name</label><input class="input" id="aName" name="name" autocomplete="name" required placeholder="Jane Smith"></div>
                             <div class="field"><label for="aEmail">Email</label><input class="input" id="aEmail" name="email" type="email" autocomplete="email" required placeholder="jane@business.com"></div>
@@ -350,13 +378,13 @@
                 <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="" width="40" height="40"><img src="/images/dom-photo.jpg" alt="" width="40" height="40"></span>
                 <span class="small">Made with care by Adam &amp; Dom at Relative Industries.</span>
             </div>
-            <span class="mono"><a href="mailto:hello@relative.dev">hello@relative.dev</a> · <a href="/hire">relative.dev</a></span>
+            <span class="small"><a class="textlink" href="mailto:hello@relative.dev">hello@relative.dev</a> · <a class="textlink" href="/hire">relative.dev</a></span>
         </footer>
     </main>
 
     <div class="tray" id="tray" aria-live="polite">
         <span class="sum"><b id="trayN">3</b> ideas · <b id="trayH">~9</b> hrs/wk</span>
-        <a class="btn" href="#real">Let's do these <span class="arr">→</span></a>
+        <a class="btn" href="#real">Make these real <span class="arr">→</span></a>
     </div>
 
     <script src="/assets/relative.js?v=5"></script>
