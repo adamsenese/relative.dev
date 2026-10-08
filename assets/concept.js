@@ -54,6 +54,24 @@
         return ICON.arrow;
     }
 
+    // their own images, via an https image proxy (old http-only sites still load), with a clean fallback
+    function img(u, o) {
+        if (!u) return '';
+        var q = 'https://images.weserv.nl/?url=' + encodeURIComponent(u.replace(/^https?:\/\//, '')) + (o || '');
+        return q;
+    }
+    function pic(u, opts, cls, kind, extra) {
+        if (!u) return '';
+        var raw = /^https:/.test(u) ? u : '';
+        return '<img class="' + cls + '" src="' + esc(img(u, opts)) + '" data-raw="' + esc(raw) + '" data-k="' + kind + '" onerror="Concept.err(this)" ' + (extra || 'alt=""') + '>';
+    }
+    function err(el) {
+        if (el.dataset.raw && !el.dataset.tried) { el.dataset.tried = '1'; el.src = el.dataset.raw; return; }
+        var k = el.dataset.k, p = el.parentNode;
+        if (k === 'logo' && p && p.dataset.fb) { p.innerHTML = p.dataset.fb; return; }
+        if (k === 'photo' && p) p.classList.remove('has-photo');
+        el.remove();
+    }
     function lighten(c, pct) { return 'color-mix(in srgb, ' + c + ' ' + pct + '%, #fff)'; }
 
     function render(site, p, w) {
@@ -89,14 +107,23 @@
             '<div class="b">' + esc(wd.b || 'Send') + '</div>' +
             '<div class="note">' + esc(wd.n || 'We reply quickly') + '</div></div>';
 
-        var art = '<div class="cw-art" aria-hidden="true"><span class="cw-dots"></span>' +
+        var photo = w.im ? pic(w.im, '&w=1600&q=80&output=webp', 'ph', 'photo') : '';
+        var art = '<div class="cw-art' + (photo ? ' has-photo' : '') + '" aria-hidden="true">' +
+            photo + '<span class="cw-dots"></span>' +
             '<svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' + motif + '</svg>' +
             (facts[0] ? '<span class="cw-chip">' + esc(facts[0]) + '</span>' : '') + '</div>';
 
         var util = (w.ad || phone || w.hr) ?
             '<div class="cw-util"><span>' + esc([w.ad, w.hr].filter(Boolean).join(' · ')) + '</span><span>' + (w.pt ? '<a>' + ICON.lock + esc(w.pt) + '</a>' : '') + (phone ? '<b>' + esc(phone) + '</b>' : '') + '</span></div>' : '';
 
-        var head = '<header class="cw-head"><span class="cw-logo"><i class="mk' + (mark.length > 2 ? ' wide' : '') + '">' + esc(mark) + '</i><span><b>' + esc(name) + '</b>' + (w.ds ? '<small>' + esc(w.ds) + '</small>' : '') + '</span></span>' +
+        var textLogo = '<i class="mk' + (mark.length > 2 ? ' wide' : '') + '">' + esc(mark) + '</i><span><b>' + esc(name) + '</b>' + (w.ds ? '<small>' + esc(w.ds) + '</small>' : '') + '</span>';
+        var logoHtml = textLogo;
+        if (w.lo && w.lw === 'mark') {
+            logoHtml = pic(w.lo, '&w=120&h=120&fit=inside', 'lg-mark', 'mark') + '<span><b>' + esc(name) + '</b>' + (w.ds ? '<small>' + esc(w.ds) + '</small>' : '') + '</span>';
+        } else if (w.lo) {
+            logoHtml = pic(w.lo, '&h=140&fit=inside', 'lg-full', 'logo', 'alt="' + esc(name) + '"');
+        }
+        var head = '<header class="cw-head' + (w.lo && w.lw === 'white' ? ' dark' : '') + '"><span class="cw-logo" data-fb="' + esc(textLogo) + '">' + logoHtml + '</span>' +
             '<nav class="cw-nav">' + nav + '</nav><span class="cw-pill">' + esc(ctaText) + '</span></header>';
 
         var heroText = '<span class="cw-eyebrow">' + esc(w.ey || place || 'Welcome') + '</span>' +
@@ -106,7 +133,7 @@
             (w.tr ? '<div class="cw-trust">' + esc(w.tr) + '</div>' : '');
 
         var hero = lay === 'banner'
-            ? '<section class="cw-hero banner"><div class="cw-bannerart" aria-hidden="true"><svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + motif + '</svg></div><div class="cw-hero-in">' + heroText + '</div></section>'
+            ? '<section class="cw-hero banner' + (photo ? ' has-photo' : '') + '">' + photo + '<div class="cw-bannerart" aria-hidden="true"><svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + motif + '</svg></div><div class="cw-hero-in">' + heroText + '</div></section>'
             : '<section class="cw-hero split"><div class="cw-hero-in">' + heroText + '</div><div class="cw-hero-side">' + art + widget + '</div></section>';
 
         var qa = (w.qa || []).length ? '<section class="cw-qa">' + w.qa.map(function (x) { return '<span><i>' + pick(x) + '</i>' + esc(x) + '<em>→</em></span>'; }).join('') + '</section>' : '';
@@ -122,7 +149,7 @@
         var about = (w.ab || people.length) ? '<section class="cw-sec cw-about"><div><span class="cw-k">About</span><h3>' + esc(w.abh || ('Meet ' + name)) + '</h3>' + (w.ab ? '<p>' + esc(w.ab) + '</p>' : '') + '</div>' +
             (people.length ? '<div class="cw-people">' + people.map(function (x) {
                 var ini = x[0].replace(/^(Dr\.|Drs\.)\s*/, '').split(/\s+/).map(function (s) { return s[0]; }).join('').slice(0, 2);
-                return '<div class="cw-person"><i>' + esc(ini) + '</i><span><b>' + esc(x[0]) + '</b>' + (x[1] ? '<small>' + esc(x[1]) + '</small>' : '') + '</span></div>';
+                return '<div class="cw-person"><i>' + pic(x[2], '&w=120&h=120&fit=cover&a=attention', '', 'avatar') + esc(ini) + '</i><span><b>' + esc(x[0]) + '</b>' + (x[1] ? '<small>' + esc(x[1]) + '</small>' : '') + '</span></div>';
             }).join('') + '</div>' : visit) + '</section>' : '';
 
         var quote = w.q && w.q[0] ? '<section class="cw-quote"><blockquote>“' + esc(w.q[0].replace(/^[“"]|[”"]$/g, '')) + '”</blockquote>' + (w.q[1] ? '<cite>' + esc(w.q[1]) + '</cite>' : '') + '</section>' : '';
@@ -137,5 +164,5 @@
         site.innerHTML = util + head + hero + qa + factBand + services + about + quote + ctaBand + foot;
     }
 
-    window.Concept = { render: render };
+    window.Concept = { render: render, err: err };
 })();

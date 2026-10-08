@@ -178,3 +178,23 @@
 .cw-hint.gone { opacity: 0; transform: translateY(8px); animation: none; }
 @keyframes cwbob { 50% { transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { .cw-hint { animation: none; } }
+
+/* their real logo and photos */
+.cw-logo img.lg-full { display: block; height: 58px; width: auto; max-width: 300px; object-fit: contain; }
+.cw-head.dark .cw-logo img.lg-full { height: 64px; }
+.cw-head { padding-top: 12px; padding-bottom: 12px; }
+.cw-logo img.lg-mark { flex: none; width: 44px; height: 44px; object-fit: contain; border-radius: 8px; }
+.cw-head.dark { background: color-mix(in srgb, var(--deep) 94%, transparent); border-bottom-color: rgba(255,255,255,.08); }
+.cw-head.dark .cw-nav { color: rgba(255,255,255,.78); }
+.cw-head.dark .cw-pill { background: #fff; color: var(--c-ink); }
+.cw-art .ph, .cw-hero.banner .ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cw-art.has-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(200deg, transparent 40%, color-mix(in srgb, var(--c) 55%, transparent)); }
+.cw-art.has-photo svg, .cw-art.has-photo .cw-dots { display: none; }
+.cw-art.has-photo .cw-chip { z-index: 2; }
+.cw-hero.banner.has-photo { background: var(--deep); }
+.cw-hero.banner.has-photo::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(100deg, color-mix(in srgb, var(--deep) 94%, transparent) 0%, color-mix(in srgb, var(--deep) 78%, transparent) 48%, color-mix(in srgb, var(--c) 30%, transparent) 100%); }
+.cw-hero.banner.has-photo .cw-bannerart { display: none; }
+.cw-hero.banner .cw-hero-in { z-index: 2; }
+.cw-person i { position: relative; overflow: hidden; }
+.cw-person i img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+@container (max-width: 480px) { .cw-logo img.lg-full { height: 36px; max-width: 190px; } }
