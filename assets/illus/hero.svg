@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" role="img" aria-label="A clock with a third of the day shaded blue, a coffee mug, a plant, and a paper plane flying off"><title>A clock with a third of the day shaded blue, a coffee mug, a plant, and a paper plane flying off</title>
+<ellipse cx="250" cy="372" rx="210" ry="14" fill="#F4EEE6"/>
+<circle cx="258" cy="208" r="128" fill="#1B1917"/>
+<circle cx="250" cy="200" r="128" fill="#FFFFFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M250 200 L250.0 78.0 A122 122 0 0 1 355.7 261.0Z" fill="#2F5BFF"/>
+<path d="M250 200 L355.7 261.0 A122 122 0 0 1 311.0 305.7Z" fill="#F7E6DC"/>
+<line x1="364.0" y1="200.0" x2="352.0" y2="200.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="348.7" y1="257.0" x2="343.5" y2="254.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="307.0" y1="298.7" x2="304.0" y2="293.5" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="250.0" y1="314.0" x2="250.0" y2="302.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="193.0" y1="298.7" x2="196.0" y2="293.5" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="151.3" y1="257.0" x2="156.5" y2="254.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="136.0" y1="200.0" x2="148.0" y2="200.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="151.3" y1="143.0" x2="156.5" y2="146.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="193.0" y1="101.3" x2="196.0" y2="106.5" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="250.0" y1="86.0" x2="250.0" y2="98.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="307.0" y1="101.3" x2="304.0" y2="106.5" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="348.7" y1="143.0" x2="343.5" y2="146.0" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="250" y1="200" x2="198" y2="166" stroke="#1B1917" stroke-width="7" stroke-linecap="round"/>
+<line x1="250" y1="200" x2="320" y2="142" stroke="#1B1917" stroke-width="5" stroke-linecap="round"/>
+<circle cx="250" cy="200" r="9" fill="#C65D3B" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- mug -->
+<path d="M70 282 h78 v56 a22 22 0 0 1 -22 22 h-34 a22 22 0 0 1 -22 -22z" fill="#C65D3B" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M148 296 h10 a16 16 0 0 1 0 32 h-10" fill="none" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M92 268 q-8 -12 0 -24 q8 -12 0 -24 M116 268 q-8 -12 0 -24 q8 -12 0 -24" fill="none" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
+<!-- plant -->
+<path d="M376 300 h64 l-8 62 h-48z" fill="#F4EEE6" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M408 300 c0 -30 -4 -48 -22 -66" fill="none" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M386 234 c-26 -4 -40 10 -40 28 c22 2 36 -8 40 -28z" fill="#E3E9FF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M408 286 c4 -30 24 -44 46 -40 c-2 24 -20 40 -46 40z" fill="#E3E9FF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M404 262 c-12 -22 -6 -46 14 -58 c10 22 4 44 -14 58z" fill="#2F5BFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- paper plane leaving with the busywork -->
+<path d="M368 92 C398 56 424 52 452 40" fill="none" stroke="#1B1917" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round"/>
+<path d="M452 40 l40 -22 l-14 48 l-12 -14z" fill="#FFFFFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M452 40 l26 12 l14 -34" fill="none" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M92 116 Q92 128 104 128 Q92 128 92 140 Q92 128 80 128 Q92 128 92 116Z" fill="#C65D3B"/><path d="M420 141 Q420 150 429 150 Q420 150 420 159 Q420 150 411 150 Q420 150 420 141Z" fill="#2F5BFF"/><path d="M64 199 Q64 206 71 206 Q64 206 64 213 Q64 206 57 206 Q64 206 64 199Z" fill="#C65D3B"/>
+</svg>

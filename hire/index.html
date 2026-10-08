@@ -15,16 +15,20 @@
     <link rel="apple-touch-icon" href="/images/relativefavi.png?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/relative.css?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:ital,wght@0,400..800;1,400&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/relative.css?v=5">
     <style>
         /* ---------- hero ---------- */
         .hero { padding: clamp(48px, 8vw, 112px) 0 0; }
         .hero-top { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; }
         .hero .body { margin-top: 28px; font-size: clamp(17px, 1.6vw, 19px); }
         .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; margin-top: 36px; }
-        .hero-side { text-align: right; padding-bottom: 14px; }
-        .hero-side .mono { display: block; line-height: 2; }
+        .hero-art { width: min(440px, 38vw); }
+        .hello { display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(28px, 4vw, 48px); background: var(--clay-wash); border-radius: 32px; }
+        .hello .faces img { width: clamp(72px, 9vw, 112px); height: clamp(72px, 9vw, 112px); border-width: 3px; }
+        .hello .faces img + img { margin-left: -22px; }
+        .hello .lead { max-width: 24em; }
+        .hello p.small { margin-top: 14px; }
         .hero-week { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: 240px 1fr; gap: clamp(24px, 5vw, 72px); align-items: end; }
         .hero-week .note { padding-bottom: 6px; }
         .hero-week .note p { margin: 12px 0 0; font-size: 14px; color: var(--ink-2); }
@@ -34,14 +38,14 @@
 
         /* ---------- plan showcase ---------- */
         .show { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
-        .show ol { list-style: none; margin: 32px 0 0; padding: 0; counter-reset: s; }
-        .show li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; padding: 14px 0; border-top: 1px solid var(--hair); font-size: 15.5px; }
-        .show li::before { content: "0" counter(s); font-family: var(--mono); font-size: 12px; color: var(--ink-3); padding-top: 3px; }
+        .show ol { list-style: none; margin: 28px 0 0; padding: 0; counter-reset: s; }
+        .show li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; align-items: center; padding: 12px 0; border-top: 1px solid var(--hair); font-weight: 500; }
+        .show li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; font: 700 14px/1 var(--display); }
         .preview {
             position: relative; display: block;
-            height: 560px; border-radius: 18px; overflow: hidden;
+            height: 560px; border-radius: 24px; overflow: hidden;
             background: var(--paper);
-            box-shadow: 0 30px 80px -24px rgba(20,20,20,0.3), 0 0 0 1px rgba(20,20,20,0.08);
+            border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
             transform: perspective(1600px) rotateY(-6deg) rotateX(2deg);
             transition: transform 900ms var(--ease);
         }
@@ -51,51 +55,55 @@
         .preview .open-link { position: absolute; z-index: 2; left: 50%; bottom: 28px; transform: translateX(-50%); }
 
         /* ---------- calculator as a sentence ---------- */
-        .say { font-family: var(--serif); font-size: clamp(30px, 4.2vw, 56px); line-height: 1.22; letter-spacing: -0.02em; max-width: 19em; margin: 0; }
+        .say { font-family: var(--display); font-weight: 600; font-size: clamp(28px, 3.8vw, 50px); line-height: 1.3; letter-spacing: -0.025em; max-width: 20em; margin: 0; }
         .say input {
-            font: inherit; color: var(--blue); background: transparent;
-            border: 0; border-bottom: 2px solid rgba(43, 75, 255, 0.35);
+            font: inherit; font-weight: 800; color: var(--blue); background: var(--blue-wash);
+            border: 0; border-bottom: 3px solid var(--blue); border-radius: 10px 10px 0 0;
             width: 2.2ch; text-align: center; padding: 0; margin: 0 2px;
             -moz-appearance: textfield;
         }
         .say input.w3 { width: 3.4ch; }
         .say input:focus { outline: none; border-color: var(--blue); }
         .say input::-webkit-outer-spin-button, .say input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .answer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; border-top: 1px solid var(--ink); padding-top: 24px; }
-        .answer b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 6vw, 80px); line-height: 1; letter-spacing: -0.03em; }
+        .answer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+        .answer > div { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: 24px; box-shadow: var(--pop); }
+        .answer > div:first-child { background: var(--blue); color: #fff; }
+        .answer > div:first-child .mono { color: rgba(255,255,255,0.8); }
+        .answer b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5.6vw, 76px); line-height: 1; letter-spacing: -0.04em; }
         .answer span { display: block; margin-top: 10px; }
         .fine { margin-top: 24px; font-size: 13.5px; color: var(--ink-3); max-width: 44em; }
 
         /* ---------- steps ---------- */
         .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); }
-        .steps div { border-top: 1px solid var(--ink); padding-top: 22px; }
-        .steps h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3.4vw, 44px); letter-spacing: -0.02em; margin: 14px 0 0; }
+        .steps > div { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: 26px; box-shadow: var(--pop); }
+        .steps h3 { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3vw, 40px); letter-spacing: -0.03em; margin: 12px 0 0; }
         .steps p { color: var(--ink-2); margin: 10px 0 0; }
 
         /* ---------- pricing ---------- */
         .prices { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); }
-        .price-col { border-top: 1px solid var(--ink); padding-top: 24px; display: flex; flex-direction: column; }
+        .price-col { background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: clamp(24px, 3vw, 36px); box-shadow: var(--pop); display: flex; flex-direction: column; }
+        .price-col.feat { background: var(--blue-wash); box-shadow: 8px 8px 0 var(--blue); }
         .price-col .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-        .price-col h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 3.8vw, 48px); letter-spacing: -0.02em; margin: 0; }
-        .price-col .amt { font-family: var(--serif); font-size: clamp(34px, 3.8vw, 48px); letter-spacing: -0.02em; }
+        .price-col h3 { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3.4vw, 42px); letter-spacing: -0.03em; margin: 0; }
+        .price-col .amt { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 3.4vw, 42px); letter-spacing: -0.03em; color: var(--clay); }
         .price-col p { color: var(--ink-2); margin: 12px 0 0; }
         .price-col ul { list-style: none; margin: 24px 0 32px; padding: 0; }
         .price-col li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15px; }
-        .price-col li::before { content: ""; flex: none; width: 7px; height: 7px; margin-top: 8px; background: var(--blue); transform: rotate(45deg); }
+        .price-col li::before { content: "✓"; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--clay); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
         .price-col .btn { margin-top: auto; align-self: flex-start; }
         .extras { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); margin-top: 56px; }
-        .extras div { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); font-size: 15px; }
+        .extras div { display: flex; justify-content: space-between; gap: 16px; padding: 20px 24px; background: var(--sand); border-radius: 18px; font-size: 15px; }
         .extras b { font-weight: 500; }
         .extras span { color: var(--ink-2); text-align: right; }
 
         /* ---------- form ---------- */
         .start { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
-        .start form { display: grid; gap: 28px; }
-        .start .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .start form { display: grid; gap: 22px; background: var(--white); border: 2px solid var(--ink); border-radius: 28px; padding: clamp(22px, 3vw, 36px); box-shadow: 8px 8px 0 var(--ink); }
+        .start .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .start .btn[type=submit] { justify-self: start; }
         .promise { list-style: none; margin: 32px 0 0; padding: 0; }
-        .promise li { padding: 12px 0; border-top: 1px solid var(--hair); font-size: 15px; display: grid; grid-template-columns: 34px 1fr; }
-        .promise li span { font-family: var(--mono); font-size: 12px; color: var(--ink-3); padding-top: 3px; }
+        .promise li { padding: 12px 0; border-top: 1px solid var(--hair); font-weight: 500; display: grid; grid-template-columns: 40px 1fr; align-items: center; }
+        .promise li span { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--clay); color: #fff; font: 700 13px/1 var(--display); }
         .estimate-note { display: none; font-size: 14px; color: var(--ink-2); padding: 14px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
         .estimate-note.on { display: block; }
         .estimate-note b { color: var(--blue); font-weight: 500; }
@@ -104,17 +112,19 @@
         @keyframes fadein { from { opacity: 0; transform: translateY(10px); } }
 
         /* ---------- faq ---------- */
-        .faq details { border-top: 1px solid var(--hair); }
-        .faq details:last-child { border-bottom: 1px solid var(--hair); }
-        .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr 24px; gap: 16px; padding: 24px 0; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.01em; line-height: 1.2; }
+        .faq { display: grid; gap: 12px; }
+        .faq details { background: var(--white); border: 2px solid var(--ink); border-radius: 18px; padding: 0 24px; }
+
+        .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr 24px; gap: 16px; padding: 20px 0; font-family: var(--display); font-weight: 700; font-size: clamp(19px, 2vw, 24px); letter-spacing: -0.02em; line-height: 1.25; }
         .faq summary::-webkit-details-marker { display: none; }
-        .faq summary i { font-style: normal; font-family: var(--sans); font-size: 22px; color: var(--ink-3); transition: transform 400ms var(--ease); text-align: center; }
+        .faq summary i { font-style: normal; font-family: var(--sans); font-size: 22px; color: var(--clay); font-weight: 700; transition: transform 400ms var(--ease); text-align: center; }
         .faq details[open] summary i { transform: rotate(45deg); color: var(--blue); }
-        .faq p { margin: -6px 0 26px; max-width: 40em; color: var(--ink-2); }
+        .faq p { margin: -4px 0 22px; max-width: 40em; color: var(--ink-2); }
 
         @media (max-width: 900px) {
             .hero-top, .hero-week, .show, .start { grid-template-columns: 1fr; }
-            .hero-side { text-align: left; }
+            .hero-art { width: min(360px, 80vw); }
+            .hello { grid-template-columns: 1fr; }
             .preview { height: 460px; transform: none; }
             .steps, .prices, .extras { grid-template-columns: 1fr; }
             .answer { grid-template-columns: 1fr; gap: 28px; }
@@ -146,25 +156,21 @@
         <section class="hero">
             <div class="hero-top">
                 <div>
-                    <span class="mono">A small design studio for the age of Claude</span>
-                    <h1 class="display" style="margin-top:22px;"><span class="rise"><span>Your week,</span></span><span class="rise"><span><em>returned.</em></span></span></h1>
-                    <p class="body">We hand your busywork to Claude, give your website the care it deserves, and stay beside your team until it's second nature. It starts with a free plan, made for your business.</p>
+                    <span class="mono">Hi! We're Relative, a small design studio</span>
+                    <h1 class="display" style="margin-top:20px;"><span class="rise"><span>Get your week</span></span><span class="rise"><span><em>back.</em></span></span></h1>
+                    <p class="body">We help small businesses hand their busywork to Claude and give their website the care it deserves. Then we stay beside your team until it feels easy. It all starts with a free plan, made just for you.</p>
                     <div class="hero-cta">
                         <a class="btn btn-ink" href="#start">Get your free plan <span class="arr">→</span></a>
                         <a class="textlink" href="/for/">See a sample plan</a>
                     </div>
                 </div>
-                <div class="hero-side">
-                    <span class="mono">Websites + Claude workflows</span>
-                    <span class="mono">One-time packages</span>
-                    <span class="mono">hello@relative.dev</span>
-                </div>
+                <img class="illus hero-art bob" src="/assets/illus/hero.svg" alt="" width="520" height="400">
             </div>
 
             <div class="hero-week rv">
                 <div class="note">
                     <div class="week-count"><span id="heroCount">0</span><small>hours back</small></div>
-                    <p>A typical team of six, one week. Hover a blue hour to see what Claude took off the desk.</p>
+                    <p>Here's a typical team of six, over one week. Hover a blue hour to see what Claude took off someone's desk.</p>
                 </div>
                 <div>
                     <div class="week" id="heroWeek"></div>
@@ -175,18 +181,25 @@
 
         <!-- BELIEF -->
         <section class="section">
-            <p class="lead belief rv">Most software asks for more of your attention. We think the best technology quietly <em>gives it back</em>: to your clients, your craft, and your evenings.</p>
+            <div class="hello rv">
+                <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="Adam" width="112" height="112"><img src="/images/dom-photo.jpg" alt="Dom" width="112" height="112"></span>
+                <div>
+                    <span class="mono">Nice to meet you</span>
+                    <p class="lead" style="margin-top:12px;">We're Adam and Dom. We believe good technology should quietly <em>give you time back</em>, for your clients, your craft, and your evenings.</p>
+                    <p class="small">You'll work with the two of us directly, from the first hello to the last review session. No hand-offs, no sales team, no jargon.</p>
+                </div>
+            </div>
         </section>
 
         <!-- WHAT LEAVES YOUR DESK -->
         <section class="section">
-            <div class="label-row rv"><span class="mono">What leaves your desk</span><span class="mono">Typical time back</span></div>
+            <div class="label-row rv"><span class="mono">What leaves your desk</span><span class="mono quiet">Typical time back</span></div>
             <div class="rows">
-                <article class="row rv"><span class="n">01</span><h3>Inbox &amp; new inquiries</h3><p>Every message read, sorted, and answered in your voice. You glance, then send.</p><span class="t">~3 h / wk</span></article>
-                <article class="row rv"><span class="n">02</span><h3>Quotes, proposals &amp; letters</h3><p>Call notes become polished documents from your own templates in minutes.</p><span class="t">~4 h / wk</span></article>
-                <article class="row rv"><span class="n">03</span><h3>Follow-ups &amp; reminders</h3><p>Nothing slips. Every quote, recall, and check-in goes out on time.</p><span class="t">~2 h / wk</span></article>
-                <article class="row rv"><span class="n">04</span><h3>Intake &amp; forms</h3><p>No more printed PDFs or retyping. Clean summaries land where you work.</p><span class="t">~3 h / wk</span></article>
-                <article class="row rv"><span class="n">05</span><h3>A website that does its job</h3><p>Warm, fast, mobile-first, and wired straight into everything above.</p><span class="t">+ inquiries</span></article>
+                <article class="row rv"><img class="illus spot" src="/assets/illus/inbox.svg" alt="" width="120" height="100"><h3>Inbox &amp; new inquiries</h3><p>Every message read, sorted, and answered in your voice. You glance, then send.</p><span class="t">~3 h / wk</span></article>
+                <article class="row rv"><img class="illus spot" src="/assets/illus/docs.svg" alt="" width="120" height="100"><h3>Quotes, proposals &amp; letters</h3><p>Call notes become polished documents from your own templates in minutes.</p><span class="t">~4 h / wk</span></article>
+                <article class="row rv"><img class="illus spot" src="/assets/illus/calendar.svg" alt="" width="120" height="100"><h3>Follow-ups &amp; reminders</h3><p>Nothing slips. Every quote, recall, and check-in goes out on time.</p><span class="t">~2 h / wk</span></article>
+                <article class="row rv"><img class="illus spot" src="/assets/illus/forms.svg" alt="" width="120" height="100"><h3>Intake &amp; forms</h3><p>No more printed PDFs or retyping. Clean summaries land where you work.</p><span class="t">~3 h / wk</span></article>
+                <article class="row rv"><img class="illus spot" src="/assets/illus/website.svg" alt="" width="120" height="100"><h3>A website that does its job</h3><p>Warm, fast, mobile-first, and wired straight into everything above.</p><span class="t">+ inquiries</span></article>
             </div>
         </section>
 
@@ -194,9 +207,10 @@
         <section class="section">
             <div class="show">
                 <div class="rv">
+                    <img class="illus" src="/assets/illus/gift.svg" alt="" width="120" height="100" style="width:110px;margin-bottom:10px;">
                     <span class="mono">We start with the work</span>
-                    <h2 class="h2" style="margin-top:16px;">Before we ask for anything, <em>we make you something.</em></h2>
-                    <p class="body" style="margin-top:20px;">Every business we talk to gets a free plan, made just for them.</p>
+                    <h2 class="h2" style="margin-top:14px;">Before we ask for anything, <em>we make you something.</em></h2>
+                    <p class="body" style="margin-top:18px;">Every business we talk to gets a free plan, made just for them. It's our way of saying hello properly.</p>
                     <ol>
                         <li>A first sketch of your homepage, reimagined</li>
                         <li>Ten ways to get hours back, specific to your trade</li>
@@ -212,7 +226,7 @@
 
         <!-- CALCULATOR -->
         <section class="section" id="calc">
-            <div class="label-row rv"><span class="mono">Your numbers</span><span class="mono">Edit the blue figures</span></div>
+            <div class="label-row rv"><span class="mono">Your numbers</span><span class="mono quiet">Tap the blue numbers to change them</span></div>
             <p class="say rv">
                 We're a team of <input id="cTeam" type="number" inputmode="numeric" min="1" max="500" value="6" aria-label="Team size">.
                 Each of us spends about <input id="cHours" type="number" inputmode="numeric" min="1" max="40" value="8" aria-label="Admin hours per person per week"> hours a week on admin,
@@ -228,17 +242,17 @@
 
         <!-- HOW -->
         <section class="section">
-            <div class="label-row bare rv"><span class="mono">How it goes</span><span class="mono">6–10 weeks, side by side</span></div>
+            <div class="label-row bare rv"><span class="mono">How it goes</span><span class="mono quiet">6–10 weeks, side by side</span></div>
             <div class="steps">
-                <div class="rv"><span class="mono">01 · Week one</span><h3>Listen</h3><p>We shadow how your week really goes and find the hours worth winning back.</p></div>
-                <div class="rv"><span class="mono">02 · Weeks two to four</span><h3>Build</h3><p>We set Claude up for your team, build your workflows, and redesign your site if you'd like.</p></div>
-                <div class="rv"><span class="mono">03 · From then on</span><h3>Stay</h3><p>Weekly review sessions until it's second nature. Then a playbook, so it keeps working.</p></div>
+                <div class="rv"><img class="illus spot" src="/assets/illus/listen.svg" alt="" width="120" height="100"><span class="mono" style="display:block;margin-top:12px;">01 · Week one</span><h3>Listen</h3><p>We shadow how your week really goes and find the hours worth winning back.</p></div>
+                <div class="rv"><img class="illus spot" src="/assets/illus/build.svg" alt="" width="120" height="100"><span class="mono" style="display:block;margin-top:12px;">02 · Weeks two to four</span><h3>Build</h3><p>We set Claude up for your team, build your workflows, and redesign your site if you'd like.</p></div>
+                <div class="rv"><img class="illus spot" src="/assets/illus/stay.svg" alt="" width="120" height="100"><span class="mono" style="display:block;margin-top:12px;">03 · From then on</span><h3>Stay</h3><p>Weekly review sessions until it's second nature. Then a playbook, so it keeps working.</p></div>
             </div>
         </section>
 
         <!-- PRICING -->
         <section class="section" id="pricing">
-            <div class="label-row bare rv"><span class="mono">When you're ready</span><span class="mono">One price · agreed up front</span></div>
+            <div class="label-row bare rv"><span class="mono">When you're ready</span><span class="mono quiet">One price, agreed up front</span></div>
             <div class="prices">
                 <div class="price-col rv">
                     <div class="top"><h3>Foundations</h3><span class="amt">$9,000</span></div>
@@ -253,7 +267,7 @@
                     </ul>
                     <a class="btn btn-line" href="#start" data-pkg="Foundations">Start with a free plan <span class="arr">→</span></a>
                 </div>
-                <div class="price-col rv">
+                <div class="price-col feat rv">
                     <div class="top"><h3>Full Studio</h3><span class="amt">$12,000</span></div>
                     <span class="mono" style="margin-top:6px;">One-time · 10 weeks of hands-on help</span>
                     <p>A new first impression and a smoother back office, together.</p>
@@ -277,7 +291,7 @@
         <section class="section" id="start">
             <div class="start">
                 <div class="rv">
-                    <span class="mono">Free · no call required</span>
+                    <span class="mono">Free, no call needed</span>
                     <h2 class="h2" style="margin-top:16px;">Get your <em>free plan.</em></h2>
                     <p class="body" style="margin-top:20px;">Tell us a little about your week. Within two business days, one of us will send you:</p>
                     <ul class="promise">
@@ -287,7 +301,7 @@
                     </ul>
                     <div class="people" style="margin-top:32px;">
                         <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="" width="40" height="40"><img src="/images/dom-photo.jpg" alt="" width="40" height="40"></span>
-                        <span class="small">Written by Adam or Dom, never a sales team.</span>
+                        <span class="small">Written by Adam or Dom. A real person reads every word you send.</span>
                     </div>
                 </div>
                 <div class="rv">
@@ -336,7 +350,7 @@
 
         <!-- FAQ -->
         <section class="section">
-            <div class="label-row rv"><span class="mono">Good questions</span><span class="mono">04</span></div>
+            <div class="label-row rv"><span class="mono">Good questions</span><span class="mono quiet">Ask us anything else</span></div>
             <div class="faq rv">
                 <details><summary>We're not very technical. Is that a problem?<i>+</i></summary><p>Not at all. That's who we built this for. If your team can write an email, they can use what we set up. We handle the technical side and teach everything in plain language.</p></details>
                 <details><summary>What does Claude cost on top of this?<i>+</i></summary><p>Claude plans are billed by Anthropic, not by us. For most teams it's a modest monthly amount per person, and we'll recommend the right plan during the audit so you see the full picture before you commit.</p></details>
@@ -348,13 +362,13 @@
         <footer class="foot">
             <div class="people">
                 <span class="faces"><img src="/images/adam-PhotoRoom.png" alt="" width="40" height="40"><img src="/images/dom-photo.jpg" alt="" width="40" height="40"></span>
-                <span class="small">&copy; 2026 Relative Industries LLC · Made with care</span>
+                <span class="small">&copy; 2026 Relative Industries LLC · Made with care by Adam &amp; Dom</span>
             </div>
             <span class="mono"><a href="mailto:hello@relative.dev">hello@relative.dev</a></span>
         </footer>
     </main>
 
-    <script src="/assets/relative.js?v=4"></script>
+    <script src="/assets/relative.js?v=5"></script>
     <script>
         var $ = function (id) { return document.getElementById(id); };
 

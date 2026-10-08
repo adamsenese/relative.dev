@@ -14,20 +14,20 @@
     <link rel="apple-touch-icon" href="images/relativefavi.png?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght@1,9..144,500&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
-        :root { --ease: cubic-bezier(0.22, 1, 0.36, 1); --accent: #2B4BFF; }
+        :root { --ease: cubic-bezier(0.22, 1, 0.36, 1); --accent: #2F5BFF; --clay: #C65D3B; }
 
         ::selection { background: rgba(43, 75, 255, 0.16); }
 
         html, body {
             margin: 0;
             padding: 0;
-            background: #F5F2EB;
-            color: #1A1A1A;
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #FBF8F4;
+            color: #1B1917;
+            font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 16px;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -51,10 +51,11 @@
             display: inline-flex;
             align-items: center;
             gap: 9px;
-            font-size: 15px;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            color: #1A1A1A;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #1B1917;
             cursor: default;
         }
 
@@ -65,7 +66,7 @@
             overflow: visible;
             animation: logoIn 700ms var(--ease) both;
         }
-        .logo .tile { fill: currentColor; }
+        .logo .tile { fill: var(--clay); }
 
         @keyframes logoIn {
             from { opacity: 0; transform: translateY(2px) scale(0.86); }
@@ -93,7 +94,8 @@
         .wordmark:hover .logo .tile:nth-child(12) { animation-delay: 270ms; }
 
         nav a {
-            color: #1A1A1A;
+            color: #1B1917;
+            font-weight: 600 !important;
             text-decoration: none;
             font-size: 15px;
             font-weight: 400;
@@ -128,7 +130,7 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background: radial-gradient(ellipse 720px 520px at 50% 50%, rgba(245,242,235,0.94), rgba(245,242,235,0.55) 60%, rgba(245,242,235,0) 100%);
+            background: radial-gradient(ellipse 720px 520px at 50% 50%, rgba(251,248,244,0.94), rgba(251,248,244,0.55) 60%, rgba(251,248,244,0) 100%);
         }
 
         /* cursor-following ambient glow */
@@ -139,7 +141,7 @@
             pointer-events: none;
             opacity: 0;
             transition: opacity 800ms ease;
-            background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(124, 92, 255, 0.08), transparent 62%);
+            background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 50%), rgba(198, 93, 59, 0.08), transparent 62%);
         }
         body.pointer-active .glow { opacity: 1; }
 
@@ -154,12 +156,12 @@
         }
 
         .content p {
-            font-family: 'Instrument Serif', 'Times New Roman', Times, serif;
-            font-size: 30px;
-            line-height: 1.35;
-            margin: 0 0 1em;
-            font-weight: 400;
-            letter-spacing: -0.01em;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 29px;
+            line-height: 1.32;
+            margin: 0 0 0.9em;
+            font-weight: 500;
+            letter-spacing: -0.025em;
             opacity: 0;
             animation: fadeUp 850ms var(--ease) forwards;
         }
@@ -189,19 +191,20 @@
             gap: 10px;
             padding: 11px 18px 11px 14px;
             border-radius: 999px;
-            background: #1A1A1A;
-            color: #F5F2EB;
+            background: var(--clay);
+            color: #fff;
+            border: 2px solid #1B1917;
             text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 700;
             letter-spacing: -0.005em;
-            box-shadow: 0 1px 2px rgba(26,22,16,0.08), 0 8px 24px rgba(26,22,16,0.12);
+            box-shadow: 4px 4px 0 #1B1917;
             transition: transform 260ms var(--ease), box-shadow 260ms var(--ease);
         }
-        .pill:hover { transform: translateY(-2px); box-shadow: 0 2px 6px rgba(26,22,16,0.1), 0 18px 38px rgba(26,22,16,0.18); }
+        .pill:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #1B1917; }
         .pill .dot {
             width: 7px; height: 7px; border-radius: 50%;
-            background: #6EE7A0;
+            background: #fff;
             box-shadow: 0 0 0 0 rgba(110,231,160,0.6);
             animation: pulse 2.4s infinite;
         }
@@ -212,11 +215,14 @@
             70%  { box-shadow: 0 0 0 7px rgba(110,231,160,0); }
             100% { box-shadow: 0 0 0 0 rgba(110,231,160,0); }
         }
-        .content .pill, .content .pill:hover { color: #F5F2EB; text-decoration: none; opacity: 1; }
+        .content .pill, .content .pill:hover { color: #fff; text-decoration: none; opacity: 1; }
         .invite small { font-size: 14px; opacity: 0.6; }
 
         .content em {
+            font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
+            font-weight: 500;
+            color: var(--clay);
         }
 
         .content p:last-of-type { margin-bottom: 0; }
@@ -295,7 +301,7 @@
             <p>Lately, we've been bringing that same care to <em>other people's</em> businesses — crafted websites and Claude-powered workflows that quietly give teams their hours back.</p>
             <p>We have much to build.</p>
             <div class="invite">
-                <a class="pill" href="/hire"><span class="dot" aria-hidden="true"></span>Now booking consulting for fall <span class="arr">→</span></a>
+                <a class="pill" href="/hire"><span class="dot" aria-hidden="true"></span>Get a free plan for your business <span class="arr">→</span></a>
                 <small>Web design &amp; business automation</small>
             </div>
         </div>
@@ -316,7 +322,7 @@
             var fine = window.matchMedia('(pointer: fine)').matches;
             var GAP = 34, dpr = 1, w = 0, h = 0, tiles = [];
             var px = -9999, py = -9999, tx = -9999, ty = -9999, t0 = performance.now();
-            var hues = [[124, 92, 255], [43, 75, 255], [12, 165, 165]];
+            var hues = [[198, 93, 59], [47, 91, 255], [198, 93, 59]];
 
             function build() {
                 dpr = Math.min(window.devicePixelRatio || 1, 2);

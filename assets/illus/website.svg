@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-label="A browser window with a heart"><title>A browser window with a heart</title><ellipse cx="60" cy="92" rx="44" ry="5" fill="#F4EEE6"/>
+<rect x="14" y="20" width="92" height="64" rx="10" fill="#1B1917" transform="translate(4 4)"/>
+<rect x="14" y="20" width="92" height="64" rx="10" fill="#FFFFFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 36 h92" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="28" r="2.5" fill="#C65D3B"/><circle cx="34" cy="28" r="2.5" fill="#1B1917"/><circle cx="43" cy="28" r="2.5" fill="#1B1917"/>
+<rect x="24" y="46" width="36" height="7" rx="3.5" fill="#1B1917"/><rect x="24" y="58" width="26" height="5" rx="2.5" fill="#F4EEE6" stroke="#1B1917" stroke-width="2"/>
+<rect x="24" y="68" width="22" height="8" rx="4" fill="#C65D3B"/>
+<path d="M84 72 c-12 -8 -16 -14 -12 -20 c3 -4 9 -4 12 1 c3 -5 9 -5 12 -1 c4 6 0 12 -12 20z" fill="#2F5BFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" role="img" aria-label="An envelope with a spark"><title>An envelope with a spark</title><ellipse cx="60" cy="92" rx="44" ry="5" fill="#F4EEE6"/>
+<rect x="22" y="30" width="76" height="52" rx="8" fill="#1B1917" transform="translate(4 4)"/>
+<rect x="22" y="30" width="76" height="52" rx="8" fill="#FFFFFF" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24 34 l36 26 l36 -26" fill="none" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="96" cy="30" r="12" fill="#C65D3B" stroke="#1B1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M91 30 l4 4 l7 -8" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18 13 Q18 20 25 20 Q18 20 18 27 Q18 20 11 20 Q18 20 18 13Z" fill="#2F5BFF"/></svg>
