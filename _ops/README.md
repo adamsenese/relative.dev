@@ -2,13 +2,10 @@
 
 ## Form emails (required, 1 minute)
 
-The free-plan form on `/hire` is your **Typeform** (https://we7f8dug70u.typeform.com/to/cYRi92cT), embedded on the page; its responses arrive wherever your Typeform notifications go, and visitors' `utm_source` / `utm_medium` / `utm_campaign` are passed through if you add them as hidden fields in Typeform.
+Both forms (the free-plan form on `/hire` and "Let's talk" on plan pages) email every submission to **adam@relative.dev** through [FormSubmit](https://formsubmit.co), a free form-to-email service. It's set up and working:
 
-"Let's talk" on plan pages emails every submission to **adam@relative.dev** through [FormSubmit](https://formsubmit.co), a free form-to-email service. There's no account to set up:
-
-1. Open any plan page (relative.dev/for/ shows a sample) and submit "Let's talk" once yourself.
-2. FormSubmit sends an **Activate Form** email to adam@relative.dev. Click the button in it.
-3. Every submission from then on arrives in that inbox as a tidy table, and pressing Reply goes straight to the lead.
+1. ✅ Done: the form is activated for adam@relative.dev.
+2. Every submission arrives in that inbox as a tidy table, and pressing Reply goes straight to the lead.
 
 To use a different inbox, change `LEADS_EMAIL` at the top of `assets/relative.js` (and activate again). Until the form is activated, a visitor who submits sees a polite message with a direct email link instead.
 
