@@ -95,7 +95,7 @@
         .price-col li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15px; }
         .price-col li::before { content: "✓"; flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--clay); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
         .price-col .btn { margin-top: auto; align-self: flex-start; }
-        .extras { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); margin-top: 56px; }
+        .extras { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 4vw, 56px); margin-top: 56px; }
         .extras div { display: flex; justify-content: space-between; gap: 16px; padding: 20px 24px; background: var(--sand); border-radius: 18px; font-size: 15px; }
         .extras b { font-weight: 500; }
         .extras span { color: var(--ink-2); text-align: right; }
@@ -292,8 +292,7 @@
                 </div>
             </div>
             <div class="extras">
-                <div class="rv"><b>Care Plan</b><span>Hosting, updates &amp; basic support<br>$99/mo, billed annually</span></div>
-                <div class="rv"><b>Just a website?</b><span>From $3,750 · Shopify quoted to scope<br><a class="textlink" href="#start" data-pkg="Website only">Ask us</a></span></div>
+                <div class="rv"><b>Add the Care Plan to either package</b><span>Hosting, updates &amp; basic support · $99/mo, billed annually</span></div>
             </div>
         </section>
 
@@ -417,7 +416,6 @@
             a.addEventListener('click', function () {
                 var v = a.getAttribute('data-pkg');
                 $('pkgField').value = v;
-                if (v === 'Website only') { var c = document.querySelector('input[name=pain][value="Our website"]'); if (c) c.checked = true; }
             });
         });
 
