@@ -102,17 +102,12 @@
 
         /* ---------- form ---------- */
         .start { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
-        .start form { display: grid; gap: 22px; background: var(--white); border: 2px solid var(--ink); border-radius: var(--r); padding: clamp(22px, 3vw, 36px); box-shadow: 8px 8px 0 var(--ink); }
-        .start .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-        .start .btn[type=submit] { justify-self: start; }
+        .tf-card { background: var(--white); border: 2px solid var(--ink); border-radius: 28px; box-shadow: 8px 8px 0 var(--ink); overflow: hidden; }
+        .tf-embed { width: 100%; height: 600px; }
+        .tf-alt { margin: 18px 0 0; }
         .promise { list-style: none; margin: 32px 0 0; padding: 0; }
         .promise li { padding: 12px 0; border-top: 1px solid var(--hair); font-weight: 500; display: grid; grid-template-columns: 40px 1fr; align-items: center; }
         .promise li span { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--clay-deep); color: #fff; font: 700 13px/1 var(--display); }
-        .estimate-note { display: none; font-size: 14px; color: var(--ink-2); padding: 14px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
-        .estimate-note.on { display: block; }
-        .estimate-note b { color: var(--blue); font-weight: 500; }
-        .done { display: none; }
-        .done.on { display: block; animation: fadein 800ms var(--ease) both; }
         @keyframes fadein { from { opacity: 0; transform: translateY(10px); } }
 
         /* ---------- faq ---------- */
@@ -136,12 +131,12 @@
             .answer { grid-template-columns: 1fr; gap: 28px; }
         }
         @media (max-width: 760px) {
-            .start .grid2 { grid-template-columns: 1fr; }
             .preview { height: 380px; }
             .hero-cta { gap: 16px; }
             .extras div { flex-direction: column; gap: 4px; }
             .extras span { text-align: left; }
-            .preview, .start form { box-shadow: 6px 6px 0 var(--ink); }
+            .preview, .tf-card { box-shadow: 6px 6px 0 var(--ink); }
+            .tf-embed { height: 640px; }
             .price-col.feat { box-shadow: 6px 6px 0 var(--blue); }
         }
     </style>
@@ -247,7 +242,7 @@
                 <div><b id="rYear">$34,560</b><span class="mono">Of time, every year</span></div>
                 <div><b id="rPay">13 wks</b><span class="mono">To pay back Foundations</span></div>
             </div>
-            <p class="fine rv">We assume Claude takes on about a third of admin time once your team is comfortable, which is a conservative target for us. We'll measure the real number together. <a class="textlink" href="#start" id="useCalc">Send these with my free plan request →</a></p>
+            <p class="fine rv">We assume Claude takes on about a third of admin time once your team is comfortable, which is a conservative target for us. We'll measure the real number together. <a class="textlink" href="#start">Get your free plan →</a></p>
         </section>
 
         <!-- HOW -->
@@ -275,7 +270,7 @@
                         <li>Team training + 4 review sessions</li>
                         <li>30 days of follow-up support</li>
                     </ul>
-                    <a class="btn btn-line" href="#start" data-pkg="Foundations">Start with a free plan <span class="arr">→</span></a>
+                    <a class="btn btn-line" href="#start">Start with a free plan <span class="arr">→</span></a>
                 </div>
                 <div class="price-col feat rv">
                     <div class="top"><h3>Full Studio</h3><span class="amt">$12,000</span></div>
@@ -288,7 +283,7 @@
                         <li>8 review sessions</li>
                         <li>60 days of follow-up support</li>
                     </ul>
-                    <a class="btn btn-ink" href="#start" data-pkg="Full Studio">Start with a free plan <span class="arr">→</span></a>
+                    <a class="btn btn-ink" href="#start">Start with a free plan <span class="arr">→</span></a>
                 </div>
             </div>
             <div class="extras">
@@ -302,7 +297,7 @@
                 <div class="rv">
                     <span class="mono">Free, no call needed</span>
                     <h2 class="h2" style="margin-top:16px;">Get your <em>free plan.</em></h2>
-                    <p class="body" style="margin-top:20px;">Tell us a little about your week. Within two business days, one of us will send you:</p>
+                    <p class="body" style="margin-top:20px;">Tell us a little about your week. Within two business days, I'll send you:</p>
                     <ul class="promise">
                         <li><span>01</span>A first sketch of your homepage, reimagined</li>
                         <li><span>02</span>Ten ways to get hours back, ranked for your business</li>
@@ -314,44 +309,11 @@
                     </div>
                 </div>
                 <div class="rv">
-                    <form id="leadForm" novalidate>
-                        <div class="grid2">
-                            <div class="field"><label for="name">Your name</label><input class="input" id="name" name="name" autocomplete="name" required placeholder="Jane Smith"></div>
-                            <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required placeholder="jane@business.com"></div>
-                        </div>
-                        <div class="grid2">
-                            <div class="field"><label for="business">Business</label><input class="input" id="business" name="business" autocomplete="organization" required placeholder="Smith &amp; Co."></div>
-                            <div class="field"><label for="website">Website (optional)</label><input class="input" id="website" name="website" autocomplete="url" placeholder="smithco.com"></div>
-                        </div>
-                        <div class="field">
-                            <label for="team">Team size</label>
-                            <select class="select" id="team" name="team_size" required>
-                                <option value="" disabled selected>Choose one</option>
-                                <option>Just me</option><option>2–5</option><option>6–15</option><option>16–50</option><option>50+</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <span class="lbl">Where does your time go?</span>
-                            <div class="chips">
-                                <label class="chip"><input type="checkbox" name="pain" value="Email & inbox">Email &amp; inbox</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Lead intake">Lead intake</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Scheduling">Scheduling</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Quotes & proposals">Quotes &amp; proposals</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Follow-ups">Follow-ups</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Reporting">Reporting</label>
-                                <label class="chip"><input type="checkbox" name="pain" value="Our website">Our website</label>
-                            </div>
-                        </div>
-                        <div class="field"><label for="message">What would you love to stop doing by hand? (optional)</label><textarea class="textarea" id="message" name="message" placeholder="We spend every Monday chasing quotes…"></textarea></div>
-                        <div class="estimate-note" id="estNote">We'll include your estimate: <b id="estText"></b></div>
-                        <input type="hidden" name="package" id="pkgField">
-                        <div class="hp" aria-hidden="true"><input type="text" name="company_url" tabindex="-1" autocomplete="off"></div>
-                        <button class="btn btn-ink" type="submit" id="submitBtn">Send me my free plan <span class="arr">→</span></button>
-                        <p class="small" style="margin:0;">Prefer email? <a class="textlink" href="mailto:adam@relative.dev">adam@relative.dev</a></p>
-                    </form>
-                    <div class="done" id="done" role="status" aria-live="polite">
-                        <p class="lead">Thank you, <span id="doneName">friend</span>.</p>
-                        <p class="body" style="margin-top:14px;" id="doneText">It's with us now. Your plan will arrive within two business days, made just for you.</p>
+                    <div class="tf-card">
+                        <div data-tf-widget="cYRi92cT" data-tf-opacity="0" data-tf-iframe-props="title=Get your free plan" data-tf-transitive-search-params="utm_source,utm_medium,utm_campaign" data-tf-medium="snippet" class="tf-embed"></div>
+                    </div>
+                    <p class="small tf-alt">Form not loading? <a class="textlink" href="https://we7f8dug70u.typeform.com/to/cYRi92cT" target="_blank" rel="noopener">Open it in a new tab</a> or email <a class="textlink" href="mailto:adam@relative.dev">adam@relative.dev</a>.</p>
+                    <script src="https://embed.typeform.com/next/embed.js" async></script>
                     </div>
                 </div>
             </div>
@@ -405,51 +367,7 @@
             }
             [team, hours, rate].forEach(function (el) { el.addEventListener('input', update); });
             update();
-            $('useCalc').addEventListener('click', function () {
-                calc.attached = true;
-                $('estText').textContent = calc.weekly + ' hours a week back (≈' + fmt(calc.yearly) + ' a year)';
-                $('estNote').classList.add('on');
-            });
         })();
-
-        document.querySelectorAll('[data-pkg]').forEach(function (a) {
-            a.addEventListener('click', function () {
-                var v = a.getAttribute('data-pkg');
-                $('pkgField').value = v;
-            });
-        });
-
-        // ---- the form ----
-        $('leadForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            var f = e.target;
-            f.querySelectorAll('.invalid').forEach(function (x) { x.classList.remove('invalid'); });
-            if (!f.checkValidity()) { var bad = f.querySelector(':invalid'); bad.classList.add('invalid'); bad.focus(); return; }
-            var d = new FormData(f);
-            if (d.get('company_url')) return;
-            var lead = {
-                type: 'lead',
-                name: d.get('name').trim(), email: d.get('email').trim(), business: d.get('business').trim(),
-                website: (d.get('website') || '').trim(), team_size: d.get('team_size'), pains: d.getAll('pain'),
-                package: d.get('package') || '', message: (d.get('message') || '').trim()
-            };
-            if (calc && calc.attached) lead.estimate = calc;
-            var btn = $('submitBtn');
-            btn.disabled = true;
-            var finish = function () {
-                $('doneName').textContent = lead.name.split(' ')[0];
-                f.style.display = 'none';
-                $('done').classList.add('on');
-            };
-            Relative.send(lead).then(function (ok) {
-                if (ok) return finish();
-                Relative.failed(btn, 'Free plan — ' + lead.business,
-                    'Name: ' + lead.name + '\nBusiness: ' + lead.business + '\nEmail: ' + lead.email + '\nWebsite: ' + (lead.website || '—') +
-                    '\nTeam size: ' + lead.team_size + '\nTime goes to: ' + (lead.pains.join(', ') || '—') +
-                    (lead.package ? '\nInterested in: ' + lead.package : '') +
-                    (lead.estimate ? '\nEstimate: ' + lead.estimate.weekly + ' hrs/week back' : '') + '\n\n' + lead.message);
-            });
-        });
     </script>
 </body>
 </html>
